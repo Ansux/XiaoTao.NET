@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>@ViewBag.Title - My ASP.NET Application</title>
+   <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+   <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+   <link href="~/Content/dn.css" rel="stylesheet" type="text/css" />
+   @RenderSection("Styles", false)
+   <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body>
+   <div class="navbar navbar-fixed-top">
+      <div class="container">
+         <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("校淘网", "Index", "Web", new { area = "" }, new { @class = "navbar-brand" })
+         </div>
+         <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+               <li data-id="store">@Html.ActionLink("物品列表", "index", "goodslist")</li>
+               <li data-id="store">@Html.ActionLink("认领记录", "index", "claim")</li>
+               <li data-id="store">@Html.ActionLink("我的捐赠", "index", "goods")</li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right user-menu">
+               <li class="dropdown">
+                  <a href="#" id="userName" class="dropdown-toggle" data-toggle="dropdown">
+                     快速导航
+                     <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                     <li>
+                        <a href="/mall"><span class="glyphicon glyphicon-shopping-cart"></span> 购物平台</a>
+                     </li>
+                     <li>
+                        <a href="/es"><span class="glyphicon glyphicon-refresh"></span> 二手交易</a>
+                     </li>
+                     <li>
+                        <a href="/dn"><span class="glyphicon glyphicon-heart"></span> 爱心捐赠</a>
+                     </li>
+                  </ul>
+               </li>
+               <li class="dropdown">
+                  @if (Session["Sid"] == null)
+                  {
+                     <a href="/mall/account/signin" id="userName">
+                        登录/注册
+                     </a>
+                  }
+                  else
+                  {
+                     <a href="#" id="userName" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-user"></span> @Session["Sno"]
+                        <span class="caret"></span>
+                     </a>
+                     <ul class="dropdown-menu">
+                        <li>
+                           <a href="#"><span class="glyphicon glyphicon-user"></span> 简介</a>
+                        </li>
+                        <li>
+                           <a href="/mall/account/setting"><span class="glyphicon glyphicon-cog"></span> 设置</a>
+                        </li>
+                        <li>
+                           <a href="/mall/account/signout"><span class="glyphicon glyphicon-log-out"></span> 登出</a>
+                        </li>
+                     </ul>
+                  }
+               </li>
+            </ul>
+         </div>
+      </div>
+   </div>
+   <div class="container header">
+      <div class="logo clearfix">
+         <h1>
+            <a href="/" title="校淘网"></a>
+         </h1>
+         <p>淘你喜欢的，淘你想要的!</p>
+      </div>
+      <div class="w-search clearfix">
+         <form action="/es/goodslist/search" method="get">
+            <div class="w-input">
+               <input type="text" name="kw" required />
+            </div>
+            <button type="submit">搜  索</button>
+         </form>
+      </div>
+   </div>
+   <div class="w-cate">
+      <div class="container clearfix">
+         <div class="cates">
+            <div class="title">
+               <i class="fa fa-angle-down"></i>
+               <span>全部物品分类</span>
+            </div>
+            <div class="list">
+               <div class="item"><i class="fa fa-angle-right"></i>手机、数码</div>
+               <div class="item"><i class="fa fa-angle-right"></i>电脑、外设</div>
+               <div class="item"><i class="fa fa-angle-right"></i>食品、饮料</div>
+               <div class="item"><i class="fa fa-angle-right"></i>男装、女装</div>
+               <div class="item"><i class="fa fa-angle-right"></i>图书、音像</div>
+            </div>
+         </div>
+         <div class="menu">
+            <ul>
+               <li><a href="/">首页</a></li>
+               <li><a href="/es">跳瘙市场</a></li>
+               <li><a href="/dn">捐赠中心</a></li>
+               <li><a href="/news">网站动态</a></li>
+            </ul>
+         </div>
+         <div class="hot-news">2016台北电脑展 放肆购低至9块9</div>
+      </div>
+   </div>
+   <div class="container body-content">
+      @RenderBody()
+      <hr />
+      <footer>
+         <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+      </footer>
+   </div>
+
+   <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+   <script src="~/Scripts/bootstrap.min.js"></script>
+   @RenderSection("Scripts", false)
+</body>
+</html>

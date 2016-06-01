@@ -1,0 +1,167 @@
+﻿.caption a {
+   display: block;
+   height: 36px;
+   font-size: 13px;
+   overflow: hidden;
+}
+
+.glist .price {
+   font-size: 16px;
+   color: #f40;
+   font-weight: bold;
+   font-family: Arial;
+}
+
+.sales {
+   font-size: 13px;
+   color: #666;
+   float: right;
+}
+
+.search {
+   margin-top: 3px;
+   margin-right: 3px;
+   width: 200px;
+}
+
+#search_btn {
+   cursor: pointer;
+}
+
+/**details**/
+.detail {
+   margin-top: 50px;
+}
+
+.rank-box {
+   clear: both;
+}
+
+.rank-box .text {
+   width: 90px;
+   font-size: 12px;
+   height: 22px;
+   line-height: 22px;
+   color: #999;
+   float: left;
+}
+
+.rank-bar {
+   margin-top: 6px;
+   background: #dedede;
+   float: left;
+   width: 100px;
+   height: 10px;
+}
+
+.rank-bar .wrap {
+   background: red;
+   height: 10px;
+}
+/**details**/
+
+/**cart**/
+#cart input::-webkit-outer-spin-button, #cart input::-webkit-inner-spin-button {
+   -webkit-appearance: none !important;
+   margin: 0;
+}
+/**cart**/
+
+/**settle**/
+.addrList {
+   list-style: none;
+   padding: 8px;
+   margin-bottom: 0px;
+}
+
+.addrList li {
+   margin: 5px 0px;
+}
+
+.addrList li.active {
+   color: red;
+}
+
+.addr-add-link {
+   padding-left: 8px;
+   padding-bottom: 8px;
+}
+/**settle**/
+
+/**orders**/
+.sort {
+   margin-bottom: 20px;
+   border: solid 1px #eee;
+   background: #f5f5f5;
+}
+
+.sort a {
+   display: inline-block;
+   padding: 10px 15px;
+   color: #666;
+}
+
+.sort a.active {
+   border-left: solid 1px #eee;
+   border-right: solid 1px #eee;
+   background: #fff;
+   color: #f40;
+}
+
+.sort a:first-child {
+   border-left: none;
+}
+
+.order-opr a {
+   display: block;
+}
+
+table.oi-list td {
+   border-right: solid 1px #eee;
+   vertical-align: middle !important;
+}
+
+.tb-ginfo {
+   margin-bottom: 0px;
+}
+
+   .tb-ginfo td {
+      border: none !important;
+   }
+
+.oi-top {
+   background-color: #d9edf7;
+   border: solid 1px #eee;
+   border-top: none;
+}
+
+.oi-list .oi-top td {
+   text-align: left;
+}
+
+.oi-top span {
+   padding-right: 30px;
+   color: #666;
+}
+
+.bg-success th {
+   text-align: center;
+}
+/**orders**/
+
+/**store-prolist**/
+.proinfo {
+   min-height: 50px;
+   position: relative;
+}
+
+.proinfo img {
+   display: block;
+   position: absolute;
+}
+
+.proinfo a {
+   margin-left: 55px;
+   display:block;
+}
+/**store-prolist**/

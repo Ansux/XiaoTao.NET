@@ -1,0 +1,42 @@
+﻿@model IEnumerable<xiaotao.Models.xt_stu_certification>
+
+@{
+   ViewBag.Title = "Index";
+}
+
+<table class="table table-hover">
+   <thead>
+      <tr>
+         <th>登录邮箱</th>
+         <th>学号</th>
+         <th>姓名</th>
+         <th>操作</th>
+      </tr>
+   </thead>
+   <tbody>
+      @foreach (var item in Model)
+      {
+         <tr @if (item.valid_at != null) { @Html.Raw("style='background-color: #eee'") }>
+            <td>
+               @Html.DisplayFor(modelItem => item.xt_student.email)
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.sno)
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.sname)
+            </td>
+            <td>
+               @if (item.valid_at != null)
+               {
+                  <span>已核验</span>
+               }
+               else
+               {
+                  @Html.ActionLink("去核验", "Valid", new { id = item.id })
+               }
+            </td>
+         </tr>
+      }
+   </tbody>
+</table>

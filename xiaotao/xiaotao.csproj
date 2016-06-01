@@ -1,0 +1,547 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F5E92D12-F175-4280-91D8-1F51F6520F1B}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>xiaotao</RootNamespace>
+    <AssemblyName>xiaotao</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\account.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dn.css" />
+    <Content Include="Content\es.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\index.css" />
+    <Content Include="Content\mall.css" />
+    <Content Include="Content\single.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Mall\Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_role\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_role\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_role\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_role\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_role\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_admin\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_admin\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_admin\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_admin\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_admin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_area\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_area\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_area\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_area\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_area\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_store\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_store\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_store\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_store\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_store\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_store_log\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_store_log\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_store_log\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_store_log\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_store_log\Index.cshtml" />
+    <Content Include="Areas\Mall\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Mall\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Mall\Views\Account\Signup.cshtml" />
+    <Content Include="Areas\Mall\Views\Account\Signin.cshtml" />
+    <Content Include="Areas\Mall\Views\Account\Index.cshtml" />
+    <Content Include="Areas\Mall\Views\ProList\Details.cshtml" />
+    <Content Include="Areas\Mall\Views\ProList\Index.cshtml" />
+    <Content Include="Areas\Mall\Views\Store\Details.cshtml" />
+    <Content Include="Areas\Mall\Views\Store\Setting.cshtml" />
+    <Content Include="Areas\Mall\Views\Store\Index.cshtml" />
+    <Content Include="Areas\Mall\Views\Store\Signup.cshtml" />
+    <Content Include="Areas\Mall\Views\Product\Create.cshtml" />
+    <Content Include="Areas\Mall\Views\Product\Delete.cshtml" />
+    <Content Include="Areas\Mall\Views\Product\Details.cshtml" />
+    <Content Include="Areas\Mall\Views\Product\Edit.cshtml" />
+    <Content Include="Areas\Mall\Views\Product\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\sp_category\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\sp_category\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\sp_category\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\sp_category\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\sp_category\Index.cshtml" />
+    <Content Include="Areas\Mall\Views\Cart\Create.cshtml" />
+    <Content Include="Areas\Mall\Views\Cart\Delete.cshtml" />
+    <Content Include="Areas\Mall\Views\Cart\Details.cshtml" />
+    <Content Include="Areas\Mall\Views\Cart\Edit.cshtml" />
+    <Content Include="Areas\Mall\Views\Cart\Index.cshtml" />
+    <Content Include="Areas\Mall\Views\Cart\Settle1.cshtml" />
+    <Content Include="Areas\Mall\Views\Order\Create.cshtml" />
+    <Content Include="Areas\Mall\Views\Order\Delete.cshtml" />
+    <Content Include="Areas\Mall\Views\Order\Details.cshtml" />
+    <Content Include="Areas\Mall\Views\Order\Edit.cshtml" />
+    <Content Include="Areas\Mall\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Mall\Views\StuAddress\Create.cshtml" />
+    <Content Include="Areas\Mall\Views\StuAddress\Delete.cshtml" />
+    <Content Include="Areas\Mall\Views\StuAddress\Details.cshtml" />
+    <Content Include="Areas\Mall\Views\StuAddress\Edit.cshtml" />
+    <Content Include="Areas\Mall\Views\StuAddress\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_student\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_student\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_student\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_student\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_student\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_student_address\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_student_address\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_student_address\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_student_address\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_student_address\Index.cshtml" />
+    <Content Include="Areas\Mall\Views\Store\Signin.cshtml" />
+    <Content Include="Areas\Mall\Views\Shared\Store_Layout.cshtml" />
+    <Content Include="Areas\Mall\Views\Store\Orders-备份.cshtml" />
+    <Content Include="Areas\Mall\Views\Store\ProList.cshtml" />
+    <Content Include="Areas\Mall\Views\Store\Statistics.cshtml" />
+    <Content Include="Areas\Mall\Views\Shared\Stu_Layout.cshtml" />
+    <Content Include="Areas\Mall\Views\Order\Pay.cshtml" />
+    <Content Include="Areas\Mall\Views\Account\Setting.cshtml" />
+    <Content Include="Areas\Mall\Views\Store\delivery.cshtml" />
+    <Content Include="Areas\Mall\Views\Order\Finish.cshtml" />
+    <Content Include="Areas\Mall\Views\Order\Comment.cshtml" />
+    <Content Include="Areas\Es\Views\web.config" />
+    <Content Include="Areas\Es\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Es\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Es\Views\Goods\Index.cshtml" />
+    <Content Include="Areas\Dn\Views\web.config" />
+    <Content Include="Areas\Admin\Views\es_category\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\es_category\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\es_category\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\es_category\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\es_category\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_student_log\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_student_log\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_student_log\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_student_log\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_student_log\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\es_goods\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\es_goods\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\es_goods\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\es_goods\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\es_goods\Index.cshtml" />
+    <Content Include="Areas\Es\Views\Goods\Create.cshtml" />
+    <Content Include="Areas\Es\Views\Goods\Delete.cshtml" />
+    <Content Include="Areas\Es\Views\Goods\Details.cshtml" />
+    <Content Include="Areas\Es\Views\Goods\Edit.cshtml" />
+    <Content Include="Areas\Es\Views\GoodsList\Index.cshtml" />
+    <Content Include="Areas\Es\Views\Order\Create.cshtml" />
+    <Content Include="Areas\Es\Views\Order\Delete.cshtml" />
+    <Content Include="Areas\Es\Views\Order\Details.cshtml" />
+    <Content Include="Areas\Es\Views\Order\Edit.cshtml" />
+    <Content Include="Areas\Es\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Es\Views\Order\Checkout.cshtml" />
+    <Content Include="Areas\Dn\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Dn\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Dn\Views\Goods\Create.cshtml" />
+    <Content Include="Areas\Dn\Views\Goods\Delete.cshtml" />
+    <Content Include="Areas\Dn\Views\Goods\Details.cshtml" />
+    <Content Include="Areas\Dn\Views\Goods\Edit.cshtml" />
+    <Content Include="Areas\Dn\Views\Goods\Index.cshtml" />
+    <Content Include="Areas\Dn\Views\Claim\Create.cshtml" />
+    <Content Include="Areas\Dn\Views\Claim\Delete.cshtml" />
+    <Content Include="Areas\Dn\Views\Claim\Details.cshtml" />
+    <Content Include="Areas\Dn\Views\Claim\Edit.cshtml" />
+    <Content Include="Areas\Dn\Views\Claim\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\dn_category\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\dn_category\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\dn_category\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\dn_category\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\dn_category\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\dn_goods\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\dn_goods\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\dn_goods\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\dn_goods\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\dn_goods\Index.cshtml" />
+    <Content Include="Areas\Dn\Views\GoodsList\Index.cshtml" />
+    <Content Include="Areas\Dn\Views\Claim\Checkout.cshtml" />
+    <Content Include="Areas\Mall\Views\Account\Security.cshtml" />
+    <Content Include="Areas\Mall\Views\Account\LeftNav.cshtml" />
+    <Content Include="Areas\Mall\Views\Account\Address.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_stu_certification\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_stu_certification\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_stu_certification\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_stu_certification\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_stu_certification\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_stu_certification\Valid.cshtml" />
+    <Content Include="Areas\Mall\Views\ProList\Search.cshtml" />
+    <Content Include="Areas\Es\Views\Order\Finish.cshtml" />
+    <Content Include="Areas\Es\Views\Order\Pay.cshtml" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Areas\Es\Views\Goods\Trade.cshtml" />
+    <Content Include="Areas\Mall\Views\Store\Orders.cshtml" />
+    <Content Include="Areas\Dn\Views\Goods\Claim.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_store\Verify.cshtml" />
+    <Content Include="Areas\Admin\Views\xt_store\Check.cshtml" />
+    <Content Include="Areas\Es\Views\Order\Index - 复制.cshtml" />
+    <Content Include="Areas\Dn\Views\Claim\Index - 复制.cshtml" />
+    <Content Include="Areas\Mall\Views\Account\Avatar.cshtml" />
+    <Content Include="Areas\Mall\Views\Cart\SingleSettle.cshtml" />
+    <Content Include="Areas\Mall\Views\Cart\Settle.cshtml" />
+    <Content Include="Areas\Mall\Views\ProList\Store.cshtml" />
+    <Content Include="Areas\Mall\Views\Shared\_Layout _NoMenu.cshtml" />
+    <Content Include="Areas\Mall\Views\Cart\Index - 复制.cshtml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Images\logo_dn.png" />
+    <Content Include="Images\logo_es.png" />
+    <Content Include="Images\logo_mall.png" />
+    <Content Include="Images\logo_xt.png" />
+    <Content Include="Images\tx.jpg" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Chart.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\signin.js" />
+    <Content Include="Tools\crop-avatar\css\bootstrap.min.css" />
+    <Content Include="Tools\crop-avatar\css\cropper.min.css" />
+    <Content Include="Tools\crop-avatar\css\default.css" />
+    <Content Include="Tools\crop-avatar\css\main.css" />
+    <Content Include="Tools\crop-avatar\css\normalize.css" />
+    <Content Include="Tools\crop-avatar\css\qunit.css" />
+    <Content Include="Tools\crop-avatar\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Tools\crop-avatar\fonts\icomoon.svg" />
+    <Content Include="Tools\crop-avatar\img\icons.png" />
+    <Content Include="Tools\crop-avatar\img\loading.gif" />
+    <Content Include="Tools\crop-avatar\img\picture-2.jpg" />
+    <Content Include="Tools\crop-avatar\img\picture.jpg" />
+    <Content Include="Tools\crop-avatar\js\bootstrap.min.js" />
+    <Content Include="Tools\crop-avatar\js\cropper.min.js" />
+    <Content Include="Tools\crop-avatar\js\jquery.min.js" />
+    <Content Include="Tools\crop-avatar\js\main.js" />
+    <Content Include="Tools\crop-avatar\js\qunit.js" />
+    <Content Include="Tools\umeditor\dialogs\emotion\emotion.css" />
+    <Content Include="Tools\umeditor\dialogs\emotion\emotion.js" />
+    <Content Include="Tools\umeditor\dialogs\emotion\images\0.gif" />
+    <Content Include="Tools\umeditor\dialogs\emotion\images\bface.gif" />
+    <Content Include="Tools\umeditor\dialogs\emotion\images\cface.gif" />
+    <Content Include="Tools\umeditor\dialogs\emotion\images\fface.gif" />
+    <Content Include="Tools\umeditor\dialogs\emotion\images\jxface2.gif" />
+    <Content Include="Tools\umeditor\dialogs\emotion\images\neweditor-tab-bg.png" />
+    <Content Include="Tools\umeditor\dialogs\emotion\images\tface.gif" />
+    <Content Include="Tools\umeditor\dialogs\emotion\images\wface.gif" />
+    <Content Include="Tools\umeditor\dialogs\emotion\images\yface.gif" />
+    <Content Include="Tools\umeditor\dialogs\formula\formula.css" />
+    <Content Include="Tools\umeditor\dialogs\formula\formula.html" />
+    <Content Include="Tools\umeditor\dialogs\formula\formula.js" />
+    <Content Include="Tools\umeditor\dialogs\formula\images\formula.png" />
+    <Content Include="Tools\umeditor\dialogs\image\image.css" />
+    <Content Include="Tools\umeditor\dialogs\image\image.js" />
+    <Content Include="Tools\umeditor\dialogs\image\images\close.png" />
+    <Content Include="Tools\umeditor\dialogs\image\images\upload1.png" />
+    <Content Include="Tools\umeditor\dialogs\image\images\upload2.png" />
+    <Content Include="Tools\umeditor\dialogs\link\link.js" />
+    <Content Include="Tools\umeditor\dialogs\map\map.html" />
+    <Content Include="Tools\umeditor\dialogs\map\map.js" />
+    <Content Include="Tools\umeditor\dialogs\video\images\center_focus.jpg" />
+    <Content Include="Tools\umeditor\dialogs\video\images\left_focus.jpg" />
+    <Content Include="Tools\umeditor\dialogs\video\images\none_focus.jpg" />
+    <Content Include="Tools\umeditor\dialogs\video\images\right_focus.jpg" />
+    <Content Include="Tools\umeditor\dialogs\video\video.css" />
+    <Content Include="Tools\umeditor\dialogs\video\video.js" />
+    <Content Include="Tools\umeditor\index.html" />
+    <Content Include="Tools\umeditor\lang\en\en.js" />
+    <Content Include="Tools\umeditor\lang\en\images\addimage.png" />
+    <Content Include="Tools\umeditor\lang\en\images\alldeletebtnhoverskin.png" />
+    <Content Include="Tools\umeditor\lang\en\images\alldeletebtnupskin.png" />
+    <Content Include="Tools\umeditor\lang\en\images\background.png" />
+    <Content Include="Tools\umeditor\lang\en\images\button.png" />
+    <Content Include="Tools\umeditor\lang\en\images\copy.png" />
+    <Content Include="Tools\umeditor\lang\en\images\deletedisable.png" />
+    <Content Include="Tools\umeditor\lang\en\images\deleteenable.png" />
+    <Content Include="Tools\umeditor\lang\en\images\imglabel.png" />
+    <Content Include="Tools\umeditor\lang\en\images\listbackground.png" />
+    <Content Include="Tools\umeditor\lang\en\images\localimage.png" />
+    <Content Include="Tools\umeditor\lang\en\images\music.png" />
+    <Content Include="Tools\umeditor\lang\en\images\rotateleftdisable.png" />
+    <Content Include="Tools\umeditor\lang\en\images\rotateleftenable.png" />
+    <Content Include="Tools\umeditor\lang\en\images\rotaterightdisable.png" />
+    <Content Include="Tools\umeditor\lang\en\images\rotaterightenable.png" />
+    <Content Include="Tools\umeditor\lang\en\images\upload.png" />
+    <Content Include="Tools\umeditor\lang\zh-cn\images\copy.png" />
+    <Content Include="Tools\umeditor\lang\zh-cn\images\imglabel.png" />
+    <Content Include="Tools\umeditor\lang\zh-cn\images\localimage.png" />
+    <Content Include="Tools\umeditor\lang\zh-cn\images\music.png" />
+    <Content Include="Tools\umeditor\lang\zh-cn\images\upload.png" />
+    <Content Include="Tools\umeditor\lang\zh-cn\zh-cn.js" />
+    <Content Include="Tools\umeditor\themes\default\css\umeditor.css" />
+    <Content Include="Tools\umeditor\themes\default\css\umeditor.min.css" />
+    <Content Include="Tools\umeditor\themes\default\images\caret.png" />
+    <Content Include="Tools\umeditor\themes\default\images\close.png" />
+    <Content Include="Tools\umeditor\themes\default\images\icons.gif" />
+    <Content Include="Tools\umeditor\themes\default\images\icons.png" />
+    <Content Include="Tools\umeditor\themes\default\images\ok.gif" />
+    <Content Include="Tools\umeditor\themes\default\images\pop-bg.png" />
+    <Content Include="Tools\umeditor\themes\default\images\spacer.gif" />
+    <Content Include="Tools\umeditor\themes\default\images\videologo.gif" />
+    <Content Include="Tools\umeditor\third-party\jquery.min.js" />
+    <Content Include="Tools\umeditor\umeditor.config.js" />
+    <Content Include="Tools\umeditor\umeditor.js" />
+    <Content Include="Tools\umeditor\umeditor.min.js" />
+    <Content Include="Uploads\Account\TX.jpg" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\dn_categoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\dn_goodsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\es_categoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\es_goodsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\sp_categoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\xt_adminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\xt_areaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\xt_roleController.cs" />
+    <Compile Include="Areas\Admin\Controllers\xt_storeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\xt_store_logController.cs" />
+    <Compile Include="Areas\Admin\Controllers\xt_studentController.cs" />
+    <Compile Include="Areas\Admin\Controllers\xt_student_addressController.cs" />
+    <Compile Include="Areas\Admin\Controllers\xt_student_logController.cs" />
+    <Compile Include="Areas\Admin\Controllers\xt_stu_certificationController.cs" />
+    <Compile Include="Areas\Dn\Controllers\ClaimController.cs" />
+    <Compile Include="Areas\Dn\Controllers\GoodsController.cs" />
+    <Compile Include="Areas\Dn\Controllers\GoodsListController.cs" />
+    <Compile Include="Areas\Dn\DnAreaRegistration.cs" />
+    <Compile Include="Areas\Es\Controllers\GoodsController.cs" />
+    <Compile Include="Areas\Es\Controllers\GoodsListController.cs" />
+    <Compile Include="Areas\Es\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Es\EsAreaRegistration.cs" />
+    <Compile Include="Areas\Mall\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Mall\Controllers\CartController.cs" />
+    <Compile Include="Areas\Mall\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Mall\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Mall\Controllers\ProListController.cs" />
+    <Compile Include="Areas\Mall\Controllers\StoreController.cs" />
+    <Compile Include="Areas\Mall\Controllers\StuAddressController.cs" />
+    <Compile Include="Areas\Mall\MallAreaRegistration.cs" />
+    <Compile Include="Areas\Mall\Models\ImageEntity.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\DnController.cs" />
+    <Compile Include="Controllers\EsController.cs" />
+    <Compile Include="Controllers\MallController.cs" />
+    <Compile Include="Controllers\ToolsController.cs" />
+    <Compile Include="Filters\LoginForm.cs" />
+    <Compile Include="Filters\Tools.cs" />
+    <Compile Include="Filters\StuVerifyAuthorize.cs" />
+    <Compile Include="Filters\StuAuthorize.cs" />
+    <Compile Include="Filters\StoreAuthorize.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605211733581_aa.cs" />
+    <Compile Include="Migrations\201605211733581_aa.Designer.cs">
+      <DependentUpon>201605211733581_aa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountEntities.cs" />
+    <Compile Include="Models\CartItems.cs" />
+    <Compile Include="Models\DonateEntities.cs" />
+    <Compile Include="Models\ErshouEntities.cs" />
+    <Compile Include="Models\ShoppingEntities.cs" />
+    <Compile Include="Models\WebContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Filters\Image.cs" />
+    <Compile Include="Tools\umeditor\net\Uploader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="packages.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Tools\umeditor\net\getContent.ashx" />
+    <Content Include="Tools\umeditor\net\imageUp.ashx" />
+    <Content Include="Views\signin.cshtml" />
+    <Content Include="Tools\crop-avatar\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Tools\crop-avatar\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Tools\crop-avatar\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Tools\crop-avatar\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Tools\crop-avatar\fonts\icomoon.eot" />
+    <Content Include="Tools\crop-avatar\fonts\icomoon.ttf" />
+    <Content Include="Tools\crop-avatar\fonts\icomoon.woff" />
+    <Content Include="Views\Mall\Index.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Dn\Models\" />
+    <Folder Include="Areas\Es\Models\" />
+    <Folder Include="Uploads\Account\Security\" />
+    <Folder Include="Uploads\Products\" />
+    <Folder Include="Uploads\Stores\" />
+    <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Tools\" />
+    <Folder Include="Views\Web\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201605211733581_aa.resx">
+      <DependentUpon>201605211733581_aa.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51480</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:51480/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>此项目引用这台计算机上缺少的 NuGet 程序包。使用 NuGet 程序包还原可下载这些程序包。有关详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

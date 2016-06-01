@@ -1,0 +1,276 @@
+﻿@model xiaotao.Models.dn_goods
+
+@{
+   ViewBag.Title = "Details";
+}
+
+@section Styles {
+   <style>
+      .detail {
+         margin-top: 50px;
+      }
+
+      .rank-box {
+         clear: both;
+      }
+
+         .rank-box .text {
+            width: 90px;
+            font-size: 12px;
+            height: 22px;
+            line-height: 22px;
+            color: #999;
+            float: left;
+         }
+
+      .rank-bar {
+         margin-top: 6px;
+         background: #dedede;
+         float: left;
+         width: 100px;
+         height: 10px;
+      }
+
+         .rank-bar .wrap {
+            background: red;
+            height: 10px;
+         }
+
+      .form-box {
+         margin: 10px 0;
+         padding: 10px;
+         background: #eee;
+         position: relative;
+      }
+
+      .cnt-user {
+         position: absolute;
+         width: 60px;
+         height: 60px;
+      }
+
+      .cnt-textarea {
+         height: 60px;
+         margin-left: 70px;
+      }
+
+         .cnt-textarea textarea {
+            max-width: 100%;
+            height: 60px;
+         }
+
+      .form-bottom {
+         margin-top: 10px;
+      }
+   </style>
+}
+
+<h2>Details</h2>
+
+<div>
+   <hr />
+   <div class="col-xs-5">
+      <img src="~/Uploads/Products/@Model.ori_img" alt="Alternate Text" />
+   </div>
+   <div class="col-xs-7">
+      <dl class="dl-horizontal">
+         <dt>名称</dt>
+         <dd>
+            @Html.DisplayFor(model => model.name)
+         </dd>
+
+         <dt>图片</dt>
+         <dd>
+            @Html.DisplayFor(model => model.ori_img)
+         </dd>
+
+         <dt>分类</dt>
+         <dd>
+            @Html.DisplayFor(model => model.dn_category.name)
+         </dd>
+
+         <dt>是否匿名</dt>
+         <dd>
+            @Html.DisplayFor(model => model.is_anonymous)
+         </dd>
+
+         <dt>发布时间</dt>
+         <dd>
+            @Html.DisplayFor(model => model.create_at)
+         </dd>
+      </dl>
+
+      @using (Html.BeginForm("checkout", "claim", FormMethod.Get))
+      {
+         <input type="hidden" name="id" value="@Model.id" />
+         <dl class="dl-horizontal">
+            <dt></dt>
+            <dd style="padding-top:10px;">
+               @if (ViewBag.isClaim == true)
+               {
+                  <a class="btn btn-danger">已被领取</a>
+               }
+               else
+               {
+                  if (Session["Sid"] != null && (Model.donor == int.Parse(Session["Sid"].ToString())))
+                  {
+                     <a class="btn btn-danger" href="/dn/goods/edit/@Model.id">编辑信息</a>
+                  }
+                  else
+                  {
+                     <a class="btn btn-danger" data-sid="@Session["Sid"]" id="submit">申请认领</a>
+                  }
+               }
+            </dd>
+         </dl>
+      }
+   </div>
+</div>
+
+<div class="detail" ng-app="myApp" ng-controller="myController">
+   <ul class="nav nav-tabs">
+      <li role="presentation" class="active">
+         <a href="#detail" aria-controls="home" role="tab" data-toggle="tab">物品详情</a>
+      </li>
+      <li role="presentation">
+         <a href="#consult" aria-controls="consult" role="tab" data-toggle="tab" ng-click="showConsultTab()">咨询<span> @ViewBag.consultCount</span></a>
+      </li>
+   </ul>
+   <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="detail">
+         @(new HtmlString(Model.detail))
+      </div>
+      <div role="tabpanel" class="tab-pane" id="consult">
+         <form name="consultForm" ng-submit="consult_submit()">
+            <div class="form-box">
+               <div class="clearfix">
+                  <div class="cnt-user">
+                     <img src="~/Images/tx.jpg" />
+                  </div>
+                  <div class="cnt-textarea">
+                     <textarea ng-model="content" name="content" class="form-control" rows="3" placeholder="说点啥子呗.." required></textarea>
+                  </div>
+               </div>
+               <div class="form-bottom clearfix">
+                  <button type="submit" ng-disabled="consultForm.$invalid" class="btn btn-danger btn-sm pull-right">发布咨询</button>
+               </div>
+            </div>
+         </form>
+         <div class="consult-list">
+            <div class="item">
+               <div ng-repeat="c in consults">
+                  <div class="root">
+                     <span>{{c.content}} | {{c.create_at}} | {{c.writerName}}</span>
+                     <a ng-if="c.writer!=sid" ng-click="showReplyForm(c)">回复</a>
+                     <div ng-if="c.replyFlag">
+                        <textarea ng-model="c.reply" class="form-control" rows="3" placeholder="说点啥子呗.." required=""></textarea>
+                        <button type="submit" class="btn btn-sm pull-right" ng-disabled="!c.reply" ng-click="replySubmit(c,c)">提交</button>
+                     </div>
+                  </div>
+                  <div ng-if="c.sub" class="sub" style="margin-left:20px;">
+                     <div ng-repeat="s in c.sub">
+                        <span>回复{{s.ori_writer}} | {{s.content}} | {{s.create_at}} | {{s.writerName}} </span>
+                        <a ng-if="s.writer!=sid" ng-click="showReplyForm(s)">回复</a>
+                        <div ng-if="s.replyFlag">
+                           <textarea ng-model="s.reply" class="form-control" rows="3" placeholder="说点啥子呗.." required=""></textarea>
+                           <button type="submit" class="btn btn-sm pull-right" ng-disabled="!s.reply" ng-click="replySubmit(s,c)">提交</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+@if (Session["Sid"] == null)
+{
+   @Html.Partial("/views/signin.cshtml")
+}
+
+@section Scripts {
+   <script src="~/Scripts/signin.js"></script>
+   <script src="~/Scripts/angular.min.js"></script>
+   <script>
+      angular.module('myApp',[], function ($httpProvider) {
+         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+         $httpProvider.defaults.transformRequest = [function (data) {
+            var param = function (obj) {
+               var query = '';
+               var name, value, fullSubName, subName, subValue, innerObj, i;
+
+               for (name in obj) {
+                  value = obj[name];
+
+                  if (value instanceof Array) {
+                     for (i = 0; i < value.length; ++i) {
+                        subValue = value[i];
+                        fullSubName = name + '[' + i + ']';
+                        innerObj = {};
+                        innerObj[fullSubName] = subValue;
+                        query += param(innerObj) + '&';
+                     }
+                  }
+                  else if (value instanceof Object) {
+                     for (subName in value) {
+                        subValue = value[subName];
+                        fullSubName = name + '[' + subName + ']';
+                        innerObj = {};
+                        innerObj[fullSubName] = subValue;
+                        query += param(innerObj) + '&';
+                     }
+                  }
+                  else if (value !== undefined && value !== null) {
+                     query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+                  }
+               }
+
+               return query.length ? query.substr(0, query.length - 1) : query;
+            };
+
+            return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+         }];
+      })
+      .controller('myController', function ($scope, $http) {
+         $scope.sid = Number('@Session["Sid"]');
+         $scope.showConsultTab = function(){
+            if($scope.consults == undefined){
+               $http.post('/dn/goods/getConsult', {id:@Model.id}).success(function(res){
+                  $scope.consults = res;
+               });
+            }
+         }
+
+         $scope.consult_submit = function () {
+            $http.post('/dn/goods/SubmitConsult',{content:$scope.content,gid:@Model.id}).success(function(res){
+               if(res == false){
+                  location.href = "/mall/account/signin?ReturnUrl=/es/goods/details/@Model.id";
+               }else{
+                  $scope.consults.push(res);
+                  $scope.content = '';
+               }
+            });
+         }
+
+         $scope.showReplyForm = function(model){
+            if($scope.sid == 0){
+               location.href = "/mall/account/signin?ReturnUrl=/es/goods/details/@Model.id";
+            }else{
+               model.replyFlag = !model.replyFlag;
+            }
+         }
+
+         $scope.replySubmit = function(model,pnode){
+            $http.post('/dn/goods/SubmitConsult',{content:model.reply, gid:@Model.id, oid:model.id}).success(function(res){
+               if(res == false){
+                  location.href = "/mall/account/signin?ReturnUrl=/es/goods/details/@Model.id";
+               }else{
+                  model.replyFlag = !model.replyFlag;
+                  pnode.sub.push(res);
+               }
+            });
+         }
+      })
+   </script>
+}

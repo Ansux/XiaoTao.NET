@@ -1,0 +1,798 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="xiaotaoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="dn_category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="intro" Type="varchar" MaxLength="200" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="pid" Type="int" />
+    <Property Name="verify" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="dn_claim">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="states" Type="tinyint" Nullable="false" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="goods" Type="int" Nullable="false" />
+    <Property Name="receiver" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="dn_consult">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="gid" Type="int" Nullable="false" />
+    <Property Name="content" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="writer" Type="int" Nullable="false" />
+    <Property Name="reply" Type="varchar" MaxLength="200" />
+    <Property Name="answer" Type="int" />
+    <Property Name="is_show" Type="tinyint" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="update_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="dn_goods">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ori_img" Type="varchar" MaxLength="200" />
+    <Property Name="thumb_img" Type="varchar" MaxLength="200" />
+    <Property Name="is_anonymous" Type="tinyint" />
+    <Property Name="is_onsale" Type="tinyint" />
+    <Property Name="is_delete" Type="tinyint" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="update_at" Type="datetime" />
+    <Property Name="category" Type="int" />
+    <Property Name="donor" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="es_category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="intro" Type="varchar" MaxLength="200" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="pid" Type="int" />
+    <Property Name="verify" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="es_consult">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="gid" Type="int" Nullable="false" />
+    <Property Name="content" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="writer" Type="int" Nullable="false" />
+    <Property Name="reply" Type="varchar" MaxLength="200" />
+    <Property Name="answer" Type="int" />
+    <Property Name="is_show" Type="tinyint" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="update_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="es_goods">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="price" Type="money" Nullable="false" />
+    <Property Name="ori_img" Type="varchar" MaxLength="200" />
+    <Property Name="thumb_img" Type="varchar" MaxLength="200" />
+    <Property Name="is_new" Type="tinyint" />
+    <Property Name="is_onsale" Type="tinyint" />
+    <Property Name="is_delete" Type="tinyint" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="update_at" Type="datetime" />
+    <Property Name="category" Type="int" />
+    <Property Name="seller" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="es_order">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="amount" Type="money" Nullable="false" />
+    <Property Name="is_pay" Type="tinyint" Nullable="false" />
+    <Property Name="states" Type="tinyint" Nullable="false" />
+    <Property Name="addr" Type="int" Nullable="false" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="goods" Type="int" Nullable="false" />
+    <Property Name="buyer" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sp_brand">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="verify" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="sp_cart_item">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="product" Type="int" Nullable="false" />
+    <Property Name="number" Type="int" Nullable="false" />
+    <Property Name="student" Type="int" Nullable="false" />
+    <Property Name="create_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="sp_category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="intro" Type="varchar" MaxLength="200" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="pid" Type="int" />
+    <Property Name="verify" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="sp_order">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="amount" Type="money" Nullable="false" />
+    <Property Name="is_pay" Type="tinyint" Nullable="false" />
+    <Property Name="states" Type="tinyint" Nullable="false" />
+    <Property Name="addr" Type="int" Nullable="false" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="store" Type="int" Nullable="false" />
+    <Property Name="buyer" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sp_order_item">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="oid" Type="int" Nullable="false" />
+    <Property Name="product" Type="int" Nullable="false" />
+    <Property Name="price" Type="money" Nullable="false" />
+    <Property Name="number" Type="int" Nullable="false" />
+    <Property Name="is_comment" Type="tinyint" />
+    <Property Name="comment" Type="varchar" MaxLength="500" />
+    <Property Name="is_reply" Type="tinyint" />
+    <Property Name="reply" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="sp_product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="price" Type="money" Nullable="false" />
+    <Property Name="stock" Type="int" />
+    <Property Name="ori_img" Type="varchar" MaxLength="200" />
+    <Property Name="thumb_img" Type="varchar" MaxLength="200" />
+    <Property Name="sales" Type="int" />
+    <Property Name="is_onsale" Type="tinyint" />
+    <Property Name="is_delete" Type="tinyint" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="update_at" Type="datetime" />
+    <Property Name="store" Type="int" Nullable="false" />
+    <Property Name="category" Type="int" />
+    <Property Name="brand" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="xt_admin">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="login_id" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="login_pwd" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="avatar" Type="varchar" MaxLength="200" />
+    <Property Name="real_name" Type="varchar" MaxLength="10" />
+    <Property Name="sex" Type="varchar" MaxLength="2" />
+    <Property Name="email" Type="varchar" MaxLength="30" />
+    <Property Name="phone" Type="varchar" MaxLength="13" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="update_at" Type="datetime" />
+    <Property Name="role_id" Type="int" />
+  </EntityType>
+  <EntityType Name="xt_area">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="xt_role">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="xt_store">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="login_id" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="login_pwd" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="avatar" Type="varchar" MaxLength="200" />
+    <Property Name="name" Type="varchar" MaxLength="30" />
+    <Property Name="license" Type="varchar" MaxLength="200" />
+    <Property Name="intro" Type="varchar" MaxLength="500" />
+    <Property Name="shopkeeper" Type="varchar" MaxLength="10" />
+    <Property Name="id_no" Type="varchar" MaxLength="20" />
+    <Property Name="id_cart" Type="varchar" MaxLength="200" />
+    <Property Name="sex" Type="varchar" MaxLength="2" />
+    <Property Name="email" Type="varchar" MaxLength="30" />
+    <Property Name="phone" Type="varchar" MaxLength="13" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="update_at" Type="datetime" />
+    <Property Name="verify" Type="tinyint" />
+    <Property Name="states" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="xt_store_log">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kind" Type="tinyint" Nullable="false" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="store" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="xt_student">
+    <Key>
+      <PropertyRef Name="sno" />
+    </Key>
+    <Property Name="sno" Type="int" Nullable="false" />
+    <Property Name="pwd" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="avatar" Type="varchar" MaxLength="200" />
+    <Property Name="sname" Type="varchar" MaxLength="10" />
+    <Property Name="sex" Type="varchar" MaxLength="2" />
+    <Property Name="email" Type="varchar" MaxLength="30" />
+    <Property Name="phone" Type="varchar" MaxLength="13" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="update_at" Type="datetime" />
+    <Property Name="verify" Type="tinyint" />
+    <Property Name="states" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="xt_student_address">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="area" Type="int" />
+    <Property Name="addr" Type="varchar" MaxLength="20" />
+    <Property Name="receiver" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="phone" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="remark" Type="varchar" MaxLength="100" />
+    <Property Name="is_default" Type="tinyint" />
+    <Property Name="student" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="xt_student_log">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kind" Type="tinyint" Nullable="false" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="student" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__dn_claim__goods__55209ACA">
+    <End Role="dn_goods" Type="Self.dn_goods" Multiplicity="1" />
+    <End Role="dn_claim" Type="Self.dn_claim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="dn_goods">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="dn_claim">
+        <PropertyRef Name="goods" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__dn_claim__receiv__5614BF03">
+    <End Role="xt_student" Type="Self.xt_student" Multiplicity="1" />
+    <End Role="dn_claim" Type="Self.dn_claim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="xt_student">
+        <PropertyRef Name="sno" />
+      </Principal>
+      <Dependent Role="dn_claim">
+        <PropertyRef Name="receiver" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__dn_consul__answe__4C8B54C9">
+    <End Role="xt_student" Type="Self.xt_student" Multiplicity="0..1" />
+    <End Role="dn_consult" Type="Self.dn_consult" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="xt_student">
+        <PropertyRef Name="sno" />
+      </Principal>
+      <Dependent Role="dn_consult">
+        <PropertyRef Name="answer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__dn_consul__write__4B973090">
+    <End Role="xt_student" Type="Self.xt_student" Multiplicity="1" />
+    <End Role="dn_consult" Type="Self.dn_consult" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="xt_student">
+        <PropertyRef Name="sno" />
+      </Principal>
+      <Dependent Role="dn_consult">
+        <PropertyRef Name="writer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__dn_consult__gid__4AA30C57">
+    <End Role="dn_goods" Type="Self.dn_goods" Multiplicity="1" />
+    <End Role="dn_consult" Type="Self.dn_consult" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="dn_goods">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="dn_consult">
+        <PropertyRef Name="gid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__dn_goods__catego__44EA3301">
+    <End Role="dn_category" Type="Self.dn_category" Multiplicity="0..1" />
+    <End Role="dn_goods" Type="Self.dn_goods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="dn_category">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="dn_goods">
+        <PropertyRef Name="category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__dn_goods__donor__45DE573A">
+    <End Role="xt_student" Type="Self.xt_student" Multiplicity="1" />
+    <End Role="dn_goods" Type="Self.dn_goods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="xt_student">
+        <PropertyRef Name="sno" />
+      </Principal>
+      <Dependent Role="dn_goods">
+        <PropertyRef Name="donor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__es_consul__answe__2A363CC5">
+    <End Role="xt_student" Type="Self.xt_student" Multiplicity="0..1" />
+    <End Role="es_consult" Type="Self.es_consult" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="xt_student">
+        <PropertyRef Name="sno" />
+      </Principal>
+      <Dependent Role="es_consult">
+        <PropertyRef Name="answer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__es_consul__write__2942188C">
+    <End Role="xt_student" Type="Self.xt_student" Multiplicity="1" />
+    <End Role="es_consult" Type="Self.es_consult" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="xt_student">
+        <PropertyRef Name="sno" />
+      </Principal>
+      <Dependent Role="es_consult">
+        <PropertyRef Name="writer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__es_consult__gid__284DF453">
+    <End Role="es_goods" Type="Self.es_goods" Multiplicity="1" />
+    <End Role="es_consult" Type="Self.es_consult" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="es_goods">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="es_consult">
+        <PropertyRef Name="gid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__es_goods__catego__22951AFD">
+    <End Role="es_category" Type="Self.es_category" Multiplicity="0..1" />
+    <End Role="es_goods" Type="Self.es_goods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="es_category">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="es_goods">
+        <PropertyRef Name="category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__es_goods__seller__23893F36">
+    <End Role="xt_student" Type="Self.xt_student" Multiplicity="1" />
+    <End Role="es_goods" Type="Self.es_goods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="xt_student">
+        <PropertyRef Name="sno" />
+      </Principal>
+      <Dependent Role="es_goods">
+        <PropertyRef Name="seller" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__es_order__addr__32CB82C6">
+    <End Role="xt_student_address" Type="Self.xt_student_address" Multiplicity="1" />
+    <End Role="es_order" Type="Self.es_order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="xt_student_address">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="es_order">
+        <PropertyRef Name="addr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__es_order__buyer__35A7EF71">
+    <End Role="xt_student" Type="Self.xt_student" Multiplicity="1" />
+    <End Role="es_order" Type="Self.es_order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="xt_student">
+        <PropertyRef Name="sno" />
+      </Principal>
+      <Dependent Role="es_order">
+        <PropertyRef Name="buyer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__es_order__goods__34B3CB38">
+    <End Role="es_goods" Type="Self.es_goods" Multiplicity="1" />
+    <End Role="es_order" Type="Self.es_order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="es_goods">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="es_order">
+        <PropertyRef Name="goods" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__sp_cart_i__produ__06ED0088">
+    <End Role="sp_product" Type="Self.sp_product" Multiplicity="1" />
+    <End Role="sp_cart_item" Type="Self.sp_cart_item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sp_product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="sp_cart_item">
+        <PropertyRef Name="product" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__sp_cart_i__stude__08D548FA">
+    <End Role="xt_student" Type="Self.xt_student" Multiplicity="1" />
+    <End Role="sp_cart_item" Type="Self.sp_cart_item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="xt_student">
+        <PropertyRef Name="sno" />
+      </Principal>
+      <Dependent Role="sp_cart_item">
+        <PropertyRef Name="student" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__sp_order___produ__000AF8CF">
+    <End Role="sp_product" Type="Self.sp_product" Multiplicity="1" />
+    <End Role="sp_order_item" Type="Self.sp_order_item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sp_product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="sp_order_item">
+        <PropertyRef Name="product" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__sp_order__addr__10766AC2">
+    <End Role="xt_student_address" Type="Self.xt_student_address" Multiplicity="1" />
+    <End Role="sp_order" Type="Self.sp_order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="xt_student_address">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="sp_order">
+        <PropertyRef Name="addr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__sp_order__buyer__1352D76D">
+    <End Role="xt_student" Type="Self.xt_student" Multiplicity="1" />
+    <End Role="sp_order" Type="Self.sp_order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="xt_student">
+        <PropertyRef Name="sno" />
+      </Principal>
+      <Dependent Role="sp_order">
+        <PropertyRef Name="buyer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__sp_order__store__125EB334">
+    <End Role="xt_store" Type="Self.xt_store" Multiplicity="1" />
+    <End Role="sp_order" Type="Self.sp_order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="xt_store">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="sp_order">
+        <PropertyRef Name="store" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__sp_order_it__oid__7F16D496">
+    <End Role="sp_order" Type="Self.sp_order" Multiplicity="1" />
+    <End Role="sp_order_item" Type="Self.sp_order_item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sp_order">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="sp_order_item">
+        <PropertyRef Name="oid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__sp_produc__brand__02284B6B">
+    <End Role="sp_brand" Type="Self.sp_brand" Multiplicity="0..1" />
+    <End Role="sp_product" Type="Self.sp_product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sp_brand">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="sp_product">
+        <PropertyRef Name="brand" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__sp_produc__categ__01342732">
+    <End Role="sp_category" Type="Self.sp_category" Multiplicity="0..1" />
+    <End Role="sp_product" Type="Self.sp_product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sp_category">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="sp_product">
+        <PropertyRef Name="category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__sp_produc__store__004002F9">
+    <End Role="xt_store" Type="Self.xt_store" Multiplicity="1" />
+    <End Role="sp_product" Type="Self.sp_product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="xt_store">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="sp_product">
+        <PropertyRef Name="store" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__xt_admin__role_i__4242D080">
+    <End Role="xt_role" Type="Self.xt_role" Multiplicity="0..1" />
+    <End Role="xt_admin" Type="Self.xt_admin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="xt_role">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="xt_admin">
+        <PropertyRef Name="role_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__xt_store___store__5DEAEAF5">
+    <End Role="xt_store" Type="Self.xt_store" Multiplicity="1" />
+    <End Role="xt_store_log" Type="Self.xt_store_log" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="xt_store">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="xt_store_log">
+        <PropertyRef Name="store" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__xt_studen__stude__5832119F">
+    <End Role="xt_student" Type="Self.xt_student" Multiplicity="1" />
+    <End Role="xt_student_log" Type="Self.xt_student_log" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="xt_student">
+        <PropertyRef Name="sno" />
+      </Principal>
+      <Dependent Role="xt_student_log">
+        <PropertyRef Name="student" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__xt_studen__stude__6B44E613">
+    <End Role="xt_student" Type="Self.xt_student" Multiplicity="1" />
+    <End Role="xt_student_address" Type="Self.xt_student_address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="xt_student">
+        <PropertyRef Name="sno" />
+      </Principal>
+      <Dependent Role="xt_student_address">
+        <PropertyRef Name="student" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__xt_student__area__695C9DA1">
+    <End Role="xt_area" Type="Self.xt_area" Multiplicity="0..1" />
+    <End Role="xt_student_address" Type="Self.xt_student_address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="xt_area">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="xt_student_address">
+        <PropertyRef Name="area" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="xiaotaoModelStoreContainer">
+    <EntitySet Name="dn_category" EntityType="Self.dn_category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="dn_claim" EntityType="Self.dn_claim" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="dn_consult" EntityType="Self.dn_consult" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="dn_goods" EntityType="Self.dn_goods" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="es_category" EntityType="Self.es_category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="es_consult" EntityType="Self.es_consult" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="es_goods" EntityType="Self.es_goods" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="es_order" EntityType="Self.es_order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sp_brand" EntityType="Self.sp_brand" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sp_cart_item" EntityType="Self.sp_cart_item" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sp_category" EntityType="Self.sp_category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sp_order" EntityType="Self.sp_order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sp_order_item" EntityType="Self.sp_order_item" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sp_product" EntityType="Self.sp_product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="xt_admin" EntityType="Self.xt_admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="xt_area" EntityType="Self.xt_area" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="xt_role" EntityType="Self.xt_role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="xt_store" EntityType="Self.xt_store" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="xt_store_log" EntityType="Self.xt_store_log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="xt_student" EntityType="Self.xt_student" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="xt_student_address" EntityType="Self.xt_student_address" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="xt_student_log" EntityType="Self.xt_student_log" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__dn_claim__goods__55209ACA" Association="Self.FK__dn_claim__goods__55209ACA">
+      <End Role="dn_goods" EntitySet="dn_goods" />
+      <End Role="dn_claim" EntitySet="dn_claim" />
+    </AssociationSet>
+    <AssociationSet Name="FK__dn_claim__receiv__5614BF03" Association="Self.FK__dn_claim__receiv__5614BF03">
+      <End Role="xt_student" EntitySet="xt_student" />
+      <End Role="dn_claim" EntitySet="dn_claim" />
+    </AssociationSet>
+    <AssociationSet Name="FK__dn_consul__answe__4C8B54C9" Association="Self.FK__dn_consul__answe__4C8B54C9">
+      <End Role="xt_student" EntitySet="xt_student" />
+      <End Role="dn_consult" EntitySet="dn_consult" />
+    </AssociationSet>
+    <AssociationSet Name="FK__dn_consul__write__4B973090" Association="Self.FK__dn_consul__write__4B973090">
+      <End Role="xt_student" EntitySet="xt_student" />
+      <End Role="dn_consult" EntitySet="dn_consult" />
+    </AssociationSet>
+    <AssociationSet Name="FK__dn_consult__gid__4AA30C57" Association="Self.FK__dn_consult__gid__4AA30C57">
+      <End Role="dn_goods" EntitySet="dn_goods" />
+      <End Role="dn_consult" EntitySet="dn_consult" />
+    </AssociationSet>
+    <AssociationSet Name="FK__dn_goods__catego__44EA3301" Association="Self.FK__dn_goods__catego__44EA3301">
+      <End Role="dn_category" EntitySet="dn_category" />
+      <End Role="dn_goods" EntitySet="dn_goods" />
+    </AssociationSet>
+    <AssociationSet Name="FK__dn_goods__donor__45DE573A" Association="Self.FK__dn_goods__donor__45DE573A">
+      <End Role="xt_student" EntitySet="xt_student" />
+      <End Role="dn_goods" EntitySet="dn_goods" />
+    </AssociationSet>
+    <AssociationSet Name="FK__es_consul__answe__2A363CC5" Association="Self.FK__es_consul__answe__2A363CC5">
+      <End Role="xt_student" EntitySet="xt_student" />
+      <End Role="es_consult" EntitySet="es_consult" />
+    </AssociationSet>
+    <AssociationSet Name="FK__es_consul__write__2942188C" Association="Self.FK__es_consul__write__2942188C">
+      <End Role="xt_student" EntitySet="xt_student" />
+      <End Role="es_consult" EntitySet="es_consult" />
+    </AssociationSet>
+    <AssociationSet Name="FK__es_consult__gid__284DF453" Association="Self.FK__es_consult__gid__284DF453">
+      <End Role="es_goods" EntitySet="es_goods" />
+      <End Role="es_consult" EntitySet="es_consult" />
+    </AssociationSet>
+    <AssociationSet Name="FK__es_goods__catego__22951AFD" Association="Self.FK__es_goods__catego__22951AFD">
+      <End Role="es_category" EntitySet="es_category" />
+      <End Role="es_goods" EntitySet="es_goods" />
+    </AssociationSet>
+    <AssociationSet Name="FK__es_goods__seller__23893F36" Association="Self.FK__es_goods__seller__23893F36">
+      <End Role="xt_student" EntitySet="xt_student" />
+      <End Role="es_goods" EntitySet="es_goods" />
+    </AssociationSet>
+    <AssociationSet Name="FK__es_order__addr__32CB82C6" Association="Self.FK__es_order__addr__32CB82C6">
+      <End Role="xt_student_address" EntitySet="xt_student_address" />
+      <End Role="es_order" EntitySet="es_order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__es_order__buyer__35A7EF71" Association="Self.FK__es_order__buyer__35A7EF71">
+      <End Role="xt_student" EntitySet="xt_student" />
+      <End Role="es_order" EntitySet="es_order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__es_order__goods__34B3CB38" Association="Self.FK__es_order__goods__34B3CB38">
+      <End Role="es_goods" EntitySet="es_goods" />
+      <End Role="es_order" EntitySet="es_order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__sp_cart_i__produ__06ED0088" Association="Self.FK__sp_cart_i__produ__06ED0088">
+      <End Role="sp_product" EntitySet="sp_product" />
+      <End Role="sp_cart_item" EntitySet="sp_cart_item" />
+    </AssociationSet>
+    <AssociationSet Name="FK__sp_cart_i__stude__08D548FA" Association="Self.FK__sp_cart_i__stude__08D548FA">
+      <End Role="xt_student" EntitySet="xt_student" />
+      <End Role="sp_cart_item" EntitySet="sp_cart_item" />
+    </AssociationSet>
+    <AssociationSet Name="FK__sp_order___produ__000AF8CF" Association="Self.FK__sp_order___produ__000AF8CF">
+      <End Role="sp_product" EntitySet="sp_product" />
+      <End Role="sp_order_item" EntitySet="sp_order_item" />
+    </AssociationSet>
+    <AssociationSet Name="FK__sp_order__addr__10766AC2" Association="Self.FK__sp_order__addr__10766AC2">
+      <End Role="xt_student_address" EntitySet="xt_student_address" />
+      <End Role="sp_order" EntitySet="sp_order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__sp_order__buyer__1352D76D" Association="Self.FK__sp_order__buyer__1352D76D">
+      <End Role="xt_student" EntitySet="xt_student" />
+      <End Role="sp_order" EntitySet="sp_order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__sp_order__store__125EB334" Association="Self.FK__sp_order__store__125EB334">
+      <End Role="xt_store" EntitySet="xt_store" />
+      <End Role="sp_order" EntitySet="sp_order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__sp_order_it__oid__7F16D496" Association="Self.FK__sp_order_it__oid__7F16D496">
+      <End Role="sp_order" EntitySet="sp_order" />
+      <End Role="sp_order_item" EntitySet="sp_order_item" />
+    </AssociationSet>
+    <AssociationSet Name="FK__sp_produc__brand__02284B6B" Association="Self.FK__sp_produc__brand__02284B6B">
+      <End Role="sp_brand" EntitySet="sp_brand" />
+      <End Role="sp_product" EntitySet="sp_product" />
+    </AssociationSet>
+    <AssociationSet Name="FK__sp_produc__categ__01342732" Association="Self.FK__sp_produc__categ__01342732">
+      <End Role="sp_category" EntitySet="sp_category" />
+      <End Role="sp_product" EntitySet="sp_product" />
+    </AssociationSet>
+    <AssociationSet Name="FK__sp_produc__store__004002F9" Association="Self.FK__sp_produc__store__004002F9">
+      <End Role="xt_store" EntitySet="xt_store" />
+      <End Role="sp_product" EntitySet="sp_product" />
+    </AssociationSet>
+    <AssociationSet Name="FK__xt_admin__role_i__4242D080" Association="Self.FK__xt_admin__role_i__4242D080">
+      <End Role="xt_role" EntitySet="xt_role" />
+      <End Role="xt_admin" EntitySet="xt_admin" />
+    </AssociationSet>
+    <AssociationSet Name="FK__xt_store___store__5DEAEAF5" Association="Self.FK__xt_store___store__5DEAEAF5">
+      <End Role="xt_store" EntitySet="xt_store" />
+      <End Role="xt_store_log" EntitySet="xt_store_log" />
+    </AssociationSet>
+    <AssociationSet Name="FK__xt_studen__stude__5832119F" Association="Self.FK__xt_studen__stude__5832119F">
+      <End Role="xt_student" EntitySet="xt_student" />
+      <End Role="xt_student_log" EntitySet="xt_student_log" />
+    </AssociationSet>
+    <AssociationSet Name="FK__xt_studen__stude__6B44E613" Association="Self.FK__xt_studen__stude__6B44E613">
+      <End Role="xt_student" EntitySet="xt_student" />
+      <End Role="xt_student_address" EntitySet="xt_student_address" />
+    </AssociationSet>
+    <AssociationSet Name="FK__xt_student__area__695C9DA1" Association="Self.FK__xt_student__area__695C9DA1">
+      <End Role="xt_area" EntitySet="xt_area" />
+      <End Role="xt_student_address" EntitySet="xt_student_address" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

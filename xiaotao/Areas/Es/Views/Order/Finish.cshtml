@@ -1,0 +1,51 @@
+﻿@model xiaotao.Models.es_order
+
+@{
+    ViewBag.Title = "Finish";
+}
+
+<h2>Finish</h2>
+
+<div>
+   <hr />
+   @using (Html.BeginForm())
+   {
+      @Html.AntiForgeryToken()
+      @Html.HiddenFor(model => model.id)
+      <dl class="dl-horizontal">
+         <dt>Email</dt>
+         <dd>
+            @Html.DisplayFor(model => model.xt_student.email)
+         </dd>
+
+         <dt>地址</dt>
+         <dd>
+            @Html.DisplayFor(model => model.addr)
+         </dd>
+
+         <dt>总额</dt>
+         <dd>
+            @Html.DisplayFor(model => model.amount)
+         </dd>
+
+         <dt>是否支付</dt>
+         <dd>
+            @Html.DisplayFor(model => model.is_pay)
+         </dd>
+
+         <dt>状态</dt>
+         <dd>
+            @Html.DisplayFor(model => model.states)
+         </dd>
+
+         <dt>信息确认</dt>
+         <dd>
+            <button type="submit" class="btn btn-danger">确认收货</button>
+         </dd>
+      </dl>
+   }
+</div>
+
+<p>
+   @Html.ActionLink("回到订单列表 >", "Index")
+</p>

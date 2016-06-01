@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="xiaotaoModelStoreContainer" CdmEntityContainer="xiaotaoEntities">
+    <EntitySetMapping Name="dn_category">
+      <EntityTypeMapping TypeName="xiaotaoModel.dn_category">
+        <MappingFragment StoreEntitySet="dn_category">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="intro" ColumnName="intro" />
+          <ScalarProperty Name="create_at" ColumnName="create_at" />
+          <ScalarProperty Name="pid" ColumnName="pid" />
+          <ScalarProperty Name="verify" ColumnName="verify" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="dn_claim">
+      <EntityTypeMapping TypeName="xiaotaoModel.dn_claim">
+        <MappingFragment StoreEntitySet="dn_claim">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="states" ColumnName="states" />
+          <ScalarProperty Name="create_at" ColumnName="create_at" />
+          <ScalarProperty Name="goods" ColumnName="goods" />
+          <ScalarProperty Name="receiver" ColumnName="receiver" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="dn_consult">
+      <EntityTypeMapping TypeName="xiaotaoModel.dn_consult">
+        <MappingFragment StoreEntitySet="dn_consult">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="gid" ColumnName="gid" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="writer" ColumnName="writer" />
+          <ScalarProperty Name="reply" ColumnName="reply" />
+          <ScalarProperty Name="answer" ColumnName="answer" />
+          <ScalarProperty Name="is_show" ColumnName="is_show" />
+          <ScalarProperty Name="create_at" ColumnName="create_at" />
+          <ScalarProperty Name="update_at" ColumnName="update_at" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="dn_goods">
+      <EntityTypeMapping TypeName="xiaotaoModel.dn_goods">
+        <MappingFragment StoreEntitySet="dn_goods">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="ori_img" ColumnName="ori_img" />
+          <ScalarProperty Name="thumb_img" ColumnName="thumb_img" />
+          <ScalarProperty Name="is_anonymous" ColumnName="is_anonymous" />
+          <ScalarProperty Name="is_onsale" ColumnName="is_onsale" />
+          <ScalarProperty Name="is_delete" ColumnName="is_delete" />
+          <ScalarProperty Name="create_at" ColumnName="create_at" />
+          <ScalarProperty Name="update_at" ColumnName="update_at" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="donor" ColumnName="donor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="es_category">
+      <EntityTypeMapping TypeName="xiaotaoModel.es_category">
+        <MappingFragment StoreEntitySet="es_category">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="intro" ColumnName="intro" />
+          <ScalarProperty Name="create_at" ColumnName="create_at" />
+          <ScalarProperty Name="pid" ColumnName="pid" />
+          <ScalarProperty Name="verify" ColumnName="verify" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="es_consult">
+      <EntityTypeMapping TypeName="xiaotaoModel.es_consult">
+        <MappingFragment StoreEntitySet="es_consult">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="gid" ColumnName="gid" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="writer" ColumnName="writer" />
+          <ScalarProperty Name="reply" ColumnName="reply" />
+          <ScalarProperty Name="answer" ColumnName="answer" />
+          <ScalarProperty Name="is_show" ColumnName="is_show" />
+          <ScalarProperty Name="create_at" ColumnName="create_at" />
+          <ScalarProperty Name="update_at" ColumnName="update_at" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="es_goods">
+      <EntityTypeMapping TypeName="xiaotaoModel.es_goods">
+        <MappingFragment StoreEntitySet="es_goods">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="ori_img" ColumnName="ori_img" />
+          <ScalarProperty Name="thumb_img" ColumnName="thumb_img" />
+          <ScalarProperty Name="is_new" ColumnName="is_new" />
+          <ScalarProperty Name="is_onsale" ColumnName="is_onsale" />
+          <ScalarProperty Name="is_delete" ColumnName="is_delete" />
+          <ScalarProperty Name="create_at" ColumnName="create_at" />
+          <ScalarProperty Name="update_at" ColumnName="update_at" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="seller" ColumnName="seller" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="es_order">
+      <EntityTypeMapping TypeName="xiaotaoModel.es_order">
+        <MappingFragment StoreEntitySet="es_order">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="is_pay" ColumnName="is_pay" />
+          <ScalarProperty Name="states" ColumnName="states" />
+          <ScalarProperty Name="addr" ColumnName="addr" />
+          <ScalarProperty Name="create_at" ColumnName="create_at" />
+          <ScalarProperty Name="goods" ColumnName="goods" />
+          <ScalarProperty Name="buyer" ColumnName="buyer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sp_brand">
+      <EntityTypeMapping TypeName="xiaotaoModel.sp_brand">
+        <MappingFragment StoreEntitySet="sp_brand">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="verify" ColumnName="verify" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sp_cart_item">
+      <EntityTypeMapping TypeName="xiaotaoModel.sp_cart_item">
+        <MappingFragment StoreEntitySet="sp_cart_item">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="product" ColumnName="product" />
+          <ScalarProperty Name="number" ColumnName="number" />
+          <ScalarProperty Name="student" ColumnName="student" />
+          <ScalarProperty Name="create_at" ColumnName="create_at" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sp_category">
+      <EntityTypeMapping TypeName="xiaotaoModel.sp_category">
+        <MappingFragment StoreEntitySet="sp_category">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="intro" ColumnName="intro" />
+          <ScalarProperty Name="create_at" ColumnName="create_at" />
+          <ScalarProperty Name="pid" ColumnName="pid" />
+          <ScalarProperty Name="verify" ColumnName="verify" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sp_order">
+      <EntityTypeMapping TypeName="xiaotaoModel.sp_order">
+        <MappingFragment StoreEntitySet="sp_order">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="is_pay" ColumnName="is_pay" />
+          <ScalarProperty Name="states" ColumnName="states" />
+          <ScalarProperty Name="addr" ColumnName="addr" />
+          <ScalarProperty Name="create_at" ColumnName="create_at" />
+          <ScalarProperty Name="store" ColumnName="store" />
+          <ScalarProperty Name="buyer" ColumnName="buyer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sp_product">
+      <EntityTypeMapping TypeName="xiaotaoModel.sp_product">
+        <MappingFragment StoreEntitySet="sp_product">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="stock" ColumnName="stock" />
+          <ScalarProperty Name="ori_img" ColumnName="ori_img" />
+          <ScalarProperty Name="thumb_img" ColumnName="thumb_img" />
+          <ScalarProperty Name="sales" ColumnName="sales" />
+          <ScalarProperty Name="is_onsale" ColumnName="is_onsale" />
+          <ScalarProperty Name="is_delete" ColumnName="is_delete" />
+          <ScalarProperty Name="create_at" ColumnName="create_at" />
+          <ScalarProperty Name="update_at" ColumnName="update_at" />
+          <ScalarProperty Name="store" ColumnName="store" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="brand" ColumnName="brand" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="xiaotaoModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="xt_admin">
+      <EntityTypeMapping TypeName="xiaotaoModel.xt_admin">
+        <MappingFragment StoreEntitySet="xt_admin">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="login_id" ColumnName="login_id" />
+          <ScalarProperty Name="login_pwd" ColumnName="login_pwd" />
+          <ScalarProperty Name="avatar" ColumnName="avatar" />
+          <ScalarProperty Name="real_name" ColumnName="real_name" />
+          <ScalarProperty Name="sex" ColumnName="sex" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="create_at" ColumnName="create_at" />
+          <ScalarProperty Name="update_at" ColumnName="update_at" />
+          <ScalarProperty Name="role_id" ColumnName="role_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="xt_area">
+      <EntityTypeMapping TypeName="xiaotaoModel.xt_area">
+        <MappingFragment StoreEntitySet="xt_area">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="xt_role">
+      <EntityTypeMapping TypeName="xiaotaoModel.xt_role">
+        <MappingFragment StoreEntitySet="xt_role">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="xt_store">
+      <EntityTypeMapping TypeName="xiaotaoModel.xt_store">
+        <MappingFragment StoreEntitySet="xt_store">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="login_id" ColumnName="login_id" />
+          <ScalarProperty Name="login_pwd" ColumnName="login_pwd" />
+          <ScalarProperty Name="avatar" ColumnName="avatar" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="sex" ColumnName="sex" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="create_at" ColumnName="create_at" />
+          <ScalarProperty Name="update_at" ColumnName="update_at" />
+          <ScalarProperty Name="verify" ColumnName="verify" />
+          <ScalarProperty Name="states" ColumnName="states" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="xt_store_log">
+      <EntityTypeMapping TypeName="xiaotaoModel.xt_store_log">
+        <MappingFragment StoreEntitySet="xt_store_log">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="kind" ColumnName="kind" />
+          <ScalarProperty Name="create_at" ColumnName="create_at" />
+          <ScalarProperty Name="store" ColumnName="store" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="xt_student">
+      <EntityTypeMapping TypeName="xiaotaoModel.xt_student">
+        <MappingFragment StoreEntitySet="xt_student">
+          <ScalarProperty Name="sno" ColumnName="sno" />
+          <ScalarProperty Name="pwd" ColumnName="pwd" />
+          <ScalarProperty Name="avatar" ColumnName="avatar" />
+          <ScalarProperty Name="sname" ColumnName="sname" />
+          <ScalarProperty Name="sex" ColumnName="sex" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="create_at" ColumnName="create_at" />
+          <ScalarProperty Name="update_at" ColumnName="update_at" />
+          <ScalarProperty Name="verify" ColumnName="verify" />
+          <ScalarProperty Name="states" ColumnName="states" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="xt_student_address">
+      <EntityTypeMapping TypeName="xiaotaoModel.xt_student_address">
+        <MappingFragment StoreEntitySet="xt_student_address">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="area" ColumnName="area" />
+          <ScalarProperty Name="addr" ColumnName="addr" />
+          <ScalarProperty Name="receiver" ColumnName="receiver" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="remark" ColumnName="remark" />
+          <ScalarProperty Name="is_default" ColumnName="is_default" />
+          <ScalarProperty Name="student" ColumnName="student" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="xt_student_log">
+      <EntityTypeMapping TypeName="xiaotaoModel.xt_student_log">
+        <MappingFragment StoreEntitySet="xt_student_log">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="kind" ColumnName="kind" />
+          <ScalarProperty Name="create_at" ColumnName="create_at" />
+          <ScalarProperty Name="student" ColumnName="student" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

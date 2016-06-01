@@ -1,0 +1,696 @@
+﻿@using xiaotao.Models
+@{
+   var type = ViewBag.type;
+   decimal Total = 0;
+   ViewBag.Title = "Settle";
+   Layout = null;
+   var flag = true;
+}
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>@ViewBag.Title - My ASP.NET Application</title>
+   <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+   <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+   <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+   <link href="~/Content/mall.css" rel="stylesheet" type="text/css" />
+   <style>
+            /*checkout-channel*/
+      .checkout-tit{
+          font-size: 18px;
+      }
+
+      #checkout .head{
+          position: relative;
+          border-bottom: solid 2px #ccc;
+          margin-bottom: 10px;
+          margin-top: 20px;
+      }
+      #checkout .title{
+          position: absolute;
+          left: 0px;
+          bottom: -2px;
+          font-size: 16px;
+          border-bottom: solid 2px #C40000;
+          margin: 0px;
+          padding-bottom: 2px;
+      }
+      #checkout .head span{
+          float: right;
+      }
+
+      .addr-panel ul{
+          padding: 0px;
+          list-style: none;
+      }
+      .addr-panel li input{
+          float: left;
+          margin-right: 10px;
+      }
+      .addr-panel li{
+          padding: 10px;
+      }
+      .addr-panel li.active{
+          background: #eee;
+      }
+      .addr-panel .address,.addr-panel .default{
+          float: left;
+      }
+      .addr-panel .default{
+          background: #999;
+          padding: 0 3px;
+          color: #fff;
+          margin-left: 15px;
+      }
+      .addr-panel .address span{
+          font-weight: bold;
+          color: #C40000;
+      }
+      .addr-panel .update{
+          display: none;
+          float: right;
+      }
+      .addr-panel .update a{
+          margin-left: 10px;
+      }
+      .addr-panel li:hover .update{
+          display: block;
+      }
+
+      .addr-panel label{
+             margin-bottom: 0px;
+            font-weight: normal;
+      }
+
+      .order-list td,.order-list th{
+          vertical-align: middle;
+          text-align: center;
+      }
+      .order-list td.aligh-left,.order-list th.aligh-left{
+          text-align: left;
+      }
+      .order-list th.aligh-right{
+          text-align: right;
+          padding-right: 20px;
+      }
+      .order-list .ginfo{
+          min-height: 86px;
+          position: relative;
+      }
+      .order-list .pic{
+          width: 86px;
+          height: 86px;
+          border: solid 1px #eee;
+          padding: 2px;
+          position: absolute;
+          left: 0px;
+          top: 0px;
+      }
+      .order-list .pic img{
+          width: 80px;
+          height: 80px;
+      }
+      .order-list .info{
+          margin-left: 95px;
+          padding-right: 20px;
+      }
+
+      .order-list .paras{
+          margin-top: 4px;
+          color: #666;
+      }
+
+      .order-list .paras p{
+          font-size: 12px;
+          margin-bottom: 0px;
+      }
+
+      .order-head{
+          background: #eee;
+          margin-bottom: 10px;
+      }
+      .order-list tbody,.order-list tfoot{
+          border: solid 1px #eee;
+          background: #FBFBFB;
+      }
+
+      .order-items .subtotal{
+          font-size: 15px;
+          font-weight: bold;
+          color: #C40000;
+          text-align: right;
+          padding-right: 20px;
+      }
+      .order-items .sumtotal{
+          padding: 10px 20px;
+          text-align: right;
+      }
+      .order-items .sumtotal span{
+          font-size: 20px;
+          font-weight: bold;
+          color: #C40000;
+      }
+      .confirm-panel .addr{
+          background: #eee;
+          padding: 20px;
+          text-align: right;
+      }
+      .confirm-panel .addr p{
+          margin-bottom: 5px;
+      }
+      .confirm-panel .submit{
+          margin: 10px 0;
+      }
+      .confirm-panel .amount{
+          float: right;
+          line-height: 35px;
+          font-size: 15px;
+          margin-right: 20px;
+      }
+      .confirm-panel .amount span{
+          color: #C40000;
+          font-weight: bold;
+          font-size: 22px;
+      }
+      .confirm-panel .submit-btn{
+          float: right;
+      }
+      .confirm-panel .submit-btn button{
+          font-weight: bold;
+          font-size: 15px;
+          letter-spacing: 3px;
+          padding-right: 9px;
+      }
+      /*checkout-channel*/
+            /*stepbar*/
+            .stepbar {
+               margin-top: 30px;
+               float: right;
+            }
+
+               .stepbar .item {
+                  float: left;
+                  min-width: 90px;
+                  position: relative;
+               }
+
+               .stepbar .line {
+                  position: absolute;
+                  top: 8px;
+                  width: 100%;
+                  height: 5px;
+                  z-index: -99;
+               }
+
+               .stepbar .number {
+                  color: #fff;
+                  width: 20px;
+                  height: 20px;
+                  text-align: center;
+                  line-height: 20px;
+                  margin: 0 auto;
+                  border-radius: 100%;
+               }
+
+               .stepbar .txt {
+                  color: #CAECB6;
+                  margin-top: 2px;
+                  text-align: center;
+               }
+
+               .stepbar .done .line, .stepbar .done .number {
+                  background: #CAECB6;
+               }
+
+               .stepbar .done .txt {
+                  color: #CAECB6;
+               }
+
+               .stepbar .active .line, .stepbar .active .number {
+                  background: #7ABD54;
+               }
+
+               .stepbar .active .number {
+                  width: 22px;
+                  height: 22px;
+                  line-height: 22px;
+               }
+
+               .stepbar .active .txt {
+                  margin-top: 0px;
+                  color: #7ABD54;
+               }
+
+               .stepbar .nodo .line, .stepbar .nodo .number {
+                  background: #CCCCCC;
+               }
+
+               .stepbar .nodo .txt {
+                  color: #CCCCCC;
+               }
+            /*stepbar*/
+   </style>
+   <script src="~/Scripts/modernizr-2.6.2.js"></script>
+   <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+   <div class="navbar navbar-fixed-top">
+      <div class="container">
+         <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("校淘网", "Index", "account", new { area = "mall" }, new { @class = "navbar-brand" })
+         </div>
+         <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+               <li data-id="store">@Html.ActionLink("商品列表", "index", "prolist")</li>
+               <li data-id="order">
+                  <a href="/mall/cart">购物车 <span class="badge" id="badge">@Session["CartItems"]</span></a>
+               </li>
+               <li data-id="order">@Html.ActionLink("我的订单", "index", "order")</li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right user-menu">
+               <li class="dropdown">
+                  <a href="#" id="userName" class="dropdown-toggle" data-toggle="dropdown">
+                     快速导航
+                     <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                     <li>
+                        <a href="/mall"><span class="glyphicon glyphicon-shopping-cart"></span> 购物平台</a>
+                     </li>
+                     <li>
+                        <a href="/es"><span class="glyphicon glyphicon-refresh"></span> 二手交易</a>
+                     </li>
+                     <li>
+                        <a href="/dn"><span class="glyphicon glyphicon-heart"></span> 爱心捐赠</a>
+                     </li>
+                  </ul>
+               </li>
+               @if (Session["Sid"] == null)
+               {
+               <li><a href="/mall/store">卖家中心</a></li>
+               }
+               <li class="dropdown">
+                  @if (Session["Sid"] == null)
+                  {
+                  <a href="/mall/account/signin" id="userName">
+                     登录/注册
+                  </a>
+                  }
+                  else
+                  {
+                  <a href="#" id="userName" class="dropdown-toggle" data-toggle="dropdown">
+                     <span class="glyphicon glyphicon-user"></span> @Html.Raw(Session["Sno"] == null ? Session["Semail"] : Session["Sno"])
+                     <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                     <li>
+                        <a href="#"><span class="glyphicon glyphicon-user"></span> 简介</a>
+                     </li>
+                     <li>
+                        <a href="/mall/account/setting"><span class="glyphicon glyphicon-cog"></span> 设置</a>
+                     </li>
+                     <li>
+                        <a href="/mall/account/signout"><span class="glyphicon glyphicon-log-out"></span> 登出</a>
+                     </li>
+                  </ul>
+                  }
+               </li>
+            </ul>
+         </div>
+      </div>
+   </div>
+   <div class="container header">
+      <div class="logo clearfix">
+         <h1>
+            <a href="/" title="校淘网"></a>
+         </h1>
+         <p>淘你喜欢的，淘你想要的!</p>
+      </div>
+      <div class="stepbar clearfix">
+         @if (type == 1)
+         {
+            <div class="item active">
+               <div class="line"></div>
+               <div class="number">1</div>
+               <div class="txt">1.下订单</div>
+            </div>
+            <div class="item nodo">
+               <div class="line"></div>
+               <div class="number">2</div>
+               <div class="txt">2.去付款</div>
+            </div>
+         }
+         else
+         {
+            <div class="item done">
+               <div class="line"></div>
+               <div class="number">1</div>
+               <div class="txt">1.购物车</div>
+            </div>
+            <div class="item active">
+               <div class="line"></div>
+               <div class="number">2</div>
+               <div class="txt">2.下订单</div>
+            </div>
+            <div class="item nodo">
+               <div class="line"></div>
+               <div class="number">3</div>
+               <div class="txt">3.去付款</div>
+            </div>
+         }
+      </div>
+   </div>
+   <div class="container body-content">
+      <div id="checkout" ng-app="myApp" ng-controller="Settle">
+      @using (Html.BeginForm("Create", "Order", FormMethod.Post))
+      {
+         @Html.AntiForgeryToken()
+         <section class="addr-panel">
+            <div class="head clearfix"><h3 class="title">确认收货地址</h3><span><a href="###">管理收货地址</a></span></div>
+            <ul>
+               <li class="clearfix" ng-class="{'active':a.id==selectAddr}" ng-repeat="a in addrs">
+                  <div class="item">
+                     <div class="address">
+                        <input type="radio" ng-model="$parent.selectAddr" id="addr{{a.id}}" name="addr" value="{{a.id}}" ng-change="setAddr(a)" />
+                        <label for="addr{{a.id}}">{{a.areaName}}区 {{a.addr}} ({{a.receiver}} 收) </label>
+                        <span>{{a.phone}}</span>
+                     </div>
+                     <div ng-if="a.is_default==true" class="default">默认地址</div>
+                     <div class="update">
+                        <a ng-if="a.id==selectAddr" href="#myModal" data-toggle="modal" data-target="#myModal" ng-click="showModel(a)">编辑</a>
+                     </div>
+                  </div>
+               </li>
+            </ul>
+         </section>
+         <section class="order-panel">
+            <div class="head clearfix"><h3 class="title">送货清单</h3><span><a href="###">返回购物车</a></span></div>
+            <div class="order-list" id="orderList">
+               <table class="table order-head">
+                  <tr>
+                     <th class="col-xs-7 aligh-left">商品</th>
+                     <th class="col-xs-2">单价</th>
+                     <th class="col-xs-1">数量</th>
+                     <th class="col-xs-2 aligh-right">小计</th>
+                  </tr>
+               </table>
+               <div class="order-items">
+                  @if (type == 1)
+                  {
+                     var models = (sp_product)ViewData["product"];
+                     Total = ViewBag.number * models.price;
+                     <input type="hidden" name="type" value="single" />
+                     <input type="hidden" name="product" value="@models.id" />
+                     <input type="hidden" name="number" value="@ViewBag.number" />
+                     <table class="table">
+                        <thead>
+                           <tr>
+                              <th class="aligh-left" colspan="4"><a href="/mall/store/sid">@models.name</a></th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td class="col-xs-7 aligh-left">
+                                 <div class="ginfo">
+                                    <div class="pic"><a href="###"><img src="~/Uploads/Products/@models.ori_img" alt="" /></a></div>
+                                    <div class="info">
+                                       <div class="name"><a href="">@models.name</a></div>
+                                       <div class="paras">
+                                          <p>颜色：默认</p>
+                                          <p>套装：官方标配</p>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </td>
+                              <td class="col-xs-2">@models.price</td>
+                              <td class="col-xs-1">
+                                 @ViewBag.number
+                                 @if (ViewBag.number > models.stock)
+                                 {
+                                 @Html.Raw("<span style='color:red;'>(库存不足)</span>");
+                                    flag = false;
+                                 }
+                              </td>
+                              <td class="col-xs-2 subtotal">@(ViewBag.number * models.price)</td>
+                           </tr>
+                        </tbody>
+                        <tfoot>
+                           <tr>
+                              <td class="sumtotal" colspan="4">店铺合计： <span>¥@(ViewBag.number * models.price)</span></td>
+                           </tr>
+                        </tfoot>
+                     </table>
+                  }
+                  else
+                  {
+                     var models = (List<sp_cart_item>)ViewData["cartItems"];
+                     foreach (var storeItem in ViewData["storeList"] as List<SettleStores>)
+                     {
+                        decimal storeCount = 0;
+                        <table class="table">
+                           <thead>
+                              <tr>
+                                 <th class="aligh-left" colspan="4"><a href="/mall/store/@storeItem.sid">@storeItem.sname</a></th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              @foreach (var item in models.Where(ci => ci.sp_product.store == storeItem.sid))
+                              {
+                                 Total += Convert.ToDecimal(item.sp_product.price * item.number);
+                                 storeCount += item.sp_product.price * item.number;
+                                 <tr>
+                                    <td class="col-xs-7 aligh-left">
+                                       <input type="hidden" name="cartItem" value="@item.id" />
+                                       <div class="ginfo">
+                                          <div class="pic"><a href="###"><img src="~/Uploads/Products/@item.sp_product.ori_img" alt="" /></a></div>
+                                          <div class="info">
+                                             <div class="name"><a href="">@item.sp_product.name</a></div>
+                                             <div class="paras">
+                                                <p>颜色：默认</p>
+                                                <p>套装：官方标配</p>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </td>
+                                    <td class="col-xs-2">@item.sp_product.price</td>
+                                    <td class="col-xs-1">
+                                       @item.number
+                                       @if (item.number > item.sp_product.stock)
+                                       {
+                                          @Html.Raw("<span style='color:red;'>(库存不足)</span>");
+                                          flag = false;
+                                       }
+                                    </td>
+                                    <td class="col-xs-2 subtotal">@(item.number * item.sp_product.price)</td>
+                                 </tr>
+                              }
+                           </tbody>
+                           <tfoot>
+                              <tr>
+                                 <td class="sumtotal" colspan="4">店铺合计： <span>¥ @storeCount</span></td>
+                              </tr>
+                           </tfoot>
+                        </table>
+                     }
+                  }
+               </div>
+            </div>
+         </section>
+         if (flag == true)
+         {
+            <section class="confirm-panel">
+               <div class="addr">
+                  <p>寄送至： {{activeAddr.areaName}} 区 {{activeAddr.addr}}</p>
+                  <p>收货人：{{activeAddr.receiver}} {{activeAddr.phone}}</p>
+               </div>
+               <div class="submit clearfix">
+                  <div class="submit-btn">
+                     <button class="btn btn-danger" type="submit">提交订单</button>
+                  </div>
+                  <div class="amount">总额： <span>¥ @Total</span></div>
+               </div>
+            </section>
+         }
+         else
+         {
+            <div class="alert alert-danger">提示：您结算的商品库存不足，请返回购物车修改！</div>
+            <a class="btn btn-danger" href="/mall/cart">返回购物车</a>
+         }
+      }
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                     <h4 class="modal-title" id="myModalLabel">添加收货地址</h4>
+                  </div>
+                  <form name="addr_form" ng-submit="submit()">
+                     <div class="modal-body">
+                        <input type="hidden" ng-model="addr.id" />
+                        <div class="form-horizontal">
+                           <div class="form-group">
+                              <label class="control-label col-sm-2">区域</label>
+                              <div class="col-sm-10">
+                                 <select class="form-control" name="area" ng-model="addr.area" ng-options="a.name for a in areas"></select>
+                              </div>
+                           </div>
+
+                           <div class="form-group">
+                              <label class="control-label col-sm-2">地址</label>
+                              <div class="col-sm-10">
+                                 <input class="form-control" name="addr" ng-model="addr.addr" required />
+                              </div>
+                           </div>
+
+                           <div class="form-group">
+                              <label class="control-label col-sm-2">收件人</label>
+                              <div class="col-sm-10">
+                                 <input class="form-control" name="receiver" ng-model="addr.receiver" required />
+                              </div>
+                           </div>
+
+                           <div class="form-group">
+                              <label class="control-label col-sm-2">手机</label>
+                              <div class="col-sm-10">
+                                 <input class="form-control" name="phone" ng-model="addr.phone" required />
+                              </div>
+                           </div>
+
+                           <div class="form-group">
+                              <label class="control-label col-sm-2">备注</label>
+                              <div class="col-sm-10">
+                                 <input class="form-control" name="remark" ng-model="addr.remark" />
+                              </div>
+                           </div>
+
+                           <div class="form-group">
+                              <div class="col-sm-offset-2 col-sm-10">
+                                 <div class="checkbox">
+                                    <input type="checkbox" name="is_default" ng-model="addr.is_default" /> 默认地址
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-primary" ng-disabled="addr_form.$invalid">保存</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+
+      </div>
+      <hr />
+      <footer>
+         <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+      </footer>
+   </div>
+   <script src="~/Scripts/bootstrap.min.js"></script>
+   <script src="~/Scripts/angular.min.js"></script>
+   <script>
+   angular.module('myApp', [], function ($httpProvider) {
+      $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+      $httpProvider.defaults.transformRequest = [function (data) {
+         var param = function (obj) {
+            var query = '';
+            var name, value, fullSubName, subName, subValue, innerObj, i;
+            for (name in obj) {
+               value = obj[name];
+               if (value instanceof Array) {
+                  for (i = 0; i < value.length; ++i) {
+                     subValue = value[i];
+                     fullSubName = name + '[' + i + ']';
+                     innerObj = {};
+                     innerObj[fullSubName] = subValue;
+                     query += param(innerObj) + '&';
+                  }
+               } else if (value instanceof Object) {
+                  for (subName in value) {
+                     subValue = value[subName];
+                     fullSubName = name + '[' + subName + ']';
+                     innerObj = {};
+                     innerObj[fullSubName] = subValue;
+                     query += param(innerObj) + '&';
+                  }
+               } else if (value !== undefined && value !== null) {
+                  query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+               }
+            }
+            return query.length ? query.substr(0, query.length - 1) : query;
+         };
+         return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+      }];
+   })
+   .controller('Settle', function ($scope, $http) {
+      $http.get('GetAddrList').success(function (v) {
+         $scope.addrs = v.addrs;
+         if (v.addrs.length > 0) {
+            angular.forEach($scope.addrs, function (v, k) {
+               if (v.is_default==true) {
+                  $scope.selectAddr = v.id;
+                  $scope.activeAddr = v;
+               }
+            });
+         }
+      });
+
+      $scope.showModel = function (model) {
+         $scope.addr = (model == null ? {} : model);
+
+         $http.get('GetAreas').success(function (v) {
+            $scope.areas = v.areas;
+            if ($scope.areas) {
+               if (model == null) {
+                  $scope.addr.area = $scope.areas[0];
+                  // $scope.addr.area = $scope.areas[0].id;
+               } else {
+                  angular.forEach($scope.areas, function (v, k) {
+                     if (v.id == model.area) {
+                        $scope.addr.area = $scope.areas[k];
+                     }
+                  });
+               }
+            }
+         });
+      };
+
+      $scope.submit = function () {
+         // 临时存储
+         var area = $scope.addr.area;
+         $scope.addr.area = $scope.addr.area.id;
+
+         $http.post('AddrSave', $scope.addr).success(function (res) {
+
+            if (!$scope.addr.id) {
+               $scope.addrs.push(res);
+            };
+
+            if (res != false) {
+               $('#myModal').modal('hide');
+            }
+
+            // 原下拉对象复原
+            $scope.addr.area = area;
+         });
+
+      };
+
+      $scope.setAddr = function (addr) {
+         $scope.activeAddr = addr;
+      }
+
+   })
+
+   </script>
+</body>
+</html>

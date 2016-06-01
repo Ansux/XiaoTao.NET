@@ -1,0 +1,58 @@
+﻿@model xiaotao.Models.xt_stu_certification
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>xt_stu_certification</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.xt_student.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.xt_student.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.voucher)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.voucher)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.result)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.result)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

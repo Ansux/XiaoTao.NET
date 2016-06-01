@@ -1,0 +1,63 @@
+﻿@{
+   ViewBag.Title = "Orders";
+   Layout = "~/Areas/Mall/Views/Shared/Store_Layout.cshtml";
+}
+
+<h2>Orders</h2>
+
+<p>
+   @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+   <tr>
+      <th>学生</th>
+      <th>邮箱</th>
+      <th>地址</th>
+      <th>总额</th>
+      <th>是否支付</th>
+      <th>状态</th>
+      <th>操作</th>
+   </tr>
+
+   @foreach (var item in ViewData["orders"] as List<xiaotao.Models.sp_order>)
+   {
+      <tr>
+         <td>
+            @Html.DisplayFor(modelItem => item.xt_student.sno)
+         </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.xt_student.email)
+         </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.addr)
+         </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.amount)
+         </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.is_pay)
+         </td>
+         <td>
+            @if (item.states == 2)
+            {
+               @Html.Raw("待发货");
+            }
+            else if (item.states == 5)
+            {
+               @Html.Raw("客户已评价");
+            }
+         </td>
+         <td>
+            @if (item.states == 2)
+            {
+               @Html.ActionLink("去发货", "Delivery", new { id = item.id })
+            }
+            else if (item.states == 5)
+            {
+               @Html.ActionLink("回复评论", "Edit", new { id = item.id })
+            }
+         </td>
+      </tr>
+   }
+
+</table>

@@ -1,0 +1,82 @@
+﻿@model IEnumerable<xiaotao.Models.dn_claim>
+
+@{
+   ViewBag.Title = "Index";
+}
+
+<p>
+   @Html.ActionLink("去领取", "index","GoodsList")
+</p>
+
+<div class="sort">
+   <a href="/dn/goods/index">全部</a>
+   <a href="/dn/goods/index?states=1">待领取 @Html.Raw(ViewBag.state1 == 0 ? "" : "<span class='badge'>" + @ViewBag.state1 + "</span>")</a>
+   <a data-states="1" href="/dn/goods/claim?states=1">认领中 @Html.Raw(ViewBag.state2 == 0 ? "" : "<span class='badge'>" + @ViewBag.state2 + "</span>")</a>
+   <a data-states="2" href="/dn/goods/claim?states=2">已认领 @Html.Raw(ViewBag.state3 == 0 ? "" : "<span class='badge'>" + @ViewBag.state3 + "</span>")</a>
+</div>
+
+<div class="row-lists">
+   <div class="row thead">
+      <div class="col-md-5">物品</div>
+      <div class="col-md-2">认领方式</div>
+      <div class="col-md-2">状态</div>
+      <div class="col-md-2">认领时间</div>
+      <div class="col-md-1">操作</div>
+   </div>
+
+   @foreach (var item in Model)
+   {
+      <div class="row">
+         <div class="col-md-5 g-wrap">
+            <div class="g-img">
+               <a href="#"><img width="40" src="~/Uploads/Products/@item.dn_goods.ori_img" alt="@item.dn_goods.name" /></a>
+            </div>
+            <div class="g-info">
+               @Html.DisplayFor(modelItem => item.dn_goods.name)<br/>
+               @(item.dn_goods.is_anonymous==true?"匿名捐赠":item.dn_goods.xt_student.sname)
+            </div>
+         </div>
+         <div class="col-md-2">
+            <p>@(item.dn_goods.claim_type == 1 ? "捐赠中心" : "上门认领")</p>
+            <p>@item.dn_goods.claim_addr</p>
+         </div>
+         <div class="col-md-2">
+            @switch (item.states)
+            {
+               case 0:
+                  @Html.Raw("取消认领");
+                  break;
+               case 1:
+                  @Html.Raw("已提交认领");
+                  break;
+               case 2:
+                  @Html.Raw("认领完成");
+                  break;
+            }
+         </div>
+         <div class="col-md-2">
+            @item.create_at.ToShortDateString()
+         </div>
+         <div class="col-md-1">
+            <a href="/dn/claim/details/@item.id">详情</a>
+         </div>
+      </div>
+   }
+
+</div>
+
+@section Scripts{
+   <script>
+      var states = '@Request.QueryString["states"]'.toLowerCase();
+      var sortLinks = $('.sort>a');
+      if (states == '') {
+         sortLinks.eq(2).addClass('active');
+      } else {
+         $.each(sortLinks, function (k, v) {
+            if ($(v).attr('data-states') == states) {
+               $(v).addClass('active');
+            }
+         })
+      };
+   </script>
+}

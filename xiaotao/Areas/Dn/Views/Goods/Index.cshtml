@@ -1,0 +1,72 @@
+﻿@model IEnumerable<xiaotao.Models.dn_goods>
+
+@{
+   ViewBag.Title = "Index";
+}
+
+<p>
+   @Html.ActionLink("去捐赠", "Create")
+</p>
+
+<div class="sort">
+   <a data-states="default" href="/dn/goods/index">全部</a>
+   <a data-states="1" href="/dn/goods/index?states=1">待领取 @Html.Raw(ViewBag.state1 == 0 ? "" : "<span class='badge'>" + @ViewBag.state1 + "</span>")</a>
+   <a href="/dn/goods/claim?states=1">认领中 @Html.Raw(ViewBag.state2 == 0 ? "" : "<span class='badge'>" + @ViewBag.state2 + "</span>")</a>
+   <a href="/dn/goods/claim?states=2">已认领 @Html.Raw(ViewBag.state3 == 0 ? "" : "<span class='badge'>" + @ViewBag.state3 + "</span>")</a>
+</div>
+
+<div class="row-lists">
+   <div class="row thead">
+      <div class="col-md-5">物品</div>
+      <div class="col-md-2">认领方式</div>
+      <div class="col-md-1">状态</div>
+      <div class="col-md-2">发布时间</div>
+      <div class="col-md-2">操作</div>
+   </div>
+
+   @foreach (var item in Model)
+   {
+      <div class="row">
+         <div class="col-md-5 g-wrap">
+            <div class="g-img">
+               <a href="#"><img width="40" src="~/Uploads/Products/@item.ori_img" alt="@item.name" /></a>
+            </div>
+            <div class="g-info">
+               @Html.DisplayFor(modelItem => item.name)<br />
+               @(item.is_anonymous == true ? "匿名捐赠" : item.xt_student.sname)
+            </div>
+         </div>
+         <div class="col-md-2">
+            <p>@(item.claim_type == 1 ? "捐赠中心" : "上门认领")</p>
+            <p>@item.claim_addr</p>
+         </div>
+         <div class="col-md-1">
+            @(item.is_onsale == true ? "待领取" : "已被领取")
+         </div>
+         <div class="col-md-2">
+            @item.create_at.ToShortDateString()
+         </div>
+         <div class="col-md-2">
+            @Html.ActionLink("详情", "Details", new { id = item.id }) |
+            @Html.ActionLink("删除", "Delete", new { id = item.id })
+         </div>
+      </div>
+   }
+
+</div>
+
+@section Scripts{
+   <script>
+      var states = '@Request.QueryString["states"]'.toLowerCase();
+      var sortLinks = $('.sort>a');
+      if (states == '') {
+         sortLinks.eq(0).addClass('active');
+      } else {
+         $.each(sortLinks, function (k, v) {
+            if ($(v).attr('data-states') == states) {
+               $(v).addClass('active');
+            }
+         })
+      };
+   </script>   
+}

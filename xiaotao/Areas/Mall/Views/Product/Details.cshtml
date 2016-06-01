@@ -1,0 +1,281 @@
+﻿@model xiaotao.Models.sp_product
+
+@{
+   ViewBag.Title = "Details";
+}
+
+<div class="link-nav">
+   <a href="/">商城</a>
+   <span><i class="fa fa-angle-right"></i></span>
+   <a href="/mall/prolist/@Model.sp_category.id">@Model.sp_category.name</a>
+</div>
+
+<div class="row pro-info">
+   <div class="col-xs-4">
+      <div class="pic-focus">
+         <img src="~/Uploads/Products/@Model.ori_img" alt="Alternate Text" />
+      </div>
+   </div>
+   <div class="col-xs-8 g-detail">
+      <div class="w-name">@Model.name</div>
+      <div class="w-price clearfix">
+         <div class="t-left">价格：</div>
+         <div class="price"><span>￥</span>@Model.price</div>
+      </div>
+      <div class="w-record clearfix">
+         <div class="t-left">记录：</div>
+         <div class="record">
+            <div class="sales">销量 <b>@Model.sales</b></div>
+            <div class="comments">评价 <b>@ViewBag.CommentCount</b></div>
+         </div>
+      </div>
+      <div class="w-form clearfix">
+         @using (Html.BeginForm("create", "cart", FormMethod.Post, new { name = "gform" }))
+         {
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="type" value="single" />
+            <div class="w-num clearfix">
+               <input type="hidden" name="pid" value="@Model.id" />
+               <div class="t-left">数量：</div>
+               <div class="pull-left clearfix">
+                  <div class="number">
+                     <input id="caret_num" type="number" name="number" value="1"/>
+                  </div>
+                  <div class="control">
+                     <a id="caret_up" class="disabled"><i class="fa fa-caret-up"></i></a>
+                     <a id="caret_down"><i class="fa fa-caret-down"></i></a>
+                  </div>
+               </div>
+               <div class="stock">(库存 @Model.stock 件)</div>
+            </div>
+            <div id="error" class="alert alert-danger" style="display:none;"><i class="fa fa-minus-circle"></i> 您所填写的商品数量超过库存！</div>
+            <div class="w-btn" id="btns">
+               <a id="btn_checkout" data-sid="@Session["Sid"]">立即购买</a>
+               <a id="btn_caret" data-sid="@Session["Sid"]">加入购物车</a>
+            </div>
+         }
+      </div>
+   </div>
+</div>
+
+<div class="detail" ng-app="myApp" ng-controller="myController">
+   <ul class="nav nav-tabs">
+      <li role="presentation" class="active"><a href="#detail" aria-controls="home" role="tab" data-toggle="tab">商品详情</a></li>
+      <li role="presentation"><a href="#comment" aria-controls="comment" role="tab" data-toggle="tab" ng-click="showCommentTab()">评价<span>@ViewBag.CommentCount</span></a></li>
+   </ul>
+   <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="detail">
+         @(new HtmlString(Model.detail))
+      </div>
+      <div role="tabpanel" class="tab-pane" id="comment">
+         <div ng-if="ranks.all==0" class="alert alert-danger" style="margin-top:20px;">暂无评论</div>
+         <div style="display:none;" ng-style="showBox()">
+            <div class="clearfix" style="padding:20px;">
+               <div class="col-xs-4">
+                  <p style="font-size:20px; color:red; margin-bottom:0px; line-height:1;">
+                     <span style="font-size:42px;" ng-bind="ranks.rank_1/ranks.all * 100 | number:0"></span>%
+                  </p>
+                  <span style="font-size:12px; color:#999;">好评率</span>
+               </div>
+               <div class="col-xs-6">
+                  <div class="rank-box">
+                     <div class="text">好评（{{ranks.rank_1/ranks.all*100 | number:1}}%）</div>
+                     <div class="rank-bar">
+                        <div class="wrap" style="width:{{ranks.rank_1/ranks.all*100}}%;"></div>
+                     </div>
+                  </div>
+                  <div class="rank-box">
+                     <div class="text">中评（{{ranks.rank_2/ranks.all*100 | number:1}}%）</div>
+                     <div class="rank-bar">
+                        <div class="wrap" style="width:{{ranks.rank_2/ranks.all*100}}%;"></div>
+                     </div>
+                  </div>
+                  <div class="rank-box">
+                     <div class="text">差评（{{ranks.rank_3/ranks.all*100 | number:1}}%）</div>
+                     <div class="rank-bar">
+                        <div class="wrap" style="width:{{ranks.rank_3/ranks.all*100}}%;"></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <ul class="nav nav-tabs">
+               <li role="presentation" class="active"><a href="#all" role="tab" data-toggle="tab">全部</a></li>
+               <li role="presentation"><a href="#level1" role="tab" data-toggle="tab" ng-click="GetCommentRecord(1,'level1')">好评<span ng-bind="ranks.rank_1"></span></a></li>
+               <li role="presentation"><a href="#level2" role="tab" data-toggle="tab" ng-click="GetCommentRecord(2,'level2')">中评<span ng-bind="ranks.rank_2"></span></a></li>
+               <li role="presentation"><a href="#level3" role="tab" data-toggle="tab" ng-click="GetCommentRecord(3,'level3')">差评<span ng-bind="ranks.rank_3"></span></a></li>
+            </ul>
+            <div class="tab-content comment-list">
+               <div role="tabpanel" class="tab-pane active" id="all">
+                  <ul>
+                     <li class="clearfix" ng-repeat="c in comment_all">
+                        <div class="content">
+                           <p  ng-bind="c.comment"></p>
+                           <span ng-bind=""></span>
+                        </div>
+                        <div class="buyer"><i class="fa fa-user"></i> <span ng-bind="c.buyer"></span></div>
+                     </li>
+                  </ul>
+               </div>
+               <div role="tabpanel" class="tab-pane" id="level1">
+                  <ul>
+                     <li class="clearfix" ng-repeat="c in comment_v1">
+                        <div class="content">
+                           <p ng-bind="c.comment"></p>
+                           <span ng-bind=""></span>
+                        </div>
+                        <div class="buyer"><i class="fa fa-user"></i> <span ng-bind="c.buyer"></span></div>
+                     </li>
+                  </ul>
+               </div>
+               <div role="tabpanel" class="tab-pane" id="level2">
+                  <ul>
+                     <li class="clearfix" ng-repeat="c in comment_v2">
+                        <div class="content">
+                           <p ng-bind="c.comment"></p>
+                           <span ng-bind=""></span>
+                        </div>
+                        <div class="buyer"><i class="fa fa-user"></i> <span ng-bind="c.buyer"></span></div>
+                     </li>
+                  </ul>
+               </div>
+               <div role="tabpanel" class="tab-pane" id="level3">
+                  <ul>
+                     <li class="clearfix" ng-repeat="c in comment_v3">
+                        <div class="content">
+                           <p ng-bind="c.comment"></p>
+                           <span ng-bind=""></span>
+                        </div>
+                        <div class="buyer"><i class="fa fa-user"></i> <span ng-bind="c.buyer"></span></div>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+@if (Session["Sid"] == null)
+{
+   @Html.Partial("/views/signin.cshtml")
+}
+
+@section Scripts {
+   <script src="~/Scripts/signin.js"></script>
+   <script src="~/Scripts/angular.min.js"></script>
+   <script>
+      $('#caret_up').click(function(){
+         var num = parseInt($('#caret_num').val());
+         if(num<(@Model.stock)){
+            $('#caret_num').val(parseInt($('#caret_num').val()) + 1);
+         }
+      });
+      $('#caret_num').keyup(function(){
+         var num = parseInt($(this).val());
+         if(num>(@Model.stock)){
+            $('#error').css("display","block");
+            $('#btns').addClass("disabled");
+         }else{
+            $('#btns').removeClass("disabled");
+            $('#error').css("display","none");
+         }
+         if(num<1){
+            $(this).val(1);
+         }
+      });
+      $('#caret_down').click(function(){
+         var num = parseInt($('#caret_num').val());
+         if(num>1){
+            $('#caret_num').val(parseInt($('#caret_num').val()) - 1);
+         }
+      });
+   </script>
+   <script>
+      angular.module('myApp',[], function ($httpProvider) {
+         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+
+         $httpProvider.defaults.transformRequest = [function (data) {
+            var param = function (obj) {
+               var query = '';
+               var name, value, fullSubName, subName, subValue, innerObj, i;
+
+               for (name in obj) {
+                  value = obj[name];
+
+                  if (value instanceof Array) {
+                     for (i = 0; i < value.length; ++i) {
+                        subValue = value[i];
+                        fullSubName = name + '[' + i + ']';
+                        innerObj = {};
+                        innerObj[fullSubName] = subValue;
+                        query += param(innerObj) + '&';
+                     }
+                  }
+                  else if (value instanceof Object) {
+                     for (subName in value) {
+                        subValue = value[subName];
+                        fullSubName = name + '[' + subName + ']';
+                        innerObj = {};
+                        innerObj[fullSubName] = subValue;
+                        query += param(innerObj) + '&';
+                     }
+                  }
+                  else if (value !== undefined && value !== null) {
+                     query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+                  }
+               }
+
+               return query.length ? query.substr(0, query.length - 1) : query;
+            };
+
+            return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+         }];
+      })
+      .controller('myController',function($scope,$http){
+         $scope.showCommentTab = function () {
+            if($scope.ranks == undefined){
+               $http.post('/mall/product/GetRank', {id:@Model.id}).success(function(res){
+                  $scope.ranks = res;
+               });
+            }
+            $scope.GetCommentRecord(0,"all");
+         };
+
+         $scope.showBox = function(){
+            if($scope.ranks && $scope.ranks.all!=0){
+               return {
+                  "display" : "block"
+               }
+            }else{
+               return {
+                  "display" : "none"
+               }
+            }
+         }
+
+         $scope.GetCommentRecord = function(rank,div){
+            if(rank == 0 && $scope.comment_all==undefined || rank == 1 && $scope.comment_v1==undefined || rank == 2 && $scope.comment_v2==undefined || rank == 3 && $scope.comment_v3==undefined){
+               $http.post('/mall/product/GetCommentRecord', {id:@Model.id,rank:rank}).success(function(res){
+                  if(res.flag == true){
+                     switch (rank){
+                        case 0:
+                           $scope.comment_all = res.comments;
+                           break;
+                        case 1:
+                           $scope.comment_v1 = res.comments;
+                           break;
+                        case 2:
+                           $scope.comment_v2 = res.comments;
+                           break;
+                        case 3:
+                           $scope.comment_v3 = res.comments;
+                           break;
+                     }
+                  }
+               });
+            }
+         }
+
+      })
+   </script>
+}

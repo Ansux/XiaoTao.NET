@@ -1,0 +1,74 @@
+﻿@model xiaotao.Models.xt_student_address
+
+@{
+  ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+  <h4>xt_student_address</h4>
+  <hr />
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.addr)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.addr)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.receiver)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.receiver)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.phone)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.phone)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.remark)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.remark)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.is_default)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.is_default)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.xt_area.name)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.xt_area.name)
+    </dd>
+
+    <dt>
+      @Html.DisplayNameFor(model => model.xt_student.pwd)
+    </dt>
+
+    <dd>
+      @Html.DisplayFor(model => model.xt_student.pwd)
+    </dd>
+
+  </dl>
+</div>
+<p>
+  @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+  @Html.ActionLink("Back to List", "Index")
+</p>

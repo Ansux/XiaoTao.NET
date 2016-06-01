@@ -1,0 +1,117 @@
+﻿@model IEnumerable<xiaotao.Models.es_goods>
+
+@{
+   ViewBag.Title = "Index";
+}
+
+<style>
+   #glist .media-left {
+   }
+
+      #glist .media-left a {
+         width: 80px;
+         display: block;
+      }
+
+      #glist .media-left img {
+         width: 100%;
+      }
+
+   #glist .media-heading {
+      font-size: 15px;
+   }
+
+   .single-row {
+      font-size: 13px;
+      color: #999;
+   }
+
+   .category {
+      margin-right: 20px;
+   }
+
+   .price {
+      margin-top: 8px;
+      margin-bottom: 5px;
+      color: #f40;
+      font-weight: 700;
+      font-family: Verdana,Tahoma,arial;
+   }
+
+   #glist .media-heading a {
+      color: #666;
+   }
+</style>
+
+<h2>我的物品</h2>
+
+<p>
+   @Html.ActionLink("添加发布", "Create")
+</p>
+
+<table class="table table-hover" id="glist">
+   <thead>
+      <tr>
+         <th class="col-md-6">商品</th>
+         <th>全新</th>
+         <th>状态</th>
+         <th>操作</th>
+      </tr>
+   </thead>
+   <tbody>
+      @foreach (var item in Model)
+      {
+         <tr>
+            <td>
+               <div class="media">
+                  <div class="media-left">
+                     <a href="/es/goods/detail/@item.id">
+                        <img src="~/Uploads/Products/@item.ori_img" alt="@item.name" />
+                     </a>
+                  </div>
+                  <div class="media-body">
+                     <h4 class="media-heading"><a href="/es/goods/detail/@item.id">@Html.DisplayFor(modelItem => item.name)</a></h4>
+                     <div class="price">
+                        <span class="glyphicon glyphicon-yen"></span>
+                        <span>@Html.DisplayFor(modelItem => item.price)</span>
+                     </div>
+                     <div class="clearfix single-row">
+                        <div class="category pull-left">
+                           <span class="glyphicon glyphicon-tags"></span>
+                           <span>@Html.DisplayFor(modelItem => item.es_category.name)</span>
+                        </div>
+                        <div class="time pull-left">
+                           <span class="glyphicon glyphicon-time"></span>
+                           <span>@string.Format("{0:d}", item.create_at)</span>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.is_new)
+            </td>
+            <td>
+               @(item.is_onsale == true ? "正在出售" : "已售出")
+            </td>
+            <td>
+               @if (item.is_onsale == true)
+               {
+                  @Html.ActionLink("修改", "Edit", new { id = item.id }) <span>|</span>
+               }
+               @Html.ActionLink("详情", "Details", new { id = item.id }) |
+               @Html.ActionLink("删除", "Delete", new { id = item.id })
+            </td>
+         </tr>
+      }
+   </tbody>
+</table>
+
+<div class="row">
+   <nav>
+      <ul class="pagination">
+         @Html.Raw(ViewData["pager"])
+      </ul>
+      @ViewBag.PageCount
+   </nav>
+</div>

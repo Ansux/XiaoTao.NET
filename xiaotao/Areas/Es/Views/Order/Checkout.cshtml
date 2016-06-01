@@ -1,0 +1,77 @@
+﻿@model xiaotao.Models.es_goods
+
+@{
+   ViewBag.Title = "Checkout";
+}
+
+<h2>Checkout</h2>
+
+<div>
+   <hr />
+   <dl class="dl-horizontal">
+      <dt>
+         @Html.DisplayNameFor(model => model.xt_student.sno)
+      </dt>
+
+      <dd>
+         @Html.DisplayFor(model => model.xt_student.sno)
+      </dd>
+
+      <dt>
+         @Html.DisplayNameFor(model => model.name)
+      </dt>
+
+      <dd>
+         @Html.DisplayFor(model => model.name)
+      </dd>
+
+      <dt>
+         @Html.DisplayNameFor(model => model.price)
+      </dt>
+
+      <dd>
+         @Html.DisplayFor(model => model.price)
+      </dd>
+
+      <dt>
+         @Html.DisplayNameFor(model => model.ori_img)
+      </dt>
+
+      <dd>
+         @Html.DisplayFor(model => model.ori_img)
+      </dd>
+   </dl>
+</div>
+@using (Html.BeginForm("Create", "Order", FormMethod.Post))
+{
+   @Html.AntiForgeryToken()
+   <form class="form-horizontal">
+      <input type="hidden" name="gid" value="@Model.id" />
+      @{ var addrList = (List<xiaotao.Models.xt_student_address>)ViewData["Address"];}
+
+      @if (addrList.Count() == 0)
+      {
+         <a href="/mall/account/Address">添加收货地址</a>
+      }
+      else
+      {
+         <ul>
+            @foreach (var addr in addrList)
+            {
+               <li>
+                  <div class="radio">
+                     <label>
+                        <input type="radio" name="addr" value="@addr.id" @(addr.is_default ? "checked" : "")>
+                        @addr.receiver | @addr.addr | @addr.phone
+                     </label>
+                  </div>
+               </li>
+            }
+         </ul>
+      }
+      <button type="submit" class="btn btn-danger">立即下单</button>
+   </form>
+}
+<p>
+   @Html.ActionLink("Back to List", "Index")
+</p>

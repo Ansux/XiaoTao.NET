@@ -1,0 +1,60 @@
+﻿@model IEnumerable<xiaotao.Models.sp_product>
+
+@{
+   ViewBag.Title = "ProList";
+   int i = 0;
+   Layout = "~/Areas/Mall/Views/Shared/Store_Layout.cshtml";
+}
+
+<p>
+   @Html.ActionLink("添加商品", "Create", "Product")
+</p>
+
+<table class="table">
+   <thead>
+      <tr>
+         <th>序号</th>
+         <th>商品</th>
+         <th>分类</th>
+         <th>单价</th>
+         <th>库存</th>
+         <th>销量</th>
+         <th>在售</th>
+         <th>操作</th>
+      </tr>
+   </thead>
+   <tbody>
+      @foreach (var item in Model)
+      {
+         <tr>
+            <td>@(++i)</td>
+            <td>
+               <div class="proinfo">
+                  <img width="50" height="50" src="~/Uploads/Products/@item.ori_img" />
+                  <a href="">@Html.DisplayFor(modelItem => item.name)</a>
+               </div>
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.sp_category.name)
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.stock)
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.sales)
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.is_onsale)
+            </td>
+            <td>
+               @Html.ActionLink("编辑", "Edit", "Product", new { id = item.id }, new { @class = "btn btn-warning btn-xs" })
+               @Html.ActionLink("预览", "Details", "Product", new { id = item.id }, new { @class = "btn btn-primary btn-xs" })
+               @Html.ActionLink("删除", "Delete", "Product", new { id = item.id }, new { @class = "btn btn-danger btn-xs" })
+            </td>
+         </tr>
+      }
+   </tbody>
+</table>

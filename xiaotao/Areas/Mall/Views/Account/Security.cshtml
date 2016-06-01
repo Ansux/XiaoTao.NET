@@ -1,0 +1,134 @@
+﻿@model xiaotao.Models.xt_student
+
+@{
+   ViewBag.Title = "Security";
+}
+
+@section Styles{
+   <link href="~/Content/account.css" rel="stylesheet" />
+}
+
+<div class="setting">
+   @Html.Partial("./LeftNav")
+   <div class="right-wrap">
+      <div class="head-title">
+         <div class="txt">安全中心</div>
+      </div>
+      <div class="main-wrap">
+         @Html.ValidationMessage("error")
+         @if (Model.verify == true)
+         {
+            <div class="base-info">
+               <div class="alert alert-info" role="alert">
+                  恭喜你，已通过实名认证！
+               </div>
+               <ul>
+                  <li>邮箱：@Model.email</li>
+                  <li>学号：@Model.sno</li>
+                  <li>姓名：@Model.sname</li>
+               </ul>
+            </div>
+         }
+         else if (ViewBag.isValiding == true)
+         {
+            <div class="base-info">
+               <div class="alert alert-info" role="alert">
+                  您已提交实名认证，等待核验！
+               </div>
+            </div>
+         }
+         else
+         {
+            <h4>您还没有通过实名认证，请先提交认证资料！</h4>
+            <hr/>
+                     using (Html.BeginForm(Html.BeginForm("Security", "Account", FormMethod.Post, new { enctype = "multipart/form-data", id="security" })))
+                     {
+                        @Html.AntiForgeryToken()
+                        <div class="form-horizontal">
+                  @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                  @Html.HiddenFor(model => model.id)
+
+                  <div class="form-group">
+                     @Html.LabelFor(model => model.sno, htmlAttributes: new { @class = "control-label col-md-2" })
+                     <div class="col-md-10">
+                        <input class="form-control" id="sno" name="sno" type="text" value="">
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     @Html.LabelFor(model => model.sname, htmlAttributes: new { @class = "control-label col-md-2" })
+                     <div class="col-md-10">
+                        <input class="form-control" id="sname" name="sname" type="text" value="">
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     @Html.LabelFor(model => model.voucher, htmlAttributes: new { @class = "control-label col-md-2" })
+                     <div class="col-md-10">
+                        <input class="form-control" id="voucher" name="voucher" type="file" value="">
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="提交认证" class="btn btn-default" />
+                     </div>
+                  </div>
+               </div>
+            }
+         }
+      </div>
+   </div>
+</div>
+
+@section Scripts{
+   <script src="~/Scripts/jquery.validate.min.js"></script>
+   <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+   <script>
+      $('#security').validate({
+         rules: {
+            sno: {
+               required: true,
+               minlength: 9,
+               maxlength: 10,
+               digits: true,
+               remote: {
+                  url: '/mall/account/IsExistSno',
+                  type: 'POST',
+                  dataType: 'json',
+                  data: {
+                     sno: function () {
+                        return $('#sno').val();
+                     }
+                  }
+               }
+            },
+            sname: {
+               required: true,
+               minlength: 2,
+               maxlength: 5,
+            },
+            voucher: {
+               required: true
+            }
+         },
+         messages: {
+            sno: {
+               required: '不能为空',
+               minlength: '学号不能少于9位',
+               maxlength: '学号不能大于10位',
+               digits: '非法字符',
+               remote: '此学号已存在！'
+            },
+            sname: {
+               required: '不能为空',
+               minlength: '姓名不能少于2位',
+               maxlength: '姓名不能大于5位',
+            },
+            voucher: {
+               required: '不能为空'
+            }
+         }
+      });
+   </script>
+}

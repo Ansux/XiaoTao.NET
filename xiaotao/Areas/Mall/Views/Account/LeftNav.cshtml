@@ -1,0 +1,27 @@
+﻿<div class="left-nav">
+   <div class="user-ico">
+      <a href="#">
+         <img src="~/Uploads/Account/Avatar/@(Session["Savatar"]==null?"TX.jpg":Session["Savatar"])" alt="Alternate Text" />
+      </a>
+   </div>
+   <ul class="nav-items">
+      <li><a data-action="Setting" href="/mall/account/Setting" class="item">个人资料</a> </li>
+      <li><a data-action="Security" href="/mall/account/Security" class="item">安全设置</a></li>
+      <li><a data-action="Address" href="/mall/account/Address" class="item">收货地址</a></li>
+      <li><a data-action="Privacy" href="/mall/account/Privacy" class="item">隐私设置</a></li>
+      <li><a data-action="Message" href="/mall/account/Message" class="item">网站提醒</a></li>
+   </ul>
+</div>
+
+<script>
+   var action = '@ViewContext.RouteData.Values["action"]'.toUpperCase();
+   var links = $('.item');
+   $.each(links, function (k, v) {
+      if ($(v).attr('data-action').toUpperCase() == action) {
+         $(v).addClass('active');
+      }
+   });
+   if (action == 'AVATAR') {
+      $("a[data-action='Setting']").addClass('active');
+   }
+</script>

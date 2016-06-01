@@ -1,0 +1,42 @@
+﻿@model xiaotao.Models.xt_store_log
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>xt_store_log</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.xt_store.login_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.xt_store.login_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kind)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kind)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.create_at)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.create_at)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

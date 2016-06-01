@@ -1,0 +1,78 @@
+﻿@model IEnumerable<xiaotao.Models.es_order>
+
+@{
+   ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+   @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+   <tr>
+      <th>物品</th>
+      <th>金额</th>
+      <th>是否付款</th>
+      <th>收件人</th>
+      <th>创建时间</th>
+      <th>状态</th>
+      <th>操作</th>
+   </tr>
+
+   @foreach (var item in Model)
+   {
+      <tr>
+         <td>
+            @Html.DisplayFor(modelItem => item.es_goods.name)
+         </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.amount)
+         </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.is_pay)
+         </td>
+         <td>
+            （@item.receiver）@item.addr
+         </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.create_at)
+         </td>
+         <td>
+            @switch (item.states)
+            {
+               case 1:
+                  @Html.Raw("已下订单");
+                  break;
+               case 2:
+                  @Html.Raw("支付完成");
+                  break;
+               case 3:
+                  @Html.Raw("等待收货");
+                  break;
+               case 4:
+                  @Html.Raw("交易完成");
+                  break;
+            }
+         </td>
+         <td>
+            @switch (item.states)
+            {
+               case 1:
+                  @Html.ActionLink("去支付","Pay",new { id = item.id})
+                  break;
+               case 2:
+                  @Html.Raw("送货中");
+                  break;
+               case 3:
+                  @Html.ActionLink("确认收货", "Finish", new { id = item.id })
+                  break;
+               case 4:
+                  @Html.Raw("交易评价");
+                  break;
+            }
+         </td>
+      </tr>
+   }
+
+</table>

@@ -1,0 +1,65 @@
+﻿.setting {
+   background: #F5F5F5;
+   position: relative;
+}
+
+.left-nav {
+   background: #E6E6E6;
+   width: 180px;
+   position: absolute;
+   top: 0;
+   left: 0;
+   bottom: 0;
+}
+
+.nav-items {
+   list-style: none;
+   padding-left: 0px;
+}
+
+.nav-items a {
+   display: block;
+   padding: 5px 15px;
+}
+
+.nav-items a.active {
+   background: #F5F5F5;
+}
+
+.right-wrap {
+   min-height: 600px;
+   margin-left: 180px;
+}
+
+.user-ico a {
+   display: block;
+   padding: 15px;
+}
+
+.user-ico img {
+   padding: 5px;
+   border: solid 1px #ccc;
+   width: 100%;
+}
+
+.head-title {
+   height: 40px;
+   background: #E6E6E6;
+   position: relative;
+}
+
+.head-title .txt {
+   padding: 5px 15px;
+   position: absolute;
+   background: #F5F5F5;
+   left: 20px;
+   bottom: 0px;
+}
+
+.main-wrap {
+   padding: 30px;
+}
+
+.show-note{
+   display:none;
+}

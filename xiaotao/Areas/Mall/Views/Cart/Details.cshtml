@@ -1,0 +1,50 @@
+﻿@model xiaotao.Models.sp_cart_item
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>sp_cart_item</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.create_at)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.create_at)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sp_product.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sp_product.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.xt_student.pwd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.xt_student.pwd)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

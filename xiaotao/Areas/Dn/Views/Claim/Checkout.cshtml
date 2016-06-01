@@ -1,0 +1,130 @@
+﻿@model xiaotao.Models.dn_goods
+
+@{
+   ViewBag.Title = "Details";
+}
+
+@section Styles {
+   <style>
+      .detail {
+         margin-top: 50px;
+      }
+
+      .rank-box {
+         clear: both;
+      }
+
+         .rank-box .text {
+            width: 90px;
+            font-size: 12px;
+            height: 22px;
+            line-height: 22px;
+            color: #999;
+            float: left;
+         }
+
+      .rank-bar {
+         margin-top: 6px;
+         background: #dedede;
+         float: left;
+         width: 100px;
+         height: 10px;
+      }
+
+         .rank-bar .wrap {
+            background: red;
+            height: 10px;
+         }
+
+      .form-box {
+         margin: 10px 0;
+         padding: 10px;
+         background: #eee;
+         position: relative;
+      }
+
+      .cnt-user {
+         position: absolute;
+         width: 60px;
+         height: 60px;
+      }
+
+      .cnt-textarea {
+         height: 60px;
+         margin-left: 70px;
+      }
+
+         .cnt-textarea textarea {
+            max-width: 100%;
+            height: 60px;
+         }
+
+      .form-bottom {
+         margin-top: 10px;
+      }
+   </style>
+}
+
+<h2>Details</h2>
+
+<div>
+   <hr />
+   <dl class="dl-horizontal">
+      <dt>名称</dt>
+      <dd>
+         @Html.DisplayFor(model => model.name)
+      </dd>
+
+      <dt>图片</dt>
+      <dd>
+         @Html.DisplayFor(model => model.ori_img)
+      </dd>
+
+      <dt>分类</dt>
+      <dd>
+         @Html.DisplayFor(model => model.dn_category.name)
+      </dd>
+
+      <dt>是否匿名</dt>
+      <dd>
+         @Html.DisplayFor(model => model.is_anonymous)
+      </dd>
+
+      <dt>认领方式</dt>
+      <dd>
+         @Html.Raw((Model.claim_type==1)?"捐赠中心":"上门认领")
+      </dd>
+
+      @if (Model.claim_type == 2)
+      {
+         <dt>认领地址</dt>
+         <dd>
+            @Html.DisplayFor(model => model.claim_addr)
+         </dd>
+      }
+   </dl>
+
+   @using (Html.BeginForm("create", "claim", FormMethod.Post))
+   {
+      @Html.AntiForgeryToken()
+      <input type="hidden" name="gid" value="@Model.id" />
+      <dl class="dl-horizontal">
+         <dt></dt>
+         <dd style="padding-top:10px;">
+            @if (Session["Sid"] != null && (Model.donor == int.Parse(Session["Sid"].ToString())))
+            {
+               <a class="btn btn-danger" href="/dn/goods/edit/@Model.id">编辑信息</a>
+            }
+            else
+            {
+               <button class="btn btn-danger" type="submit">立即认领</button>
+            }
+         </dd>
+      </dl>
+   }
+</div>
+
+@section Scripts {
+   <script src="~/Scripts/angular.min.js"></script>
+   
+}

@@ -1,0 +1,67 @@
+﻿@model xiaotao.Models.xt_store
+
+@{
+   ViewBag.Title = "Details";
+   Layout = "~/Areas/Mall/Views/Shared/Store_Layout.cshtml";
+}
+
+<h2>详情</h2>
+
+<div>
+   <hr />
+   <dl class="dl-horizontal">
+      <dt>ID</dt>
+      <dd>
+         @Html.DisplayFor(model => model.login_id)
+      </dd>
+
+      <dt>头像</dt>
+      <dd>
+         @Html.DisplayFor(model => model.avatar)
+      </dd>
+
+      <dt>店名</dt>
+      <dd>
+         @Html.DisplayFor(model => model.name)
+      </dd>
+
+      <dt>店主</dt>
+      <dd>
+         @Html.DisplayFor(model => model.shopkeeper)
+      </dd>
+
+      <dt>性别</dt>
+      <dd>
+         @Html.DisplayFor(model => model.sex)
+      </dd>
+
+      <dt>邮箱</dt>
+      <dd>
+         @Html.DisplayFor(model => model.email)
+      </dd>
+
+      <dt>电话</dt>
+      <dd>
+         @Html.DisplayFor(model => model.phone)
+      </dd>
+
+      <dt>创建时间</dt>
+      <dd>
+         @Html.DisplayFor(model => model.create_at)
+      </dd>
+
+      <dt>核验</dt>
+      <dd>
+         @Model.verify
+      </dd>
+
+      <dt>启用</dt>
+      <dd>
+         @Model.states
+      </dd>
+
+   </dl>
+</div>
+<p>
+   @Html.ActionLink("变更", "Setting")
+</p>

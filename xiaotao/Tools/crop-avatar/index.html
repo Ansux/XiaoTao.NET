@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Crop Avatar - Cropper</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/cropper.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="crop-avatar">
+        <!-- Cropping modal -->
+        <div id="avatar-modal">
+            <form class="avatar-form" action="crop.php" enctype="multipart/form-data" method="post">
+                <div class="avatar-body">
+                    <!-- Upload image and data -->
+                    <div class="avatar-upload">
+                        <input class="avatar-src" name="avatar_src" type="hidden">
+                        <input class="avatar-data" name="avatar_data" type="hidden">
+                        <label for="avatarInput">本地上传</label>
+                        <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+                    </div>
+                    <!-- Crop and preview -->
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="avatar-wrapper"></div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="avatar-preview preview-lg"></div>
+                            <div class="avatar-preview preview-md"></div>
+                            <div class="avatar-preview preview-sm"></div>
+                        </div>
+                    </div>
+                    <div class="row avatar-btns">
+                        <div class="col-md-9">
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-primary btn-block avatar-save" type="submit">Done</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- Loading state -->
+        <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/cropper.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

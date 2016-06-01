@@ -1,0 +1,62 @@
+﻿@model xiaotao.Models.sp_order
+
+@{
+   ViewBag.Title = "delivery";
+   Layout = "~/Areas/Mall/Views/Shared/Store_Layout.cshtml";
+}
+
+<h2>发货单</h2>
+
+<div>
+   <hr />
+   @using (Html.BeginForm())
+   {
+      @Html.AntiForgeryToken()
+      @Html.HiddenFor(model => model.id)
+      <dl class="dl-horizontal">
+         <dt>Email</dt>
+         <dd>
+            @Html.DisplayFor(model => model.xt_student.email)
+         </dd>
+
+         <dt>收货人</dt>
+         <dd>
+            @Html.DisplayFor(model => model.receiver)
+         </dd>
+
+         <dt>地址</dt>
+         <dd>
+            @Html.DisplayFor(model => model.addr)
+         </dd>
+
+         <dt>电话</dt>
+         <dd>
+            @Html.DisplayFor(model => model.phone)
+         </dd>
+
+         <dt>总额</dt>
+         <dd>
+            @Html.DisplayFor(model => model.amount)
+         </dd>
+
+         <dt>是否支付</dt>
+         <dd>
+            @Html.DisplayFor(model => model.is_pay)
+         </dd>
+
+         <dt>状态</dt>
+         <dd>
+            @Html.DisplayFor(model => model.states)
+         </dd>
+
+         <dt>等待发货</dt>
+         <dd>
+            <button type="submit" class="btn btn-danger">立即发货</button>
+         </dd>
+      </dl>
+   }
+
+</div>
+<p>
+   @Html.ActionLink("返回列表", "Orders")
+</p>

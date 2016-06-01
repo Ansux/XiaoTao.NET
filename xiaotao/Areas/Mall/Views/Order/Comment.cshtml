@@ -1,0 +1,91 @@
+﻿@model IEnumerable<xiaotao.Models.sp_order_item>
+
+@{
+   ViewBag.Title = "Comment";
+}
+
+<h2>Comment</h2>
+
+<p>
+</p>
+@using (Html.BeginForm())
+{
+   @Html.AntiForgeryToken()
+   <table class="table">
+      <tr>
+         <th>商品</th>
+         <th>单价</th>
+         <th>数量</th>
+         <th>评价等级</th>
+         <th>评价内容</th>
+      </tr>
+      @foreach (var item in Model)
+      {
+         <tr>
+            <td>
+               @Html.DisplayFor(modelItem => item.sp_product.name)
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.number)
+            </td>
+            <td>
+               <div class="radio">
+                  <label>
+                     <input type="radio" name="g_@item.id-[rank]" value="1" checked>
+                     好评
+                  </label>
+               </div>
+               <div class="radio">
+                  <label>
+                     <input type="radio" name="g_@item.id-[rank]" value="2">
+                     中评
+                  </label>
+               </div>
+               <div class="radio">
+                  <label>
+                     <input type="radio" name="g_@item.id-[rank]" value="3">
+                     差评
+                  </label>
+               </div>
+            </td>
+            <td>
+               <textarea class="form-control text-box" rows="3" name="g_@item.id-[comment]" data-val="true" data-val-required="评论内容不能为空！"></textarea>
+               <span class="field-validation-valid text-danger" data-valmsg-for="g_@item.id-[comment]" data-valmsg-replace="true"></span>
+            </td>
+         </tr>
+      }
+      <tfoot>
+         <tr>
+            <td colspan="5">
+               <input type="hidden" name="oid" value="@ViewBag.Oid" />
+               <button type="submit" class="btn btn-danger">提交评论</button>
+            </td>
+         </tr>
+      </tfoot>
+   </table>
+}
+
+@section Scripts{
+   <script src="/Scripts/jquery.validate.min.js"></script>
+   <script src="/Scripts/jquery.validate.unobtrusive.min.js"></script>
+   <script>
+      function submit() {
+         var data = {
+            g1: {
+               rank: 1,
+               comment: '111'
+            },
+            g2: {
+               rank: 2,
+               comment: '222'
+            }
+         };
+         $.post('test', {goods: data}, function (res) {
+
+         });
+      }
+   </script>   
+}

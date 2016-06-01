@@ -1,0 +1,118 @@
+﻿@model IEnumerable<xiaotao.Models.sp_product>
+
+@{
+   ViewBag.Title = "Index";
+}
+
+<style>
+   .prolist {
+      list-style: none;
+      padding: 0px;
+      margin: 0 -15px;
+   }
+
+      .prolist li {
+         margin-bottom: 30px;
+         background: #fff;
+      }
+
+      .prolist .pro-img {
+         margin: 10px;
+      }
+
+      .prolist img {
+         width: 100%;
+         display: block;
+      }
+
+   .caption a {
+      display: block;
+      height: 36px;
+      font-size: 13px;
+      overflow: hidden;
+   }
+
+   .price {
+      font-size:16px;
+      color: #f40;
+      font-weight: bold;
+      font-family: Arial;
+   }
+
+   .sort {
+      margin-bottom: 20px;
+      border: solid 1px #eee;
+      background: #f5f5f5;
+   }
+
+   .sort a {
+      display: inline-block;
+      padding: 10px 15px;
+      color: #666;
+   }
+
+   .sort a.active {
+      border-left: solid 1px #eee;
+      border-right: solid 1px #eee;
+      background: #fff;
+      color: #f40;
+   }
+
+   .sort a:first-child {
+      border-left: none;
+   }
+   .sales{
+      font-size:13px;
+      color:#666;
+      float:right;
+   }
+</style>
+
+<div class="nav-bar clearfix">
+   <div class="sort pull-left">
+      <a data-sort="default" href="/mall/prolist/search?kw=@ViewBag.kw&sort=default">默认排序</a>
+      <a data-sort="sales" href="/mall/prolist/search?kw=@ViewBag.kw&sort=sales">销量</a>
+      <a data-sort="price" href="/mall/prolist/search?kw=@ViewBag.kw&sort=price">价格</a>
+   </div>
+   @Html.Raw(ViewData["miniPager"])
+</div>
+
+<div class="row glist">
+   @foreach (var item in Model)
+   {
+      <div class="col-md-3 col-sm-4 col-xs-6">
+         <div class="thumbnail">
+            <a href="/mall/product/details/@item.id" class="pic-link" target="_blank"><img class="lazy" src="~/Uploads/Products/@item.ori_img"></a>
+            <div class="caption">
+               <p><span class="price">¥ @item.price</span><span class="sales">销量：@item.sales</span></p>
+               <a href="/mall/product/details/@item.id">@item.name</a>
+            </div>
+         </div>
+      </div>
+   }
+</div>
+
+<div class="row">
+   <nav>
+      <ul class="pagination">
+         @Html.Raw(ViewData["pager"])
+      </ul>
+      @ViewBag.PageCount
+   </nav>
+</div>
+
+@section Scripts{
+   <script>
+      var sort = '@Request.QueryString["sort"]'.toLowerCase();
+      var sortLinks = $('.sort>a');
+      if (sort == '') {
+         sortLinks.eq(0).addClass('active');
+      } else {
+         $.each(sortLinks, function (k, v) {
+            if ($(v).attr('data-sort') == sort) {
+               $(v).addClass('active');
+            }
+         })
+      }
+   </script>
+}

@@ -1,0 +1,115 @@
+﻿@model xiaotao.Models.xt_store
+
+@{
+   ViewBag.Title = "Check";
+}
+
+<h2>Check</h2>
+<div class="panel panel-default">
+   <div class="panel-heading">店铺信息</div>
+   <div class="panel-body">
+      <dl class="dl-horizontal">
+         <dt>
+            @Html.DisplayNameFor(model => model.login_id)
+         </dt>
+         <dd>
+            @Html.DisplayFor(model => model.login_id)
+         </dd>
+
+         <dt>
+            @Html.DisplayNameFor(model => model.name)
+         </dt>
+         <dd>
+            @Html.DisplayFor(model => model.name)
+         </dd>
+
+         <dt>
+            @Html.DisplayNameFor(model => model.license)
+         </dt>
+         <dd>
+            <button class="btn btn-danger btn-xs" data-img="~/Uploads/Stores/@Model.license">查看营业执照大图</button>
+         </dd>
+
+         <dt>
+            @Html.DisplayNameFor(model => model.create_at)
+         </dt>
+         <dd>
+            @Html.DisplayFor(model => model.create_at)
+         </dd>
+
+      </dl>
+   </div>
+</div>
+<div class="panel panel-default">
+   <div class="panel-heading">店主信息</div>
+   <div class="panel-body">
+      <dl class="dl-horizontal">
+         <dt>
+            @Html.DisplayNameFor(model => model.shopkeeper)
+         </dt>
+         <dd>
+            @Html.DisplayFor(model => model.shopkeeper)
+         </dd>
+
+         <dt>
+            @Html.DisplayNameFor(model => model.id_no)
+         </dt>
+         <dd>
+            @Html.DisplayFor(model => model.id_no)
+         </dd>
+
+         <dt>
+            @Html.DisplayNameFor(model => model.id_cart)
+         </dt>
+         <dd>
+            <button class="btn btn-danger btn-xs" data-img="~/Uploads/Stores/@Model.id_cart">查看证件照大图</button>
+         </dd>
+
+         <dt>
+            @Html.DisplayNameFor(model => model.phone)
+         </dt>
+         <dd>
+            @Html.DisplayFor(model => model.phone)
+         </dd>
+
+         <dt>
+            @Html.DisplayNameFor(model => model.email)
+         </dt>
+         <dd>
+            @Html.DisplayFor(model => model.email)
+         </dd>
+      </dl>
+   </div>
+</div>
+
+
+@using (Html.BeginForm())
+{
+   @Html.AntiForgeryToken()
+   <div class="form-horizontal">
+      <hr />
+      @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+      @Html.HiddenFor(model => model.id)
+
+      <div class="form-group">
+         <div class="col-md-10 col-md-offset-2">
+            @Html.EditorFor(model => model.verify) 通过核验
+            @Html.ValidationMessageFor(model => model.verify, "", new { @class = "text-danger" })
+         </div>
+      </div>
+
+      <div class="form-group">
+         <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="提交核验" class="btn btn-default" />
+         </div>
+      </div>
+   </div>
+}
+
+<div>
+   @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<xiaotao.Models.sp_product>
+
+@{
+   ViewBag.Title = "Index";
+}
+
+<div class="nav-bar clearfix">
+   <div class="sort pull-left">
+      <a data-sort="default" href="/mall/prolist/index?sort=default">默认排序</a>
+      <a data-sort="sales" href="/mall/prolist/index?sort=sales">销量</a>
+      <a data-sort="price" href="/mall/prolist/index?sort=price">价格</a>
+   </div>
+   @Html.Raw(ViewData["miniPager"])
+</div>
+
+<div class="row glist">
+   @foreach (var item in Model)
+   {
+      <div class="col-md-3 col-sm-4 col-xs-6">
+         <div class="thumbnail">
+            <a href="/mall/product/details/@item.id" class="pic-link" target="_blank"><img class="lazy" src="~/Uploads/Products/@item.ori_img"></a>
+            <div class="caption">
+               <p><span class="price">¥ @item.price</span><span class="sales">销量：@item.sales</span></p>
+               <a href="/mall/product/details/@item.id">@item.name</a>
+            </div>
+         </div>
+      </div>
+   }
+</div>
+
+<nav class="list-pager">
+   <ul class="pagination">
+      @Html.Raw(ViewData["pager"])
+   </ul>
+   @ViewBag.PageCount
+</nav>
+
+@section Scripts{
+   <script>
+      var sort = '@Request.QueryString["sort"]'.toLowerCase();
+      var sortLinks = $('.sort>a');
+      if (sort == '') {
+         sortLinks.eq(0).addClass('active');
+      } else {
+         $.each(sortLinks, function (k, v) {
+            if ($(v).attr('data-sort') == sort) {
+               $(v).addClass('active');
+            }
+         })
+      }
+
+      $('#search_btn').click(function () {
+         if ($('#kw').val() != '') {
+            location.href = "/mall/prolist/search?kw=" + $('#kw').val();
+         }
+      });
+      $('#kw').keyup(function () {
+         if (event.keyCode == 13) {
+            if ($('#kw').val() != '') {
+               location.href = "/mall/prolist/search?kw=" + $('#kw').val();
+            }
+         }
+      });
+   </script>
+}

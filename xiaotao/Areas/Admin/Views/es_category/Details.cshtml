@@ -1,0 +1,58 @@
+﻿@model xiaotao.Models.es_category
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>es_category</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.intro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.intro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.create_at)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.create_at)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.verify)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.verify)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

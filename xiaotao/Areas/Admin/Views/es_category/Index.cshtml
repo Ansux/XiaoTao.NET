@@ -1,0 +1,79 @@
+﻿@model IEnumerable<xiaotao.Models.es_category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+   <tr>
+      <th>
+         @Html.DisplayNameFor(model => model.name)
+      </th>
+      <th>
+         @Html.DisplayNameFor(model => model.intro)
+      </th>
+      <th>
+         @Html.DisplayNameFor(model => model.create_at)
+      </th>
+      <th>
+         @Html.DisplayNameFor(model => model.pid)
+      </th>
+      <th>
+         @Html.DisplayNameFor(model => model.verify)
+      </th>
+      <th></th>
+   </tr>
+
+   @foreach (var item in Model.Where(c => c.pid == 1))
+   {
+      <tr>
+         <td>
+            @Html.DisplayFor(modelItem => item.name)
+         </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.intro)
+         </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.create_at)
+         </td>
+         <td>默认</td>
+         <td>
+            @Html.DisplayFor(modelItem => item.verify)
+         </td>
+         <td>
+            @Html.ActionLink("更新", "Edit", new { id = item.id }) |
+            @Html.ActionLink("详情", "Details", new { id = item.id }) |
+            @Html.ActionLink("删除", "Delete", new { id = item.id })
+         </td>
+      </tr>
+      foreach (var sub in Model.Where(c => c.pid == item.id))
+      {
+         <tr class="danger">
+            <td style="text-indent:20px;">
+               @Html.DisplayFor(modelItem => sub.name)
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem => sub.intro)
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem => sub.create_at)
+            </td>
+            <td>@item.name</td>
+            <td>
+               @Html.DisplayFor(modelItem => sub.verify)
+            </td>
+            <td>
+               @Html.ActionLink("更新", "Edit", new { id = sub.id }) |
+               @Html.ActionLink("详情", "Details", new { id = sub.id }) |
+               @Html.ActionLink("删除", "Delete", new { id = sub.id })
+            </td>
+         </tr>
+      }
+   }
+
+</table>

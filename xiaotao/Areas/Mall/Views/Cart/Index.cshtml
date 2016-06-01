@@ -1,0 +1,630 @@
+﻿@{
+   Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>@ViewBag.Title - My ASP.NET Application</title>
+   <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+   <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+   <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+   <link href="~/Content/mall.css" rel="stylesheet" type="text/css" />
+   <style>
+      /*cart-channel*/
+      #cart {
+         margin-top: 30px;
+      }
+
+      .cart-head {
+         background: #eee;
+         border-top: solid 2px #F40;
+      }
+
+      .cart-list tbody {
+         border: solid 1px #eee;
+      }
+
+      .cart-list tr.active {
+         background: #ddd;
+      }
+
+      .cart-list .ginfo {
+         min-height: 86px;
+         position: relative;
+      }
+
+      .cart-list .pic {
+         width: 86px;
+         height: 86px;
+         border: solid 1px #eee;
+         padding: 2px;
+         position: absolute;
+         left: 0px;
+         top: 0px;
+      }
+
+         .cart-list .pic img {
+            width: 80px;
+            height: 80px;
+         }
+
+      .cart-list .info {
+         margin-left: 95px;
+         padding-right: 20px;
+      }
+
+      #cart .selected {
+         width: 30px;
+         position: relative;
+      }
+
+         #cart .selected span {
+            position: absolute;
+            top: 8px;
+            right: -24px;
+         }
+
+      .cart-list .number {
+         width: 100px;
+         line-height: 26px;
+         border: solid 1px #eee;
+      }
+
+         .cart-list .number span {
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            background: #F8F8F8;
+            float: left;
+            display: block;
+            cursor: pointer;
+         }
+
+         .cart-list .number i {
+            font-size: 13px;
+         }
+
+         .cart-list .number input {
+            width: 42px;
+            height: 28px;
+            float: left;
+            display: block;
+            text-align: center;
+            border-left: solid 1px #EEEEEE;
+            border-right: solid 1px #EEEEEE;
+            border-top: none;
+            border-bottom: none;
+            outline: none;
+         }
+
+      #cartList td {
+         vertical-align: middle;
+      }
+
+      .cart-list .control a {
+         display: block;
+      }
+
+      .cart-list .paras {
+         margin-top: 4px;
+         color: #666;
+      }
+
+         .cart-list .paras p {
+            font-size: 12px;
+            margin-bottom: 0px;
+         }
+
+      .cart-foot {
+         height: 50px;
+         line-height: 50px;
+         background: #eee;
+      }
+
+         .cart-foot .left {
+            float: left;
+            padding-left: 10px;
+            line-height: 50px;
+         }
+
+            .cart-foot .left div {
+               float: left;
+               margin-right: 20px;
+            }
+
+         .cart-foot .right {
+            float: right;
+            padding-right: 130px;
+            position: relative;
+         }
+
+         .cart-foot .select-sum, .cart-foot .select-amount {
+            float: left;
+         }
+
+         .cart-foot .select-sum {
+            margin-right: 40px;
+         }
+
+            .cart-foot .select-sum strong {
+               color: #F40;
+               margin: 0 3px;
+               font-size: 15px;
+            }
+
+         .cart-foot .select-amount strong {
+            color: #F40;
+            margin-left: 6px;
+            font-size: 20px;
+            float: right;
+         }
+
+         .cart-foot .subimt-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+         }
+
+            .cart-foot .subimt-btn button {
+               border: none;
+               height: 50px;
+               padding-left: 20px;
+               padding-right: 15px;
+               font-size: 18px;
+               font-weight: bold;
+               color: #fff;
+               letter-spacing: 5px;
+               background: #F40;
+            }
+
+      /*cart-channel*/
+      /*stepbar*/
+      .stepbar {
+         margin-top: 30px;
+         float: right;
+      }
+
+         .stepbar .item {
+            float: left;
+            min-width: 90px;
+            position: relative;
+         }
+
+         .stepbar .line {
+            position: absolute;
+            top: 8px;
+            width: 100%;
+            height: 5px;
+            z-index: -99;
+         }
+
+         .stepbar .number {
+            color: #fff;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            margin: 0 auto;
+            border-radius: 100%;
+         }
+
+         .stepbar .txt {
+            color: #CAECB6;
+            margin-top: 2px;
+            text-align: center;
+         }
+
+         .stepbar .done .line, .stepbar .done .number {
+            background: #CAECB6;
+         }
+
+         .stepbar .done .txt {
+            color: #CAECB6;
+         }
+
+         .stepbar .active .line, .stepbar .active .number {
+            background: #7ABD54;
+         }
+
+         .stepbar .active .number {
+            width: 22px;
+            height: 22px;
+            line-height: 22px;
+         }
+
+         .stepbar .active .txt {
+            margin-top: 0px;
+            color: #7ABD54;
+         }
+
+         .stepbar .nodo .line, .stepbar .nodo .number {
+            background: #CCCCCC;
+         }
+
+         .stepbar .nodo .txt {
+            color: #CCCCCC;
+         }
+      /*stepbar*/
+   </style>
+   <script src="~/Scripts/modernizr-2.6.2.js"></script>
+   <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+   <div class="navbar navbar-fixed-top">
+      <div class="container">
+         <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("校淘网", "Index", "account", new { area = "mall" }, new { @class = "navbar-brand" })
+         </div>
+         <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+               <li data-id="store">@Html.ActionLink("商品列表", "index", "prolist")</li>
+               <li data-id="order">
+                  <a href="/mall/cart">购物车 <span class="badge" id="badge">@Session["CartItems"]</span></a>
+               </li>
+               <li data-id="order">@Html.ActionLink("我的订单", "index", "order")</li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right user-menu">
+               <li class="dropdown">
+                  <a href="#" id="userName" class="dropdown-toggle" data-toggle="dropdown">
+                     快速导航
+                     <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                     <li>
+                        <a href="/mall"><span class="glyphicon glyphicon-shopping-cart"></span> 购物平台</a>
+                     </li>
+                     <li>
+                        <a href="/es"><span class="glyphicon glyphicon-refresh"></span> 二手交易</a>
+                     </li>
+                     <li>
+                        <a href="/dn"><span class="glyphicon glyphicon-heart"></span> 爱心捐赠</a>
+                     </li>
+                  </ul>
+               </li>
+               @if (Session["Sid"] == null)
+               {
+                  <li><a href="/mall/store">卖家中心</a></li>
+               }
+               <li class="dropdown">
+                  @if (Session["Sid"] == null)
+                  {
+                     <a href="/mall/account/signin" id="userName">
+                        登录/注册
+                     </a>
+                  }
+                  else
+                  {
+                     <a href="#" id="userName" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-user"></span> @Html.Raw(Session["Sno"] == null ? Session["Semail"] : Session["Sno"])
+                        <span class="caret"></span>
+                     </a>
+                     <ul class="dropdown-menu">
+                        <li>
+                           <a href="#"><span class="glyphicon glyphicon-user"></span> 简介</a>
+                        </li>
+                        <li>
+                           <a href="/mall/account/setting"><span class="glyphicon glyphicon-cog"></span> 设置</a>
+                        </li>
+                        <li>
+                           <a href="/mall/account/signout"><span class="glyphicon glyphicon-log-out"></span> 登出</a>
+                        </li>
+                     </ul>
+                  }
+               </li>
+            </ul>
+         </div>
+      </div>
+   </div>
+   <div class="container header">
+      <div class="logo clearfix">
+         <h1>
+            <a href="/" title="校淘网"></a>
+         </h1>
+         <p>淘你喜欢的，淘你想要的!</p>
+      </div>
+      <div class="stepbar clearfix">
+         <div class="item active">
+            <div class="line"></div>
+            <div class="number">1</div>
+            <div class="txt">1.购物车</div>
+         </div>
+         <div class="item nodo">
+            <div class="line"></div>
+            <div class="number">2</div>
+            <div class="txt">2.下订单</div>
+         </div>
+         <div class="item nodo">
+            <div class="line"></div>
+            <div class="number">3</div>
+            <div class="txt">3.去付款</div>
+         </div>
+      </div>
+   </div>
+   <div class="container body-content">
+      <!-- cart-box -->
+      <div id="cart" ng-app="myApp" ng-controller="myCart">
+         <table class="table cart-head">
+            <tr>
+               <th class="selected"><input type="checkbox" name="" /><span>全选</span></th>
+               <th class="col-xs-5" style="text-indent: 90px;">商品</th>
+               <th class="col-xs-1">单价</th>
+               <th class="col-xs-2">数量</th>
+               <th>小计</th>
+               <th class="col-xs-2">操作</th>
+            </tr>
+         </table>
+         @using (Html.BeginForm("Settle", "Cart", FormMethod.Post))
+         {
+            @Html.AntiForgeryToken()
+         <div class="cart-list" id="cartList">
+            <table class="table" ng-repeat="store in cartItems">
+               <thead>
+                  <tr>
+                     <th colspan="6"><input type="checkbox" ng-checked="store.isCheck" ng-click="MoreCheck($event,store.sid)" /> <a target="_blank" href="/mall/proList/store/{{store.sid}}" ng-bind="store.sname"></a></th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr ng-repeat="pro in store.proItems">
+                     <td class="selected"><input type="checkbox" ng-checked="pro.isCheck" ng-click="Check($event,pro.cid)" name="product" value="{{pro.cid}}"/></td>
+                     <td class="col-xs-5">
+                        <div class="ginfo">
+                           <div class="pic"><a href="###"><img ng-src="~/Uploads/Products/{{pro.thumb}}" alt="" /></a></div>
+                           <div class="info">
+                              <div class="title"><a target="_blank" href="/mall/product/details/{{pro.proId}}" ng-bind="pro.proName"></a></div>
+                              <div class="paras">
+                                 <p>颜色：默认</p>
+                                 <p>套装：官方标配</p>
+                              </div>
+                           </div>
+                        </div>
+                     </td>
+                     <td class="col-xs-1" ng-bind="pro.price"></td>
+                     <td class="col-xs-2">
+                        <div class="number clearfix">
+                           <span ng-click="Minus(store, pro, $index)"><i class="fa fa-minus"></i></span>
+                           <input type="number" ng-model="pro.number" ng-change="change(pro)"/>
+                           <span ng-click="Adds(pro)"><i class="fa fa-plus"></i></span>
+                        </div>
+                     </td>
+                     <td ng-bind="pro.price * pro.number"></td>
+                     <td class="col-xs-2">
+                        <div class="control">
+                           <a ng-click="Remove(store, pro.cid, $index)">删除</a>
+                        </div>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <div class="cart-foot clearfix">
+            <div class="left">
+               <div class="select-all">
+                  <input type="checkbox" ng-checked="allChecked" ng-click="AllCheck($event)"/> 全选
+               </div>
+               <div><a href="###">删除选中的商品</a></div>
+            </div>
+            <div class="right">
+               <div class="select-sum">已选商品<strong ng-bind="CheckCount()"></strong>件</div>
+               <div class="select-amount">合计:<strong ng-bind="Total()"></strong></div>
+               <div class="subimt-btn">
+                  <button type="submit" ng-disabled="TotalMoney<=0">去结算</button>
+               </div>
+            </div>
+         </div>
+         }
+      </div>
+      <!-- cart-box -->
+      <hr />
+      <footer>
+         <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+      </footer>
+   </div>
+   <script src="~/Scripts/bootstrap.min.js"></script>
+   <script src="~/Scripts/angular.min.js"></script>
+   <script type="text/javascript">
+      var cart = angular.module('myApp', [], function ($httpProvider) {
+         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+
+         $httpProvider.defaults.transformRequest = [function (data) {
+            var param = function (obj) {
+               var query = '';
+               var name, value, fullSubName, subName, subValue, innerObj, i;
+
+               for (name in obj) {
+                  value = obj[name];
+
+                  if (value instanceof Array) {
+                     for (i = 0; i < value.length; ++i) {
+                        subValue = value[i];
+                        fullSubName = name + '[' + i + ']';
+                        innerObj = {};
+                        innerObj[fullSubName] = subValue;
+                        query += param(innerObj) + '&';
+                     }
+                  }
+                  else if (value instanceof Object) {
+                     for (subName in value) {
+                        subValue = value[subName];
+                        fullSubName = name + '[' + subName + ']';
+                        innerObj = {};
+                        innerObj[fullSubName] = subValue;
+                        query += param(innerObj) + '&';
+                     }
+                  }
+                  else if (value !== undefined && value !== null) {
+                     query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+                  }
+               }
+
+               return query.length ? query.substr(0, query.length - 1) : query;
+            };
+
+            return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+         }];
+      });
+      cart.controller('myCart', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
+         // 初始化获取数据
+         $http.post('/mall/cart/GetCartList', {})
+         .success(function (data) {
+            $scope.allChecked = data.isCheck;
+            $scope.cartItems = data.stores;
+         });
+
+         // 刷新购物车数据
+         $scope.refresh = function () {
+            $http.post('/mall/cart/GetCartList', {})
+            .success(function (data) {
+               $scope.cartItems = data.stores;
+            });
+         }
+
+         // 添加商品数量
+         $scope.Adds = function (pro) {
+            if (pro.number >= pro.stock) {
+               if (confirm('库存不足！')) {
+                  console.log("ok");
+               }
+            } else {
+               $http.post('/mall/cart/modify', { action: 'add', id: pro.cid })
+               .success(function (res) {
+                  if (res === true) {
+                     pro.number += 1;
+                  }
+               });
+            }
+         };
+
+         // 减少商品数量
+         $scope.Minus = function (store, pro, index) {
+            if (pro.number <= 1) {
+               if (confirm('是否删除！')) {
+                  $scope.Remove(store, pro.cid, index);
+               }
+            } else {
+               $http.post('/mall/cart/modify', { action: 'minus', id: pro.cid })
+               .success(function (res) {
+                  if (res === true) {
+                     pro.number -= 1;
+                  }
+               });
+            }
+         };
+
+         // 删除
+         $scope.Remove = function (store, id, index) {
+            $http.post('/mall/cart/delete', { id: id })
+            .success(function (res) {
+               if (res === true) {
+                  if (store.proItems.length == 1) {
+                     angular.forEach($scope.cartItems, function (v, k) {
+                        if (v.sid == store.sid) {
+                           $scope.cartItems.splice(k, 1);
+                           document.getElementById('badge').innerText = $scope.cartItems.length;
+                        }
+                     });
+                  } else {
+                     store.splice(index, 1);
+                  }
+               }
+            });
+         }
+
+         // 单选
+         $scope.Check = function ($event, id) {
+            angular.forEach($scope.cartItems, function (data, index, array) {
+               angular.forEach(data.proItems, function (d, i, arr) {
+                  if (id == d.cid) {
+                     d.isCheck = $event.target.checked;
+                     $scope.Total();
+                     // 若其中一个不选中，则总控制也不选中
+                     if (d.isCheck === false) {
+                        data.isCheck = false;
+                     }
+
+                     // 如果所有子条目都选中，则总控制被选中
+                     var flag = true;
+                     angular.forEach(data.proItems, function (v, k, a) {
+                        if (v.isCheck == false) {
+                           flag = false;
+                        }
+                     });
+                     if (flag == true) {
+                        data.isCheck = true;
+                     }
+                  }
+               })
+            })
+         }
+
+         // 全选
+         $scope.AllCheck = function ($event) {
+            $scope.allChecked = $event.target.checked;
+            angular.forEach($scope.cartItems, function (data, index, array) {
+               data.isCheck = $event.target.checked;
+               angular.forEach(data.proItems, function (d, i, arr) {
+                  d.isCheck = $event.target.checked;
+               });
+            });
+         }
+
+         // 多选
+         $scope.MoreCheck = function ($event, id) {
+            angular.forEach($scope.cartItems, function (data, index, array) {
+               if (data.sid == id) {
+                  data.isCheck = $event.target.checked;
+                  angular.forEach(data.proItems, function (d, i, arr) {
+                     d.isCheck = $event.target.checked;
+                     $scope.Total();
+                  });
+               }
+            });
+         }
+
+         // 选中的条目数
+         $scope.CheckCount = function () {
+            var count = 0;
+            angular.forEach($scope.cartItems, function (data, index, array) {
+               angular.forEach(data.proItems, function (d, i, arr) {
+                  if (true == d.isCheck) {
+                     count += 1;
+                  }
+               })
+            })
+            return count;
+         }
+
+         // 合计
+         $scope.Total = function () {
+            $scope.TotalMoney = 0;
+            angular.forEach($scope.cartItems, function (data, index, array) {
+               angular.forEach(data.proItems, function (d, i, arr) {
+                  if (d.isCheck == true) {
+                     $scope.TotalMoney += (d.price * d.number);
+                  }
+               });
+            });
+            return $scope.TotalMoney;
+         }
+
+         $scope.change = function (pro) {
+            if (pro.number >= pro.stock) {
+               alert('库存不足！');
+               pro.number = pro.stock;
+            }
+            $http.post('/mall/cart/modify', { action: 'modify', id: pro.cid, number: pro.number })
+               .success(function (res) {
+
+               });
+         }
+
+      }]);
+   </script>
+</body>
+</html>

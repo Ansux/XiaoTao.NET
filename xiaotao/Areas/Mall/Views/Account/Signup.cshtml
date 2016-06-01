@@ -1,0 +1,79 @@
+﻿@model xiaotao.Models.xt_student
+@{
+   Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>用户注册 - 校淘网</title>
+   <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+   <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+   <link href="~/Content/single.css" rel="stylesheet" />
+   <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+   <header>
+      <div class="container clearfix">
+         <div class="logo">
+            <h1>
+               <a href="/">
+                  <img src="~/Images/logo_xt.png" alt="Alternate Text" />
+               </a>
+            </h1>
+         </div>
+         <div class="action">注册</div>
+      </div>
+   </header>
+   <section class="wrap-register">
+      <div class="container clearfix">
+         <div class="col-sm-7 register-form">
+            @using (Html.BeginForm())
+            {
+               @Html.AntiForgeryToken()
+               <div class="form-horizontal">
+                  @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                  <div class="form-group">
+                     <label for="email" class="control-label">邮　　箱</label>
+                     @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                     @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                  </div>
+
+                  <div class="form-group">
+                     <label for="pwd" class="control-label">密　　码</label>
+                     @Html.EditorFor(model => model.pwd, new { htmlAttributes = new { @class = "form-control" } })
+                     @Html.ValidationMessageFor(model => model.pwd, "", new { @class = "text-danger" })
+                  </div>
+
+                  <div class="form-group">
+                     <label class="control-label" for="pwd2">确认密码</label>
+                     <input class="form-control text-box single-line password valid" data-val="true" data-val-equalto="密码和确认密码不匹配。" data-val-equalto-other="*.pwd" id="pwd2" name="pwd2" type="password" value="">
+                     <span class="text-danger field-validation-valid" data-valmsg-for="pwd2" data-valmsg-replace="true"></span>
+                  </div>
+
+                  <div class="form-group">
+                     <button type="submit">立即注册</button>
+                  </div>
+               </div>
+            }
+         </div>
+         <div class="col-sm-4 pull-right register-notice">
+            <h3>注册协议</h3>
+            <p>【审慎阅读】您在申请注册流程中点击同意前，应当认真阅读以下协议。请您务必审慎阅读、充分理解协议中相关条款内容，其中包括：</p>
+            <p>1、与您约定免除或限制责任的条款；</p>
+            <p>2、与您约定法律适用和管辖的条款；</p>
+            <p>3、其他以粗体下划线标识的重要条款。</p>
+            <p>如您对协议有任何疑问，可向平台客服咨询。</p>
+</div>
+      </div>
+   </section>
+   <footer>
+      <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+   </footer>
+   <script src="~/Scripts/bootstrap.min.js"></script>
+   <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+   <script src="~/Scripts/jquery.validate.min.js"></script>
+   <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

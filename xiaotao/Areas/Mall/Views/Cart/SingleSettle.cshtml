@@ -1,0 +1,230 @@
+﻿@model xiaotao.Models.sp_product
+
+@{
+   ViewBag.Title = "Settle";
+}
+
+<div ng-app="myApp" ng-controller="Settle">
+   @using (Html.BeginForm("Create", "Order", FormMethod.Post))
+   {
+      @Html.AntiForgeryToken()
+      <input type="hidden" name="pid" value="@Model.id" />
+      <input type="hidden" name="number" value="@ViewBag.number" />
+      var flag = true;
+      <table class="table">
+         <thead>
+            <tr class="row">
+               <th class="col-md-6"><a href="/mall/store/@ViewBag.storeId">@ViewBag.storeName</a></th>
+               <th class="col-md-2">单价</th>
+               <th class="col-md-2">数量</th>
+               <th class="col-md-2">小计</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr class="row">
+               <td class="col-md-6">
+                  @Model.name
+               </td>
+               <td class="col-md-2">
+                  @Model.price
+               </td>
+               <td class="col-md-2">
+                  @ViewBag.number
+                  @if(ViewBag.number > Model.stock)
+                  {
+                     @Html.Raw("<span style='color:red;'>(库存不足)</span>");
+                     flag = false;
+                  }
+               </td>
+               <td class="col-md-2">
+                  @(ViewBag.number * Model.price)
+               </td>
+            </tr>
+         </tbody>
+      </table>
+
+      if (flag == true)
+      {
+         <div style="background:#eee;">
+            <ul class="addrList">
+               <li ng-class="{'active':a.id==selectAddr}" ng-repeat="a in addrs">
+                  <input type="radio" ng-model="$parent.selectAddr" name="addr" value="{{a.id}}" />
+                  <span ng-bind-template="[{{a.receiver}}]"></span>
+                  <span ng-bind-template="{{a.areaName}}区 {{a.addr}}"></span>
+                  <span ng-bind-template="({{a.phone}})"></span>
+                  <a ng-if="a.id==selectAddr" href="#myModal" data-toggle="modal" data-target="#myModal" ng-click="showModel(a)">修改</a>
+               </li>
+            </ul>
+            <div class="addr-add-link"><a href="#myModal" data-toggle="modal" data-target="#myModal" ng-click="showModel(null)"><span class="glyphicon glyphicon-plus-sign"></span> 添加收货地址</a></div>
+         </div>
+         <div class="clearfix" style="background:#ccc; padding:6px;">
+            <div class="pull-left">合计(￥)：<span style="font-weight:bold;color:red; font-size:22px;">@((ViewBag.number * Model.price).ToString("0.00"))</span></div>
+            <button type="submit" class="btn btn-danger pull-right" ng-disabled="TotalMoney<=0||selectAddr==undefined">确认订单</button>
+         </div>
+      }
+      else
+      {
+         <div class="alert alert-danger">提示：您结算的商品库存不足，请返回购物车修改！</div>
+         <a class="btn btn-danger" href="/mall/cart">返回购物车</a>
+      }
+   }
+
+   <!-- Modal -->
+   <div class="modal fade" id="myModal" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+               <h4 class="modal-title" id="myModalLabel">添加收货地址</h4>
+            </div>
+            <form name="addr_form" ng-submit="submit()">
+               <div class="modal-body">
+                  <input type="hidden" ng-model="addr.id" />
+                  <div class="form-horizontal">
+                     <div class="form-group">
+                        <label class="control-label col-sm-2">区域</label>
+                        <div class="col-sm-10">
+                           <select class="form-control" name="area" ng-model="addr.area" ng-options="a.name for a in areas"></select>
+                        </div>
+                     </div>
+
+                     <div class="form-group">
+                        <label class="control-label col-sm-2">地址</label>
+                        <div class="col-sm-10">
+                           <input class="form-control" name="addr" ng-model="addr.addr" required />
+                        </div>
+                     </div>
+
+                     <div class="form-group">
+                        <label class="control-label col-sm-2">收件人</label>
+                        <div class="col-sm-10">
+                           <input class="form-control" name="receiver" ng-model="addr.receiver" required />
+                        </div>
+                     </div>
+
+                     <div class="form-group">
+                        <label class="control-label col-sm-2">手机</label>
+                        <div class="col-sm-10">
+                           <input class="form-control" name="phone" ng-model="addr.phone" required />
+                        </div>
+                     </div>
+
+                     <div class="form-group">
+                        <label class="control-label col-sm-2">备注</label>
+                        <div class="col-sm-10">
+                           <input class="form-control" name="remark" ng-model="addr.remark" />
+                        </div>
+                     </div>
+
+                     <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                           <div class="checkbox">
+                              <input type="checkbox" name="is_default" ng-model="addr.is_default" /> 默认地址
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                  <button type="submit" class="btn btn-primary" ng-disabled="addr_form.$invalid">保存</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+
+@section Scripts{
+   <script src="~/Scripts/angular.min.js"></script>
+   <script>
+      angular.module('myApp', [], function ($httpProvider) {
+         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+         $httpProvider.defaults.transformRequest = [function (data) {
+            var param = function (obj) {
+               var query = '';
+               var name, value, fullSubName, subName, subValue, innerObj, i;
+               for (name in obj) {
+                  value = obj[name];
+                  if (value instanceof Array) {
+                     for (i = 0; i < value.length; ++i) {
+                        subValue = value[i];
+                        fullSubName = name + '[' + i + ']';
+                        innerObj = {};
+                        innerObj[fullSubName] = subValue;
+                        query += param(innerObj) + '&';
+                     }
+                  } else if (value instanceof Object) {
+                     for (subName in value) {
+                        subValue = value[subName];
+                        fullSubName = name + '[' + subName + ']';
+                        innerObj = {};
+                        innerObj[fullSubName] = subValue;
+                        query += param(innerObj) + '&';
+                     }
+                  } else if (value !== undefined && value !== null) {
+                     query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+                  }
+               }
+               return query.length ? query.substr(0, query.length - 1) : query;
+            };
+            return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+         }];
+      })
+      .controller('Settle', function ($scope, $http) {
+         $http.get('GetAddrList').success(function (v) {
+            $scope.addrs = v.addrs;
+            if (v.addrs.length > 0) {
+               angular.forEach($scope.addrs, function (v, k) {
+                  if (v.is_default) {
+                     $scope.selectAddr = v.id;
+                  }
+               });
+            }
+         });
+
+         $scope.showModel = function (model) {
+            $scope.addr = (model == null ? {} : model);
+
+            $http.get('GetAreas').success(function (v) {
+               $scope.areas = v.areas;
+               if ($scope.areas) {
+                  if (model == null) {
+                     $scope.addr.area = $scope.areas[0];
+                     // $scope.addr.area = $scope.areas[0].id;
+                  } else {
+                     angular.forEach($scope.areas, function (v, k) {
+                        if (v.id == model.area) {
+                           $scope.addr.area = $scope.areas[k];
+                        }
+                     });
+                  }
+               }
+            });
+         };
+
+         $scope.submit = function () {
+            // 临时存储
+            var area = $scope.addr.area;
+            $scope.addr.area = $scope.addr.area.id;
+
+            $http.post('AddrSave', $scope.addr).success(function (res) {
+
+               if (!$scope.addr.id) {
+                  $scope.addrs.push(res);
+               };
+
+               if (res != false) {
+                  $('#myModal').modal('hide');
+               }
+
+               // 原下拉对象复原
+               $scope.addr.area = area;
+            });
+
+         };
+
+      })
+
+   </script>
+}

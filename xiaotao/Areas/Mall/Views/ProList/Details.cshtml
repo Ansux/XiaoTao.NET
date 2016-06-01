@@ -1,0 +1,116 @@
+﻿@model xiaotao.Models.sp_product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <hr />
+   <div class="col-md-4"></div>
+   <dl class="col-md-8 dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.stock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.stock)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ori_img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ori_img)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.thumb_img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.thumb_img)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sales)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sales)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.is_onsale)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.is_onsale)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.is_delete)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.is_delete)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.create_at)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.create_at)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.update_at)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.update_at)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sp_brand.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sp_brand.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sp_category.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sp_category.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.xt_store.login_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.xt_store.login_id)
+        </dd>
+
+    </dl>
+</div>

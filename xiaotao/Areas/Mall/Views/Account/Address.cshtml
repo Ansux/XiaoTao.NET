@@ -1,0 +1,142 @@
+﻿@model xiaotao.Models.xt_student_address
+
+@{
+   ViewBag.Title = "Setting";
+}
+
+@functions{
+   public string hidePhone(string phone)
+   {
+      var start = phone.Substring(0, 2);
+      var end = phone.Substring(phone.Length - 3, 2);
+      return start + "********" + end;
+   }
+}
+
+@section Styles{
+   <link href="~/Content/account.css" rel="stylesheet" />
+}
+
+<div class="setting">
+   @Html.Partial("./LeftNav")
+   <div class="right-wrap">
+      <div class="head-title">
+         <div class="txt">收货地址管理</div>
+      </div>
+      <div class="main-wrap">
+         <div class="form">
+            @using (Html.BeginForm("SaveAddress", "Account", FormMethod.Post))
+            {
+               @Html.AntiForgeryToken()
+               @Html.HiddenFor(model => model.id)
+               <div class="form-horizontal">
+                  <h4>新增收货地址</h4>
+                  <hr />
+                  @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                  <div class="form-group">
+                     @Html.LabelFor(model => model.receiver, htmlAttributes: new { @class = "control-label col-md-2" })
+                     <div class="col-md-10">
+                        @Html.EditorFor(model => model.receiver, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.receiver, "", new { @class = "text-danger" })
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     @Html.LabelFor(model => model.area, "住宿区", htmlAttributes: new { @class = "control-label col-md-2" })
+                     <div class="col-md-10">
+                        @Html.DropDownList("area", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.area, "", new { @class = "text-danger" })
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     @Html.LabelFor(model => model.addr, htmlAttributes: new { @class = "control-label col-md-2" })
+                     <div class="col-md-10">
+                        @Html.EditorFor(model => model.addr, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.addr, "", new { @class = "text-danger" })
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     @Html.LabelFor(model => model.phone, htmlAttributes: new { @class = "control-label col-md-2" })
+                     <div class="col-md-10">
+                        @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                           @Html.EditorFor(model => model.is_default) 设为默认
+                           @Html.ValidationMessageFor(model => model.is_default, "", new { @class = "text-danger" })
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                     </div>
+                  </div>
+               </div>
+            }
+         </div>
+         <div class="addr-list">
+            <h4>用户地址列表</h4>
+            <hr />
+            <table class="table table-hover">
+               <thead>
+                  <tr>
+                     <th>收件人</th>
+                     <th>住宿区</th>
+                     <th>详细地址</th>
+                     <th>电话/手机</th>
+                     <th>操作</th>
+                     <th></th>
+                  </tr>
+               </thead>
+               <tbody id="tbody">
+                  @foreach (var item in ViewData["address"] as List<xiaotao.Models.xt_student_address>)
+                  {
+                     <tr>
+                        <td>
+                           @Html.DisplayFor(modelItem => item.receiver)
+                        </td>
+                        <td>
+                           @Html.DisplayFor(modelItem => item.xt_area.name)
+                        </td>
+                        <td>
+                           @Html.DisplayFor(modelItem => item.addr)
+                        </td>
+                        <td>
+                           @Html.Raw(hidePhone(item.phone))
+                        </td>
+                        <td>
+                           @Html.ActionLink("修改", "Address", new { id = item.id }) |
+                           @Html.ActionLink("删除", "Delete", new { id = item.id })
+                        </td>
+                        <td>
+                           @(item.is_default ? Html.Raw("<span class='default'>默认地址</span>") : Html.Raw("<a class='show-note' href='/mall/account/AddrSetDefault/" + item.id + "'>设为默认</a>"))
+                        </td>
+                     </tr>
+                  }
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+</div>
+
+@section Scripts{
+   <script src="~/Scripts/jquery.validate.min.js"></script>
+   <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+   <script>
+      $('#tbody>tr').hover(function () {
+         $(this).find('.show-note').show();
+      }, function () {
+         $(this).find('.show-note').hide();
+      });
+   </script>
+}

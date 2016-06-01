@@ -1,0 +1,95 @@
+﻿@model IEnumerable<xiaotao.Models.dn_claim>
+
+@{
+   ViewBag.Title = "Index";
+}
+
+<p>
+   @Html.ActionLink("去领取", "index","GoodsList")
+</p>
+
+<div class="sort">
+   <a href="/dn/claim/index">全部</a>
+   <a data-states="1" href="/dn/claim/index?states=1">已申请 @Html.Raw(ViewBag.state1 == 0 ? "" : "<span class='badge'>" + @ViewBag.state1 + "</span>")</a>
+   <a data-states="2" href="/dn/claim/index?states=2">已认领 @Html.Raw(ViewBag.state2 == 0 ? "" : "<span class='badge'>" + @ViewBag.state2 + "</span>")</a>
+</div>
+
+<div class="row-lists">
+   <div class="row thead">
+      <div class="col-xs-5">物品</div>
+      <div class="col-xs-2">认领方式</div>
+      <div class="col-xs-1">状态</div>
+      <div class="col-xs-2">认领时间</div>
+      <div class="col-xs-2">操作</div>
+   </div>
+
+   @foreach (var item in Model)
+   {
+      <div class="row oi-top">
+         <div class="col-xs-12">
+            <span>@item.create_at</span><span>订单号: @item.id</span>
+         </div>
+      </div>
+      <div class="row oi-detail">
+         <div class="col-xs-5 g-wrap">
+            <div class="g-img">
+               <a href="#"><img width="40" src="~/Uploads/Products/@item.dn_goods.ori_img" alt="@item.dn_goods.name" /></a>
+            </div>
+            <div class="g-info">
+               <a href="/dn/goods/details/@item.goods">@item.dn_goods.name</a><br/>
+               <span class="donor">@(item.dn_goods.is_anonymous == true ? "匿名捐赠" : item.dn_goods.xt_student.sname)</span>
+            </div>
+         </div>
+         <div class="col-xs-2">
+            <p>@(item.dn_goods.claim_type == 1 ? "捐赠中心" : "上门认领")</p>
+            <p>@item.dn_goods.claim_addr</p>
+         </div>
+         <div class="col-xs-1">
+            @switch (item.states)
+            {
+               case 0:
+                  @Html.Raw("取消认领");
+                  break;
+               case 1:
+                  @Html.Raw("申请认领");
+                  break;
+               case 2:
+                  @Html.Raw("认领完成");
+                  break;
+            }
+         </div>
+         <div class="col-xs-2">
+            @item.create_at.ToShortDateString()
+         </div>
+         <div class="col-xs-2">
+            @Html.ActionLink("详情", "Details", new { id = item.id }) |
+            @Html.ActionLink("删除", "Delete", new { id = item.id })
+         </div>
+      </div>
+   }
+</div>
+
+<div class="row">
+   <nav>
+      <ul class="pagination">
+         @Html.Raw(ViewData["pager"])
+      </ul>
+      @ViewBag.PageCount
+   </nav>
+</div>
+
+@section Scripts{
+   <script>
+      var states = '@Request.QueryString["states"]'.toLowerCase();
+      var sortLinks = $('.sort>a');
+      if (states == '') {
+         sortLinks.eq(0).addClass('active');
+      } else {
+         $.each(sortLinks, function (k, v) {
+            if ($(v).attr('data-states') == states) {
+               $(v).addClass('active');
+            }
+         })
+      };
+   </script>
+}

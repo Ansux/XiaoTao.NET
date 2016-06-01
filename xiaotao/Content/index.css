@@ -1,0 +1,43 @@
+﻿#mall{
+   margin-top: -20px;
+}
+#mall .list i{
+   float:right;
+}
+#mall .list{
+   float:left;
+   width:200px;
+   color:#fff;
+   background:#E63F02;
+   z-index:9;
+}
+#mall .list .item{
+   padding:10px;
+   margin-left:1px;
+   border-bottom:solid 1px #f40;
+}
+#mall .list .item:hover{
+   background:#fff;
+   color:#333;
+}
+
+#mall .banner{
+   float:right;
+   margin:10px 0px 10px 10px;
+   background:#eee;
+}
+#hot_focus .img img{
+      width:100%;
+   }
+
+@media (min-width: 1200px){
+   #hot_focus {
+      width:930px;
+   }
+}
+
+@media (max-width: 1200px){
+   #hot_focus {
+      width:730px;
+   } 
+}

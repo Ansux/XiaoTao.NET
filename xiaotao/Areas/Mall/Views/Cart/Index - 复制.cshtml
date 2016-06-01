@@ -1,0 +1,242 @@
+﻿@{
+   ViewBag.Title = "Index";
+   Layout = "~/Areas/Mall/Views/Shared/_Layout _NoMenu.cshtml";
+}
+
+@section Styles{
+}
+
+<div id="cart" ng-app="myApp">
+   <table class="table">
+      <tr class="row danger">
+         <th class="col-md-6">商品</th>
+         <th class="col-md-2">数量</th>
+         <th class="col-md-1">单价</th>
+         <th class="col-md-2">小计</th>
+         <th class="col-md-1">操作</th>
+      </tr>
+   </table>
+   @using (Html.BeginForm("Settle", "Cart", FormMethod.Post))
+   {
+      @Html.AntiForgeryToken()
+      <div ng-controller="myCart">
+         <table class="table" ng-show="cartItems.length==0">
+            <tr class="row warning">
+               <td>
+                  <span>购物车为空！</span>
+                  <a href="/mall/prolist">去购物</a>
+               </td>
+            </tr>
+         </table>
+         <table class="table" ng-repeat="store in cartItems">
+            <tr class="row success">
+               <td colspan="6"><input type="checkbox" ng-checked="store.isCheck" ng-click="AllCheck($event,store.sid)" /> <a target="_blank" href="/mall/proList/store/{{store.sid}}">{{store.sname}}</a></td>
+            </tr>
+            <tr class="row active" ng-repeat="pro in store.proItems">
+               <td class="col-md-6">
+                  <input type="checkbox" ng-checked="pro.isCheck" ng-click="Check($event,pro.cid)" name="product" value="{{pro.cid}}" /> {{pro.proName}}
+               </td>
+               <td class="col-md-2">
+                  <div class="form-group" style="width:110px;">
+                     <div class="input-group">
+                        <div class="input-group-addon" ng-click="Minus(store, pro, $index)" style="cursor:pointer">-</div>
+                        <input type="number" class="form-control" ng-model="pro.number" style="text-align:center; padding:6px;" ng-change="change(pro)" />
+                        <div class="input-group-addon" ng-click="Adds(pro)" style="cursor:pointer">+</div>
+                     </div>
+                  </div>
+               </td>
+               <td class="col-md-1">{{pro.price}}</td>
+               <td class="col-md-2">{{pro.price * pro.number}}</td>
+               <td class="col-md-1">
+                  <a ng-click="Remove(store, pro.cid, $index)">删除</a>
+               </td>
+            </tr>
+         </table>
+         <table class="table">
+            <tr class="row danger">
+               <td>
+                  <div class="pull-left">合计(￥)：<span style="font-weight:bold;color:red; font-size:22px;" ng-bind="Total()"></span></div>
+                  <button type="submit" class="btn btn-danger pull-right" ng-disabled="TotalMoney<=0">去结算</button>
+               </td>
+            </tr>
+         </table>
+      </div>
+   }
+</div>
+
+@section Scripts{
+   <script src="~/Scripts/angular.min.js"></script>
+   <script type="text/javascript">
+      var cart = angular.module('myApp', [], function ($httpProvider) {
+         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+
+         $httpProvider.defaults.transformRequest = [function (data) {
+            var param = function (obj) {
+               var query = '';
+               var name, value, fullSubName, subName, subValue, innerObj, i;
+
+               for (name in obj) {
+                  value = obj[name];
+
+                  if (value instanceof Array) {
+                     for (i = 0; i < value.length; ++i) {
+                        subValue = value[i];
+                        fullSubName = name + '[' + i + ']';
+                        innerObj = {};
+                        innerObj[fullSubName] = subValue;
+                        query += param(innerObj) + '&';
+                     }
+                  }
+                  else if (value instanceof Object) {
+                     for (subName in value) {
+                        subValue = value[subName];
+                        fullSubName = name + '[' + subName + ']';
+                        innerObj = {};
+                        innerObj[fullSubName] = subValue;
+                        query += param(innerObj) + '&';
+                     }
+                  }
+                  else if (value !== undefined && value !== null) {
+                     query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+                  }
+               }
+
+               return query.length ? query.substr(0, query.length - 1) : query;
+            };
+
+            return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+         }];
+      });
+      cart.controller('myCart', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
+         // 初始化获取数据
+         $http.post('/mall/cart/GetCartList', {})
+         .success(function (data) {
+            $scope.cartItems = data.stores;
+         });
+
+         // 刷新购物车数据
+         $scope.refresh = function () {
+            $http.post('/mall/cart/GetCartList', {})
+            .success(function (data) {
+               $scope.cartItems = data.stores;
+            });
+         }
+
+         // 添加商品数量
+         $scope.Adds = function (pro) {
+            if (pro.number >= pro.stock) {
+               if (confirm('库存不足！')) {
+                  console.log("ok");
+               }
+            } else {
+               $http.post('/mall/cart/modify', { action: 'add', id: pro.cid })
+               .success(function (res) {
+                  if (res === true) {
+                     pro.number += 1;
+                  }
+               });
+            }
+         };
+
+         // 减少商品数量
+         $scope.Minus = function (store, pro, index) {
+            if (pro.number <= 1) {
+               if (confirm('是否删除！')) {
+                  $scope.Remove(store, pro.cid, index);
+               }
+            } else {
+               $http.post('/mall/cart/modify', { action: 'minus', id: pro.cid })
+               .success(function (res) {
+                  if (res === true) {
+                     pro.number -= 1;
+                  }
+               });
+            }
+         };
+
+         // 删除
+         $scope.Remove = function (store, id, index) {
+            $http.post('/mall/cart/delete', { id: id })
+            .success(function (res) {
+               if (res === true) {
+                  if (store.proItems.length == 1) {
+                     angular.forEach($scope.cartItems, function (v, k) {
+                        if (v.sid == store.sid) {
+                           $scope.cartItems.splice(k, 1);
+                           document.getElementById('badge').innerText = $scope.cartItems.length;
+                        }
+                     });
+                  } else {
+                     store.splice(index, 1);
+                  }
+               }
+            });
+         }
+
+         // 单选
+         $scope.Check = function ($event, id) {
+            angular.forEach($scope.cartItems, function (data, index, array) {
+               angular.forEach(data.proItems, function (d, i, arr) {
+                  if (id == d.cid) {
+                     d.isCheck = $event.target.checked;
+                     $scope.Total();
+                     // 若其中一个不选中，则总控制也不选中
+                     if (d.isCheck === false) {
+                        data.isCheck = false;
+                     }
+
+                     // 如果所有子条目都选中，则总控制被选中
+                     var flag = true;
+                     angular.forEach(data.proItems, function (v, k, a) {
+                        if (v.isCheck == false) {
+                           flag = false;
+                        }
+                     });
+                     if (flag == true) {
+                        data.isCheck = true;
+                     }
+                  }
+               })
+            })
+         }
+
+         // 多选
+         $scope.AllCheck = function ($event, id) {
+            angular.forEach($scope.cartItems, function (data, index, array) {
+               if (data.sid == id) {
+                  data.isCheck = $event.target.checked;
+                  angular.forEach(data.proItems, function (d, i, arr) {
+                     d.isCheck = $event.target.checked;
+                     $scope.Total();
+                  });
+               }
+            });
+         }
+
+         // 合计
+         $scope.Total = function () {
+            $scope.TotalMoney = 0;
+            angular.forEach($scope.cartItems, function (data, index, array) {
+               angular.forEach(data.proItems, function (d, i, arr) {
+                  if (d.isCheck == true) {
+                     $scope.TotalMoney += (d.price * d.number);
+                  }
+               });
+            });
+            return $scope.TotalMoney;
+         }
+
+         $scope.change = function (pro) {
+            if (pro.number >= pro.stock) {
+               alert('库存不足！');
+               pro.number = pro.stock;
+            }
+            $http.post('/mall/cart/modify', { action: 'modify', id: pro.cid, number: pro.number })
+               .success(function (res) {
+                  
+               });
+         }
+
+      }]);
+   </script>
+}

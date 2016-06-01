@@ -1,0 +1,59 @@
+﻿@model IEnumerable<xiaotao.Models.xt_student>
+
+@{
+   ViewBag.Title = "Index";
+}
+<p>
+   @Html.ActionLink("添加学生", "Create")
+</p>
+<table class="table">
+   <tr>
+      <th>
+         @Html.DisplayNameFor(model => model.email)
+      </th>
+      <th>
+         @Html.DisplayNameFor(model => model.avatar)
+      </th>
+      <th>
+         @Html.DisplayNameFor(model => model.sno)
+      </th>
+      <th>
+         @Html.DisplayNameFor(model => model.sname)
+      </th>
+      <th>
+         @Html.DisplayNameFor(model => model.sex)
+      </th>
+      <th>
+         @Html.DisplayNameFor(model => model.phone)
+      </th>
+      <th>操作</th>
+   </tr>
+   @foreach (var item in Model)
+   {
+      <tr>
+         <td>
+            @Html.DisplayFor(modelItem => item.email)
+         </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.avatar)
+         </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.sno)
+         </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.sname)
+         </td>
+         <td>
+            @Html.Raw(item.sex == 1 ? "男" : "女")
+         </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.phone)
+         </td>
+         <td>
+            @Html.ActionLink("更新", "Edit", new { id = item.id }) |
+            @Html.ActionLink("详情", "Details", new { id = item.id }) |
+            @Html.ActionLink("删除", "Delete", new { id = item.id })
+         </td>
+      </tr>
+   }
+</table>

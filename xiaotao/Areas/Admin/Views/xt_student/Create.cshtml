@@ -1,0 +1,56 @@
+﻿@model xiaotao.Models.xt_student
+
+@{
+  ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm())
+{
+  @Html.AntiForgeryToken()
+
+  <div class="form-horizontal">
+    <h4>xt_student</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+      @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+      </div>
+    </div>
+
+    <div class="form-group">
+      @Html.LabelFor(model => model.pwd, htmlAttributes: new { @class = "control-label col-md-2" })
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.pwd, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.pwd, "", new { @class = "text-danger" })
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-md-2">确认密码</label>
+      <div class="col-md-10">
+        <input class="form-control text-box single-line password valid" data-val="true" data-val-equalto="密码和确认密码不匹配。" data-val-equalto-other="*.pwd" id="pwd2" name="pwd2" type="password" value="">
+        <span class="text-danger field-validation-valid" data-valmsg-for="pwd2" data-valmsg-replace="true"></span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Create" class="btn btn-default" />
+      </div>
+    </div>
+  </div>
+}
+
+<div>
+  @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

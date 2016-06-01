@@ -1,0 +1,82 @@
+﻿@model xiaotao.Models.es_order
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>es_order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.es_goods.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.es_goods.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.xt_student.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.xt_student.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.is_pay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.is_pay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.states)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.states)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.receiver)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.receiver)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.addr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.addr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.create_at)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.create_at)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

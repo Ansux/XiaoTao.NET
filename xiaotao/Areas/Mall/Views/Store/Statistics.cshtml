@@ -1,0 +1,298 @@
+﻿@model IEnumerable<xiaotao.Models.xt_store>
+
+@{
+   ViewBag.Title = "Statistics";
+   Layout = "~/Areas/Mall/Views/Shared/Store_Layout.cshtml";
+}
+
+@section Styles{
+   <style>
+      .line-chart {
+         display: none;
+      }
+
+      .sale-sort {
+         display: none;
+      }
+
+      .showDiv {
+         display: block;
+      }
+
+      .datas {
+      }
+
+      #myChart {
+      }
+
+      .datas .alert {
+         display: none;
+      }
+
+      .table-sales {
+         display: none;
+         padding: 0 15px;
+      }
+
+         .table-sales .thead {
+            border-bottom: solid 2px #eee;
+            font-weight: bold;
+            padding: 5px 0;
+         }
+
+         .table-sales .item {
+            padding: 10px 0;
+            border-bottom: solid 1px #eee;
+         }
+
+      #proSales .date-select {
+         width: 150px;
+      }
+
+      .page-count {
+         float: left;
+         color: #999;
+         margin: 20px;
+         line-height: 30px;
+      }
+      .pagination>li>a{
+         cursor:pointer;
+      }
+   </style>
+}
+
+<div ng-app="myApp" ng-controller="myStatis">
+   <div class="panel panel-default">
+      <div class="panel-heading">
+         <h3 class="panel-title">销售额/销量</h3>
+      </div>
+      <div class="panel-body">
+         <div class="loading" ng-hide="sales!=undefined">
+            <i class="fa fa-spinner fa-spin"></i> 正在努力加载数据...
+         </div>
+         <div class="datas">
+            <div class="alert" ng-class="{'show':sales.length==0}">近几个月无销售记录！</div>
+            <canvas class="line-chart" ng-class="{'show':sales.length>0}" id="myChart" height="400" width="800"></canvas>
+         </div>
+      </div>
+   </div>
+   <div class="panel panel-default" id="proSales">
+      <div class="panel-heading clearfix">
+         <h3 class="panel-title pull-left">销量排行（<span id="date" ng-bind-template="{{saleDate.year}}年{{saleDate.month}}月"></span>）</h3>
+         <div class="date-select pull-right">
+            <div class="form-inline">
+               <select class="form-control" ng-model="saleDate.year" ng-change="search()">
+                  <option ng-repeat="y in years" value="{{y}}" ng-bind="y"></option>
+               </select>
+               <select class="form-control" ng-model="saleDate.month" ng-change="search()">
+                  <option ng-repeat="m in months" value="{{m}}" ng-bind="m"></option>
+               </select>
+            </div>
+         </div>
+      </div>
+      <div class="panel-body">
+         <div class="loading" ng-hide="productSales!=undefined">
+            <i class="fa fa-spinner fa-spin"></i> 正在努力加载数据...
+         </div>
+         <div class="datas">
+            <div class="alert" ng-class="{'show':productSales.length==0}">无销售记录！</div>
+            <div class="table-sales" ng-class="{'show':productSales.length>0}">
+               <div class="row thead">
+                  <div class="col-xs-2">排名</div>
+                  <div class="col-xs-8">商品</div>
+                  <div class="col-xs-2">销量</div>
+               </div>
+               <div class="row item" ng-repeat="ps in productSales | orderBy:'sales':true">
+                  <div class="col-xs-2" ng-bind="$index+1"></div>
+                  <div class="col-xs-8">
+                     <span>
+                        <img style="border:solid 1px #eee;" height="30" ng-src="~/Uploads/Products/{{ps.product.ori_img}}" alt="Alternate Text" />
+                     </span>
+                     <a target="_blank" href="/mall/product/details/{{ps.product.id}}" ng-bind="ps.product.name"></a>
+                  </div>
+                  <div class="col-xs-2" ng-bind="ps.sales"></div>
+               </div>
+               <div ng-pager show-num="2" source="psales" page-index="pageIndex"></div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+@section Scripts{
+   <script src="~/Scripts/angular.min.js"></script>
+   <script src="~/Scripts/Chart.min.js"></script>
+   <script type="text/javascript">
+      angular.module('myApp', [], function ($httpProvider) {
+         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+         $httpProvider.defaults.transformRequest = [function (data) {
+            var param = function (obj) {
+               var query = '';
+               var name, value, fullSubName, subName, subValue, innerObj, i;
+
+               for (name in obj) {
+                  value = obj[name];
+
+                  if (value instanceof Array) {
+                     for (i = 0; i < value.length; ++i) {
+                        subValue = value[i];
+                        fullSubName = name + '[' + i + ']';
+                        innerObj = {};
+                        innerObj[fullSubName] = subValue;
+                        query += param(innerObj) + '&';
+                     }
+                  }
+                  else if (value instanceof Object) {
+                     for (subName in value) {
+                        subValue = value[subName];
+                        fullSubName = name + '[' + subName + ']';
+                        innerObj = {};
+                        innerObj[fullSubName] = subValue;
+                        query += param(innerObj) + '&';
+                     }
+                  }
+                  else if (value !== undefined && value !== null) {
+                     query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+                  }
+               }
+
+               return query.length ? query.substr(0, query.length - 1) : query;
+            };
+
+            return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+         }];
+      })
+      .controller('myStatis', function ($scope, $filter, $http, $timeout, $window) {
+         $http.get('/mall/store/sales').success(function (res) {
+            $scope.sales = res;
+            $scope.month = [];
+            $scope.orderNum = [];
+            $scope.moneys = [];
+            angular.forEach(res, function (v, k) {
+               $scope.month.push(v.month + "月份");
+               $scope.orderNum.push(v.orderNum);
+               $scope.moneys.push(v.moneys);
+            })
+            $timeout(function () {
+               var data = {
+                  labels: $scope.month,
+                  datasets: [
+                     {
+                        fillColor: "rgba(220,220,220,0.5)",
+                        strokeColor: "rgba(220,220,220,1)",
+                        pointColor: "rgba(220,220,220,1)",
+                        pointStrokeColor: "#fff",
+                        data: $scope.orderNum
+                     },
+                     {
+                        fillColor: "rgba(151,187,205,0.5)",
+                        strokeColor: "rgba(151,187,205,1)",
+                        pointColor: "rgba(151,187,205,1)",
+                        pointStrokeColor: "#fff",
+                        data: $scope.moneys
+                     }
+                  ]
+               }
+               $("#myChart").width($('.datas').width());
+               var ctx = $("#myChart").get(0).getContext("2d");
+               new Chart(ctx).Line(data, {
+                  //responsive: true
+               });
+            })
+         });
+
+         // 数据初始化
+         $scope.saleDate = {
+            year: '@DateTime.Now.Year',
+            month: '@DateTime.Now.Month',
+         };
+
+         $scope.years = [2015, 2016];
+         $scope.months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+         $scope.pageIndex = 1;
+
+         // 搜索事件
+         $scope.search = function () {
+            $scope.date = $scope.saleDate.year + '/' + $scope.saleDate.month;
+            $scope.pageIndex = 1;
+            $scope.getSalesData();
+         }
+         // 获取数据
+         $scope.getSalesData = function () {
+            $scope.productSales = undefined;
+            $http.get('/mall/store/ProductSales?dt=' + $scope.date + '&page=' + $scope.pageIndex).success(function (res) {
+               $timeout(function () {
+                  $scope.psales = res;
+                  $scope.productSales = res.proSales;
+               }, 1000)
+            })
+         }
+
+         // 监听页码，动态获取数据
+         $scope.$watch('pageIndex', function (n, o) {
+            if ($scope.pageIndex != undefined) {
+               $scope.getSalesData();
+            }
+         });
+
+         $scope.getSalesData();
+         angular.element($window).bind('resize', function () {
+            $("#myChart").width($('.datas').width());
+         });
+      })
+      .directive('ngPager', function () {
+         return {
+            restrict: "A",
+            replace: true,
+            scope: {
+               source: '=',
+               showNum: '=',
+               pageIndex: '='
+            },
+            template: '<nav class="clearfix">' +
+               '<ul class="pagination pagination-sm pull-left">' +
+               '<li ng-if="pageIndex!=1"><a ng-click="changePage(pageIndex-1)" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>' +
+               '<li ng-repeat="p in pages" ng-class="{\'active\':pageIndex==p}"><a ng-bind="p" ng-click="changePage(p)"></a></li>' +
+               '<li ng-if="pageIndex!=source.counts/showNum"><a ng-click="changePage(pageIndex+1)" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>' +
+               '</ul>' +
+                '<div class="page-count" ng-bind-template="(共{{pcount}}页/{{source.counts}}条)"></div>' +
+                '</nav>',
+            controller: function ($scope) {
+               $scope.$watch('source', function (n, o) {
+                  var page = $scope.pageIndex; // 当前页面
+                  if ($scope.source != undefined) {
+                     $scope.pcount = Math.ceil($scope.source.counts / $scope.showNum); // 总页数
+                     var pages = [];
+                     for (var i = 1; i <= Math.ceil($scope.source.counts / $scope.showNum) ; i++) {
+                        pages.push(i);
+                     }
+                     if (pages === undefined || page < 3) { // 初始(1-5)页
+                        $scope.pages = pages.slice(0, 5);
+                     } else if (pages.length - page < 3) {
+                        // 总页数-当前页码<3，即没有更多页了，截取页码表的最后5个记录
+                        $scope.pages = pages.slice(-5);
+                     } else if (page >= 3) {
+                        // 页码到达第3页以后，默认使当前页 居中显示
+                        $scope.pages = pages.slice((page - 2), (page + 3));
+                     }
+                  }
+               });
+
+               $scope.changePage = function (p) {
+                  $scope.pageIndex = p;
+               }
+            }
+         }
+      })
+      .filter('toStrusted', ['$sce', function ($sce) {
+         return function (html) {
+            return $sce.trustAsHtml(html);
+         }
+      }])
+      .filter('ceil',  function () {
+         return function (input) {
+            return Math.ceil(input);
+         }
+      })
+   </script>
+}
