@@ -5,97 +5,106 @@
    Layout = "~/Areas/Mall/Views/Shared/Store_Layout.cshtml";
 }
 
-<h2>商家入驻</h2>
+<h3>商家入驻</h3>
+<hr />
+<div class="row">
+   <div class="col-sm-8">
+      @using (Html.BeginForm("Signup", "Store", FormMethod.Post, new { enctype = "multipart/form-data" }))
+      {
+         @Html.AntiForgeryToken()
 
-@using (Html.BeginForm("Signup", "Store", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-  @Html.AntiForgeryToken()
+         <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+               @Html.LabelFor(model => model.login_id, htmlAttributes: new { @class = "control-label col-md-2" })
+               <div class="col-md-10">
+                  @Html.EditorFor(model => model.login_id, new { htmlAttributes = new { @class = "form-control" } })
+                  @Html.ValidationMessageFor(model => model.login_id, "", new { @class = "text-danger" })
+               </div>
+            </div>
 
-  <div class="form-horizontal">
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-      @Html.LabelFor(model => model.login_id, htmlAttributes: new { @class = "control-label col-md-2" })
-      <div class="col-md-10">
-        @Html.EditorFor(model => model.login_id, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.login_id, "", new { @class = "text-danger" })
+            <div class="form-group">
+               @Html.LabelFor(model => model.login_pwd, htmlAttributes: new { @class = "control-label col-md-2" })
+               <div class="col-md-10">
+                  @Html.EditorFor(model => model.login_pwd, new { htmlAttributes = new { @class = "form-control" } })
+                  @Html.ValidationMessageFor(model => model.login_pwd, "", new { @class = "text-danger" })
+               </div>
+            </div>
+
+            <div class="form-group">
+               @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+               <div class="col-md-10">
+                  @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                  @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+               </div>
+            </div>
+
+            <div class="form-group">
+               @Html.LabelFor(model => model.license, htmlAttributes: new { @class = "control-label col-md-2" })
+               <div class="col-md-10">
+                  @Html.EditorFor(model => model.license, new { htmlAttributes = new { @type = "file", @class = "form-control" } })
+                  @Html.ValidationMessageFor(model => model.license, "", new { @class = "text-danger" })
+               </div>
+            </div>
+
+            <div class="form-group">
+               @Html.LabelFor(model => model.shopkeeper, htmlAttributes: new { @class = "control-label col-md-2" })
+               <div class="col-md-10">
+                  @Html.EditorFor(model => model.shopkeeper, new { htmlAttributes = new { @class = "form-control" } })
+                  @Html.ValidationMessageFor(model => model.shopkeeper, "", new { @class = "text-danger" })
+               </div>
+            </div>
+
+            <div class="form-group">
+               @Html.LabelFor(model => model.id_no, htmlAttributes: new { @class = "control-label col-md-2" })
+               <div class="col-md-10">
+                  @Html.EditorFor(model => model.id_no, new { htmlAttributes = new { @class = "form-control" } })
+                  @Html.ValidationMessageFor(model => model.id_no, "", new { @class = "text-danger" })
+               </div>
+            </div>
+
+            <div class="form-group">
+               @Html.LabelFor(model => model.id_cart, htmlAttributes: new { @class = "control-label col-md-2" })
+               <div class="col-md-10">
+                  @Html.EditorFor(model => model.id_cart, new { htmlAttributes = new { @type = "file", @class = "form-control" } })
+                  @Html.ValidationMessageFor(model => model.id_cart, "", new { @class = "text-danger" })
+               </div>
+            </div>
+
+            <div class="form-group">
+               @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+               <div class="col-md-10">
+                  @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                  @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+               </div>
+            </div>
+
+            <div class="form-group">
+               @Html.LabelFor(model => model.phone, htmlAttributes: new { @class = "control-label col-md-2" })
+               <div class="col-md-10">
+                  @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })
+                  @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+               </div>
+            </div>
+
+            <div class="form-group">
+               <div class="col-md-offset-2 col-md-10">
+                  <input type="submit" value="提交资料" class="btn btn-primary" />
+               </div>
+            </div>
+         </div>
+      }
+   </div>
+   <div class="col-sm-4">
+      <div>
+         <h4>入驻须知</h4>
+         <p>商城暂未授权任何机构进行代理招商服务，入驻申请流程及相关的收费说明均以官方招商页面为准。</p>
+         <p>商城有权根据包括但不仅限于品牌需求、公司经营状况、服务水平等其他因素退回客户申请；同时商城有权在申请入驻及后续经营阶段要求客户 提供其他资质；商城将结合各行业发展动态、国家相关规定及消费者购买需求，不定期更新招商标准。</p>
       </div>
-    </div>
-
-    <div class="form-group">
-      @Html.LabelFor(model => model.login_pwd, htmlAttributes: new { @class = "control-label col-md-2" })
-      <div class="col-md-10">
-        @Html.EditorFor(model => model.login_pwd, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.login_pwd, "", new { @class = "text-danger" })
+      <div style="margin-top:20px; color:#666;">
+         已有账号，@Html.ActionLink("去登录 >", "Signin")
       </div>
-    </div>
-
-    <div class="form-group">
-      @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
-      <div class="col-md-10">
-        @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
-      </div>
-    </div>
-
-    <div class="form-group">
-      @Html.LabelFor(model => model.license, htmlAttributes: new { @class = "control-label col-md-2" })
-      <div class="col-md-10">
-        @Html.EditorFor(model => model.license, new { htmlAttributes = new { @type = "file", @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.license, "", new { @class = "text-danger" })
-      </div>
-    </div>
-
-    <div class="form-group">
-      @Html.LabelFor(model => model.shopkeeper, htmlAttributes: new { @class = "control-label col-md-2" })
-      <div class="col-md-10">
-        @Html.EditorFor(model => model.shopkeeper, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.shopkeeper, "", new { @class = "text-danger" })
-      </div>
-    </div>
-
-    <div class="form-group">
-      @Html.LabelFor(model => model.id_no, htmlAttributes: new { @class = "control-label col-md-2" })
-      <div class="col-md-10">
-        @Html.EditorFor(model => model.id_no, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.id_no, "", new { @class = "text-danger" })
-      </div>
-    </div>
-
-    <div class="form-group">
-      @Html.LabelFor(model => model.id_cart, htmlAttributes: new { @class = "control-label col-md-2" })
-      <div class="col-md-10">
-        @Html.EditorFor(model => model.id_cart, new { htmlAttributes = new { @type = "file", @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.id_cart, "", new { @class = "text-danger" })
-      </div>
-    </div>
-
-    <div class="form-group">
-      @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
-      <div class="col-md-10">
-        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
-      </div>
-    </div>
-
-    <div class="form-group">
-      @Html.LabelFor(model => model.phone, htmlAttributes: new { @class = "control-label col-md-2" })
-      <div class="col-md-10">
-        @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="col-md-offset-2 col-md-10">
-        <input type="submit" value="Create" class="btn btn-default" />
-      </div>
-    </div>
-  </div>
-}
-
-<div>
-  @Html.ActionLink("去登录 >", "Signin")
+   </div>
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>

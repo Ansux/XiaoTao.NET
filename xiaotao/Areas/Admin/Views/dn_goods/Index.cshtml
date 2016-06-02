@@ -1,31 +1,39 @@
 ﻿@model IEnumerable<xiaotao.Models.dn_goods>
 
 @{
-    ViewBag.Title = "Index";
+   ViewBag.Title = "Index";
+   ViewBag.Controller = "捐赠物";
+   ViewBag.Action = "列表";
 }
+@section Styles{
+   <style>
+      .goods-info {
+         font-size: 13px;
+         color: #999;
+         position: relative;
+      }
 
-<h2>Index</h2>
+         .goods-info .img {
+            position: absolute;
+         }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+         .goods-info .info {
+            margin-left: 50px;
+         }
+
+         .goods-info .name {
+            display: block;
+         }
+   </style>
+}
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.dn_category.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.xt_student.email)
-        </th>
+    <tr class="active">
         <th>
             @Html.DisplayNameFor(model => model.name)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ori_img)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.thumb_img)
-        </th>
+       <th>
+          捐赠人
+       </th>
         <th>
             @Html.DisplayNameFor(model => model.is_anonymous)
         </th>
@@ -38,28 +46,24 @@
         <th>
             @Html.DisplayNameFor(model => model.create_at)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.update_at)
-        </th>
-        <th></th>
+        <th>操作</th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.dn_category.name)
+           <div class="goods-info">
+              <div class="img">
+                 <img src="~/Uploads/Products/@item.ori_img" width="42" />
+              </div>
+              <div class="info">
+                 <a target="_blank" class="name" href="/es/goods/details/@item.id">@item.name</a>
+                 分类：@item.dn_category.name<br />
+              </div>
+           </div>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.xt_student.email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ori_img)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.thumb_img)
+            @item.xt_student.sname
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.is_anonymous)
@@ -74,14 +78,17 @@
             @Html.DisplayFor(modelItem => item.create_at)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.update_at)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("详情", "Details", new { id = item.id }, new { @class = "btn btn-primary btn-xs" })
+            @Html.ActionLink("删除", "Delete", new { id = item.id }, new { @class = "btn btn-danger btn-xs" })
         </td>
     </tr>
 }
 
 </table>
+
+<nav class="list-pager">
+   <ul class="pagination">
+      @Html.Raw(ViewData["pager"])
+   </ul>
+   @ViewBag.PageCount
+</nav>

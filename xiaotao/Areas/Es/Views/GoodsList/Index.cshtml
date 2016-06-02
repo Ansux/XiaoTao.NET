@@ -6,63 +6,67 @@
 
 @section Styles{
    <style>
-   .prolist {
-      list-style: none;
-      padding: 0px;
-      margin: 0 -15px;
-   }
-
-      .prolist li {
-         margin-bottom: 30px;
-         background: #fff;
+      .prolist {
+         list-style: none;
+         padding: 0px;
+         margin: 0 -15px;
       }
 
-      .prolist .pro-img {
-         margin: 10px;
-      }
-
-      .prolist img {
-         width: 100%;
-         display: block;
-      }
-
-   .caption a {
-      display: block;
-      height: 36px;
-      font-size: 13px;
-      overflow: hidden;
-   }
-
-   .price {
-      font-size: 16px;
-      color: #f40;
-      font-weight: bold;
-      font-family: Arial;
-   }
-
-   .sort {
-      margin-bottom: 20px;
-      border: solid 1px #eee;
-      background: #f5f5f5;
-   }
-
-      .sort a {
-         display: inline-block;
-         padding: 10px 15px;
-         color: #666;
-      }
-
-         .sort a.active {
-            border-left: solid 1px #eee;
-            border-right: solid 1px #eee;
+         .prolist li {
+            margin-bottom: 30px;
             background: #fff;
-            color: #f40;
          }
 
-         .sort a:first-child {
-            border-left: none;
+         .prolist .pro-img {
+            margin: 10px;
          }
-</style>
+
+         .prolist img {
+            width: 100%;
+            display: block;
+         }
+
+      .caption a {
+         display: block;
+         height: 36px;
+         font-size: 13px;
+         overflow: hidden;
+      }
+
+      .price {
+         font-size: 16px;
+         color: #f40;
+         font-weight: bold;
+         font-family: Arial;
+      }
+
+      .sort {
+         margin-bottom: 20px;
+         border: solid 1px #eee;
+         background: #f5f5f5;
+      }
+
+         .sort a {
+            display: inline-block;
+            padding: 10px 15px;
+            color: #666;
+         }
+
+            .sort a.active {
+               border-left: solid 1px #eee;
+               border-right: solid 1px #eee;
+               background: #fff;
+               color: #f40;
+            }
+
+            .sort a:first-child {
+               border-left: none;
+            }
+
+      .body-content {
+         padding: 0 15px;
+      }
+   </style>
 }
 
 <div class="nav-bar clearfix">
@@ -97,7 +101,7 @@
 </nav>
 
 @section Scripts{
-<script>
+   <script>
       var sort = '@Request.QueryString["sort"]'.toLowerCase();
       var sortLinks = $('.sort>a');
       if (sort == '') {
@@ -109,5 +113,5 @@
             }
          })
       }
-</script>
+   </script>
 }

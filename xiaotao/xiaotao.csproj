@@ -107,6 +107,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\index.css" />
     <Content Include="Content\mall.css" />
+    <Content Include="Content\signin.css" />
     <Content Include="Content\single.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -154,7 +155,7 @@
     <Content Include="Areas\Mall\Views\ProList\Details.cshtml" />
     <Content Include="Areas\Mall\Views\ProList\Index.cshtml" />
     <Content Include="Areas\Mall\Views\Store\Details.cshtml" />
-    <Content Include="Areas\Mall\Views\Store\Setting.cshtml" />
+    <Content Include="Areas\Mall\Views\Store\Basic.cshtml" />
     <Content Include="Areas\Mall\Views\Store\Index.cshtml" />
     <Content Include="Areas\Mall\Views\Store\Signup.cshtml" />
     <Content Include="Areas\Mall\Views\Product\Create.cshtml" />
@@ -290,7 +291,26 @@
     <Content Include="Areas\Mall\Views\ProList\Store.cshtml" />
     <Content Include="Areas\Mall\Views\Shared\_Layout _NoMenu.cshtml" />
     <Content Include="Areas\Mall\Views\Cart\Index - 复制.cshtml" />
+    <Content Include="Areas\Mall\Views\Product\Edit - 复制.cshtml" />
+    <Content Include="Areas\Mall\Views\Store\Setting - 复制.cshtml" />
+    <Content Include="Areas\Mall\Views\Store\Renzheng.cshtml" />
+    <Content Include="Areas\Mall\Views\Store\Safe.cshtml" />
+    <Content Include="Areas\Mall\Views\Store\Avatar.cshtml" />
+    <Content Include="Areas\Es\Views\Goods\Details - 复制.cshtml" />
+    <Content Include="Areas\Es\Views\Order\Checkout - 复制.cshtml" />
+    <Content Include="Areas\Es\Views\Shared\_Layout_mini.cshtml" />
+    <Content Include="Areas\Mall\Views\Order\Pay - 复制.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Setting.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Signin.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Images\b1.jpg" />
+    <Content Include="Images\b2.jpg" />
+    <Content Include="Images\b3.jpg" />
+    <Content Include="Images\index_r.jpg" />
     <Content Include="Images\logo_dn.png" />
     <Content Include="Images\logo_es.png" />
     <Content Include="Images\logo_mall.png" />
@@ -402,6 +422,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\dn_categoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\dn_goodsController.cs" />
     <Compile Include="Areas\Admin\Controllers\es_categoryController.cs" />
@@ -439,6 +460,7 @@
     <Compile Include="Controllers\MallController.cs" />
     <Compile Include="Controllers\ToolsController.cs" />
     <Compile Include="Filters\LoginForm.cs" />
+    <Compile Include="Filters\AdminAuthorize.cs" />
     <Compile Include="Filters\Tools.cs" />
     <Compile Include="Filters\StuVerifyAuthorize.cs" />
     <Compile Include="Filters\StuAuthorize.cs" />
@@ -450,6 +472,10 @@
     <Compile Include="Migrations\201605211733581_aa.Designer.cs">
       <DependentUpon>201605211733581_aa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606011935596_6.2.cs" />
+    <Compile Include="Migrations\201606011935596_6.2.Designer.cs">
+      <DependentUpon>201606011935596_6.2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountEntities.cs" />
     <Compile Include="Models\CartItems.cs" />
@@ -459,7 +485,6 @@
     <Compile Include="Models\WebContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Filters\Image.cs" />
-    <Compile Include="Tools\umeditor\net\Uploader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -503,6 +528,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201605211733581_aa.resx">
       <DependentUpon>201605211733581_aa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606011935596_6.2.resx">
+      <DependentUpon>201606011935596_6.2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

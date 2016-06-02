@@ -1,19 +1,18 @@
 ﻿@model xiaotao.Models.xt_role
 
 @{
-    ViewBag.Title = "Details";
+   ViewBag.Title = "Details";
+
+   ViewBag.Controller = "角色";
+   ViewBag.Action = "详情";
 }
 
-<h2>Details</h2>
-
 <div>
-    <h4>xt_role</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.name)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.name)
         </dd>
@@ -21,6 +20,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("编辑", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("返回列表", "Index")
 </p>

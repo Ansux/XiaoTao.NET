@@ -6,9 +6,16 @@
    Layout = "~/Areas/Mall/Views/Shared/Store_Layout.cshtml";
 }
 
-<p>
-   @Html.ActionLink("添加商品", "Create", "Product")
-</p>
+<div class="nav-bar clearfix">
+   <div class="sort pull-left">
+      <a data-sort="all" href="/mall/store/prolist?type=all">全部</a>
+      <a data-sort="isOnsale" href="/mall/store/prolist?type=isOnsale">在售</a>
+      <a data-sort="isDelete" href="/mall/store/prolist?type=isDelete">已删除</a>
+   </div>
+   <div style="padding: 10px;float:right;">
+      @Html.ActionLink("添加商品", "Create", "Product")
+   </div>
+</div>
 
 <table class="table">
    <thead>
@@ -20,13 +27,14 @@
          <th>库存</th>
          <th>销量</th>
          <th>在售</th>
+         <th>删除</th>
          <th>操作</th>
       </tr>
    </thead>
    <tbody>
       @foreach (var item in Model)
       {
-         <tr>
+         <tr @Html.Raw(item.is_delete==true? "style='opacity: .8;text-decoration: line-through;'":"")>
             <td>@(++i)</td>
             <td>
                <div class="proinfo">
@@ -50,11 +58,44 @@
                @Html.DisplayFor(modelItem => item.is_onsale)
             </td>
             <td>
-               @Html.ActionLink("编辑", "Edit", "Product", new { id = item.id }, new { @class = "btn btn-warning btn-xs" })
-               @Html.ActionLink("预览", "Details", "Product", new { id = item.id }, new { @class = "btn btn-primary btn-xs" })
-               @Html.ActionLink("删除", "Delete", "Product", new { id = item.id }, new { @class = "btn btn-danger btn-xs" })
+               @Html.DisplayFor(modelItem => item.is_delete)
+            </td>
+            <td>
+               @Html.ActionLink("编辑", "Edit", "Product", new { id = item.id }, new { @class = "btn btn-warning btn-xs", @target = "_blank" })
+               @Html.ActionLink("预览", "Details", "Product", new { id = item.id }, new { @class = "btn btn-primary btn-xs", @target = "_blank" })
+               @if (item.is_delete == false)
+               {
+                  <button class="btn btn-danger btn-xs" data-name="@item.name" data-id="@item.id">删除</button>
+               }
             </td>
          </tr>
       }
    </tbody>
 </table>
+
+@section Scripts{
+   <script>
+      $('.btn-danger').click(function () {
+         if (confirm('确定要删除《' + $(this).attr('data-name') + '》么？')) {
+            $.post('/mall/product/delete', { id: $(this).attr('data-id') }, function (res) {
+               if (res == true) {
+                  location.reload();
+               }
+            })
+         }
+      });
+
+      var sort = '@Request.QueryString["type"]'.toLowerCase();
+      var sortLinks = $('.sort>a');
+      if (sort == '') {
+         sortLinks.eq(0).addClass('active');
+      } else {
+         $.each(sortLinks, function (k, v) {
+            if ($(v).attr('data-sort').toLowerCase() == sort) {
+               $(v).addClass('active');
+            }
+         })
+      }
+
+   </script>   
+}

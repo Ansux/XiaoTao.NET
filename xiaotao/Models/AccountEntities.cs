@@ -254,6 +254,9 @@ namespace xiaotao.Models
       [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
       public int id { get; set; }
 
+      /// <summary>
+      /// 1.注册 2.登录 3.修改资料
+      /// </summary>
       [Display(Name = "类型")]
       public byte kind { get; set; }
 
@@ -266,6 +269,10 @@ namespace xiaotao.Models
       [Display(Name = "学生")]
       public int student { get; set; }
 
+      [StringLength(200)]
+      [Display(Name = "备注")]
+      public string remark { get; set; }
+
       public virtual xt_student xt_student { get; set; }
    }
 
@@ -275,6 +282,9 @@ namespace xiaotao.Models
       [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
       public int id { get; set; }
 
+      /// <summary>
+      /// 1.注册 2.登录 3.修改资料
+      /// </summary>
       [Required]
       [Display(Name = "类型")]
       public byte kind { get; set; }
@@ -287,6 +297,10 @@ namespace xiaotao.Models
       [ForeignKey("xt_store")]
       [Display(Name = "店铺")]
       public int store { get; set; }
+
+      [StringLength(200)]
+      [Display(Name = "备注")]
+      public string remark { get; set; }
 
       public virtual xt_store xt_store { get; set; }
    }

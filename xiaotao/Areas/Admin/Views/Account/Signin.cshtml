@@ -1,0 +1,62 @@
+﻿@{
+   ViewBag.Title = "Signin";
+   Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+   <meta name="apple-mobile-web-app-capable" content="yes">
+   <title>LOGIN</title>
+   <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+   <link rel="stylesheet" href="~/Content/signin.css" />
+</head>
+<body>
+   <div class="navbar navbar-fixed-top" role="navigation" id="login_nav">
+      <div class="navbar-header">
+         <a href="#" class="navbar-brand">校淘网</a>
+      </div>
+      <!-- navbar-header-->
+      <div class="collapse navbar-collapse nav-responsive-collapse pull-right">
+         <ul class="nav navbar-nav">
+            <li><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+         </ul>
+      </div>
+   </div>
+   <!-- navbar-->
+
+   <div class="login-container">
+      <div class="content clearfix">
+         <form action="/admin/account/signin" method="post" class="form-horizontal" role="form">
+            <h2>管理登录</h2>
+            <div class="form-group">
+               <label for="loginid" class="sr-only">id</label>
+               <div class="input-group">
+                  <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                  <input type="text" name="login_id" placeholder="Username" class="form-control" required />
+               </div>
+            </div>
+            <div class="form-group">
+               <label for="loginpwd" class="sr-only">pwd</label>
+               <div class="input-group">
+                  <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                  <input type="password" name="login_pwd" placeholder="password" class="form-control" required />
+               </div>
+            </div>
+            <div class="row login-submit">
+               <div class="checkbox col-sm-6">
+                  <label>
+                     <input type="checkbox" name="" id="" /> 记住账号
+                  </label>
+               </div>
+               <div class="col-sm-6 submit">
+                  <button type="submit" class="btn btn-success">立即登录</button>
+               </div>
+            </div>
+         </form>
+      </div>
+   </div>
+</body>
+</html>

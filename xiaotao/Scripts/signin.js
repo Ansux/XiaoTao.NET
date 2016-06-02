@@ -18,11 +18,15 @@
    }
 });
 
+$('#g_checkout').click(function () {
+   checkLogin($(this).attr('data-sid'));
+});
+
 function checkLogin(sid) {
    if (sid == '') {
       $('#myModal').modal('show');
    } else {
-      $('form')[0].submit();
+      $('#CheckoutForm').submit();
    }
 }
 $('#myModal').find('input').change(function () {

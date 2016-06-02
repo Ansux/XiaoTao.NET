@@ -1,0 +1,73 @@
+﻿@model xiaotao.Models.xt_store
+
+@{
+   ViewBag.Title = "Setting";
+   Layout = "~/Areas/Mall/Views/Shared/Store_Layout.cshtml";
+}
+
+@section Styles{
+   <link href="~/Tools/crop-avatar/css/cropper.min.css" rel="stylesheet">
+   <link href="~/Tools/crop-avatar/css/main.css" rel="stylesheet">
+}
+
+<div class="setting" id="store_setting">
+   
+   <div class="panel panel-default">
+      <div class="panel-heading">店铺装修（@Model.name）</div>
+      <div class="panel-body">
+         <div class="tabs-link">
+            <a href="basic">基本资料</a>
+            <a class="active" href="avatar">头像设置</a>
+            <a href="safe">安全设置</a>
+            <a href="renzheng">认证信息</a>
+         </div>
+         <hr/>
+         <div class="edit-form">
+            <div id="crop-avatar" style="margin-top:20px;">
+               <!-- Cropping modal -->
+               <div id="avatar-modal">
+                  @using (Html.BeginForm(Html.BeginForm("avatar", "Store", FormMethod.Post, new { enctype = "multipart/form-data", @class = "avatar-form" })))
+                  {
+                     @Html.AntiForgeryToken()
+                     <div class="avatar-body">
+                        <!-- Upload image and data -->
+                        <div class="avatar-upload">
+                           <input class="avatar-src" name="avatar_src" type="hidden">
+                           <input class="avatar-data" name="avatar_data" type="hidden">
+                           <label for="avatarInput">本地上传</label>
+                           <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+                        </div>
+                        <!-- Crop and preview -->
+                        <div class="row">
+                           <div class="col-md-9">
+                              <div class="avatar-wrapper"></div>
+                           </div>
+                           <div class="col-md-3">
+                              <div class="avatar-preview preview-lg"></div>
+                              <div class="avatar-preview preview-md"></div>
+                              <div class="avatar-preview preview-sm"></div>
+                           </div>
+                        </div>
+                        <div class="row avatar-btns">
+                           <div class="col-md-9">
+                           </div>
+                           <div class="col-md-3">
+                              <button class="btn btn-primary btn-block avatar-save" type="submit">上传图片</button>
+                           </div>
+                        </div>
+                     </div>
+                  }
+               </div>
+               <!-- Loading state -->
+               <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+</div>
+
+@section Scripts{
+   <script src="~/Tools/crop-avatar/js/cropper.min.js"></script>
+<script src="~/Tools/crop-avatar/js/main.js"></script>
+}

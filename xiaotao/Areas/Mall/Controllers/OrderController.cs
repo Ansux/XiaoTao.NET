@@ -79,8 +79,11 @@ namespace xiaotao.Areas.Mall.Controllers
          var type = Request.Form["type"];
          var flag = true;
 
+         int oid = 0;
+
          using (var trans = db.Database.BeginTransaction())
          {
+
             try
             {
                if (type == "single")
@@ -94,9 +97,8 @@ namespace xiaotao.Areas.Mall.Controllers
                      ModelState.AddModelError("error", "抱歉，您所选购的商品<" + product.name + ">库存不足。");
                      return View();
                   }
-                  var oid = CreateOrder(product.price * num, receiver, address, phone, product.store);
+                  oid = CreateOrder(product.price * num, receiver, address, phone, product.store);
                   CreateOrderItem(oid, product.id, product.price, num, false);
-                  return RedirectToAction("index");
                }
                else
                {
@@ -115,7 +117,6 @@ namespace xiaotao.Areas.Mall.Controllers
                   }
                   if (flag == false)
                   {
-                     ViewData["error"] = false;
                      return View();
                   }
 
@@ -137,7 +138,7 @@ namespace xiaotao.Areas.Mall.Controllers
                         amount += Convert.ToDecimal(cart.sp_product.price * cart.number);
                      }
                      // 创建订单
-                     var oid = CreateOrder(amount, receiver, address, phone, item);
+                     oid = CreateOrder(amount, receiver, address, phone, item);
                      // 将订单商品记录入库，并删除购物车，并减少相应的商品库存
                      foreach (var cart in carts)
                      {
@@ -156,7 +157,9 @@ namespace xiaotao.Areas.Mall.Controllers
             {
                trans.Rollback();
             }
-            return RedirectToAction("index");
+
+            return RedirectToAction("Pay", new { id = oid });
+
          }
       }
 

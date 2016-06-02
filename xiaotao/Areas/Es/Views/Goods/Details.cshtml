@@ -62,72 +62,62 @@
       .form-bottom {
          margin-top: 10px;
       }
+
+      .g-detail .t-left {
+         width: 100px;
+      }
    </style>
 }
 
-<div class="row">
-   <div class="col-xs-5">
-      <img src="~/Uploads/Products/@Model.ori_img" alt="Alternate Text" />
+<div class="row pro-info">
+   <div class="col-xs-4">
+      <div class="pic-focus">
+         <img src="~/Uploads/Products/@Model.ori_img" alt="Alternate Text" />
+      </div>
    </div>
-   <div class="col-xs-7">
-      <dl class="dl-horizontal">
-         <dt>名称</dt>
-         <dd>
-            @Html.DisplayFor(model => model.name)
-         </dd>
-
-         <dt>价格</dt>
-         <dd>
-            @Html.DisplayFor(model => model.price)
-         </dd>
-
-         <dt>图片</dt>
-         <dd>
-            @Html.DisplayFor(model => model.ori_img)
-         </dd>
-
-         <dt>分类</dt>
-         <dd>
-            @Html.DisplayFor(model => model.es_category.name)
-         </dd>
-
-         <dt>全新</dt>
-         <dd>
-            @Html.DisplayFor(model => model.is_new)
-         </dd>
-
-         <dt>发布时间</dt>
-         <dd>
-            @Html.DisplayFor(model => model.create_at)
-         </dd>
-      </dl>
-
-      @using (Html.BeginForm("checkout", "order", FormMethod.Get))
-      {
-         <input type="hidden" name="id" value="@Model.id" />
-         <dl class="dl-horizontal">
-            <dt></dt>
-            <dd style="padding-top:10px;">
-               @if (ViewBag.isSold == true)
+   <div class="col-xs-8 g-detail">
+      <div class="w-name">@Model.name</div>
+      <div class="w-price clearfix">
+         <div class="t-left">价格：</div>
+         <div class="price"><span>￥</span>@Model.price</div>
+      </div>
+      <div class="w-record clearfix">
+         <div class="t-left">记录：</div>
+         <div class="record">
+            <div class="comments">交流 <b>@ViewBag.consultCount</b></div>
+         </div>
+      </div>
+      <div class="w-record clearfix">
+         <div class="t-left">发布时间：</div>
+         <div class="record">
+            <div class="comments">
+               @Model.create_at
+            </div>
+         </div>
+      </div>
+      <div class="w-form clearfix">
+         @using (Html.BeginForm("checkout", "order", FormMethod.Get,new { @id="CheckoutForm" }))
+         {
+            <input type="hidden" name="id" value="@Model.id" />
+            if (ViewBag.isSold == true)
+            {
+               <a class="btn btn-danger">已售出</a>
+            }
+            else
+            {
+               if (Session["Sid"] != null && (Model.seller == int.Parse(Session["Sid"].ToString())))
                {
-                  <a class="btn btn-danger">已售出</a>
+                  <a class="btn btn-danger" href="/es/goods/edit/@Model.id">编辑信息</a>
                }
                else
                {
-                  if (Session["Sid"] != null && (Model.seller == int.Parse(Session["Sid"].ToString())))
-                  {
-                     <a class="btn btn-danger" href="/es/goods/edit/@Model.id">编辑信息</a>
-                  }
-                  else
-                  {
-                     <a class="btn btn-danger" data-sid="@Session["Sid"]" id="submit">立即购买</a>
-                  }
+                  <a class="btn btn-success btn-lg" id="g_checkout" data-sid="@Session["Sid"]">立即购买</a>
                }
-            </dd>
-         </dl>
-      }
+            }
+         }
       </div>
    </div>
+</div>
 
 <div class="detail" ng-app="myApp" ng-controller="myController">
    <ul class="nav nav-tabs">

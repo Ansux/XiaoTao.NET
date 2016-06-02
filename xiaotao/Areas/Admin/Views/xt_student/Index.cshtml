@@ -2,12 +2,14 @@
 
 @{
    ViewBag.Title = "Index";
+   ViewBag.Controller = "学生";
+   ViewBag.Action = "列表";
 }
 <p>
    @Html.ActionLink("添加学生", "Create")
 </p>
-<table class="table">
-   <tr>
+<table class="table table-hover">
+   <tr class="active">
       <th>
          @Html.DisplayNameFor(model => model.email)
       </th>
@@ -35,7 +37,14 @@
             @Html.DisplayFor(modelItem => item.email)
          </td>
          <td>
-            @Html.DisplayFor(modelItem => item.avatar)
+            @if (item.avatar != null)
+            {
+               <img src="~/Uploads/Account/Avatar/@item.avatar" width="30" alt="Alternate Text" />
+            }
+            else
+            {
+               <span>无头像</span>
+            }
          </td>
          <td>
             @Html.DisplayFor(modelItem => item.sno)
@@ -50,9 +59,9 @@
             @Html.DisplayFor(modelItem => item.phone)
          </td>
          <td>
-            @Html.ActionLink("更新", "Edit", new { id = item.id }) |
-            @Html.ActionLink("详情", "Details", new { id = item.id }) |
-            @Html.ActionLink("删除", "Delete", new { id = item.id })
+            @Html.ActionLink("更新", "Edit", new { id = item.id }, new { @class="btn btn-warning btn-xs"})
+            @Html.ActionLink("详情", "Details", new { id = item.id }, new { @class = "btn btn-primary btn-xs" })
+            @Html.ActionLink("删除", "Delete", new { id = item.id }, new { @class = "btn btn-danger btn-xs" })
          </td>
       </tr>
    }

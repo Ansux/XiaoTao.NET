@@ -13,8 +13,10 @@ namespace xiaotao.Controllers
       // GET: Web
       public ActionResult Index()
       {
-         //return Redirect("mall/prolist");
-         return View(db.sp_product.ToList());
+         ViewBag.F1 = db.sp_product.Where(e => e.category == 6).Take(4).ToList();
+         ViewBag.F2 = db.sp_product.Where(e => e.category == 11).Take(4).ToList();
+         ViewBag.F3 = db.sp_product.Where(e => e.category == 12).Take(4).ToList();
+         return View();
       }
    }
 }

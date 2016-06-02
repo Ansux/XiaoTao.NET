@@ -2,76 +2,232 @@
 
 @{
    ViewBag.Title = "Checkout";
+   Layout = null;
 }
-
-<h2>Checkout</h2>
-
-<div>
-   <hr />
-   <dl class="dl-horizontal">
-      <dt>
-         @Html.DisplayNameFor(model => model.xt_student.sno)
-      </dt>
-
-      <dd>
-         @Html.DisplayFor(model => model.xt_student.sno)
-      </dd>
-
-      <dt>
-         @Html.DisplayNameFor(model => model.name)
-      </dt>
-
-      <dd>
-         @Html.DisplayFor(model => model.name)
-      </dd>
-
-      <dt>
-         @Html.DisplayNameFor(model => model.price)
-      </dt>
-
-      <dd>
-         @Html.DisplayFor(model => model.price)
-      </dd>
-
-      <dt>
-         @Html.DisplayNameFor(model => model.ori_img)
-      </dt>
-
-      <dd>
-         @Html.DisplayFor(model => model.ori_img)
-      </dd>
-   </dl>
-</div>
-@using (Html.BeginForm("Create", "Order", FormMethod.Post))
-{
-   @Html.AntiForgeryToken()
-   <form class="form-horizontal">
-      <input type="hidden" name="gid" value="@Model.id" />
-      @{ var addrList = (List<xiaotao.Models.xt_student_address>)ViewData["Address"];}
-
-      @if (addrList.Count() == 0)
-      {
-         <a href="/mall/account/Address">添加收货地址</a>
-      }
-      else
-      {
-         <ul>
-            @foreach (var addr in addrList)
-            {
-               <li>
-                  <div class="radio">
-                     <label>
-                        <input type="radio" name="addr" value="@addr.id" @(addr.is_default ? "checked" : "")>
-                        @addr.receiver | @addr.addr | @addr.phone
-                     </label>
-                  </div>
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>@ViewBag.Title - My ASP.NET Application</title>
+   <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+   <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+   <link href="~/Content/es.css" rel="stylesheet" />
+</head>
+<body>
+   <div class="navbar navbar-fixed-top">
+      <div class="container">
+         <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("校淘网", "Index", "Web", new { area = "" }, new { @class = "navbar-brand" })
+         </div>
+         <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+               <li data-id="store">@Html.ActionLink("物品列表", "index", "goodslist")</li>
+               <li data-id="store">@Html.ActionLink("交易订单", "index", "order")</li>
+               <li data-id="store">@Html.ActionLink("我的发布", "index", "goods")</li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right user-menu">
+               <li class="dropdown">
+                  <a href="#" id="userName" class="dropdown-toggle" data-toggle="dropdown">
+                     快速导航
+                     <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                     <li>
+                        <a href="/mall"><span class="glyphicon glyphicon-shopping-cart"></span> 购物平台</a>
+                     </li>
+                     <li>
+                        <a href="/es"><span class="glyphicon glyphicon-refresh"></span> 二手交易</a>
+                     </li>
+                     <li>
+                        <a href="/dn"><span class="glyphicon glyphicon-heart"></span> 爱心捐赠</a>
+                     </li>
+                  </ul>
                </li>
+               <li class="dropdown">
+                  @if (Session["Sid"] == null)
+                  {
+                  <a href="/mall/account/signin" id="userName">
+                     登录/注册
+                  </a>
+                  }
+                  else
+                  {
+                  <a href="#" id="userName" class="dropdown-toggle" data-toggle="dropdown">
+                     <span class="glyphicon glyphicon-user"></span> @Html.Raw(Session["Sno"] == null ? Session["Semail"] : Session["Sno"])
+                     <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                     <li>
+                        <a href="#"><span class="glyphicon glyphicon-user"></span> 简介</a>
+                     </li>
+                     <li>
+                        <a href="/mall/account/setting"><span class="glyphicon glyphicon-cog"></span> 设置</a>
+                     </li>
+                     <li>
+                        <a href="/mall/account/signout"><span class="glyphicon glyphicon-log-out"></span> 登出</a>
+                     </li>
+                  </ul>
+                  }
+               </li>
+            </ul>
+         </div>
+      </div>
+   </div>
+   <div class="container header">
+      <div class="logo clearfix">
+         <h1>
+            <a href="/" title="校淘网"></a>
+         </h1>
+         <p>淘你喜欢的，淘你想要的!</p>
+      </div>
+      <div class="stepbar clearfix">
+         <div class="item active">
+            <div class="line"></div>
+            <div class="number">1</div>
+            <div class="txt">1.下订单</div>
+         </div>
+         <div class="item nodo">
+            <div class="line"></div>
+            <div class="number">2</div>
+            <div class="txt">2.去付款</div>
+         </div>
+      </div>
+   </div>
+   <div class="container body-content">
+      <div id="checkout" ng-app="myApp" ng-controller="Settle">
+         @using (Html.BeginForm("Create", "Order", FormMethod.Post))
+         {
+            @Html.AntiForgeryToken()
+            <section class="addr-panel">
+               <div class="head clearfix"><h3 class="title">确认收货地址</h3><span><a href="###">管理收货地址</a></span></div>
+               <ul>
+                  <li class="clearfix" ng-class="{'active':a.id==selectAddr}" ng-repeat="a in addrs">
+                     <div class="item">
+                        <div class="address">
+                           <input type="radio" ng-model="$parent.selectAddr" id="addr{{a.id}}" name="addr" value="{{a.id}}" ng-change="setAddr(a)" />
+                           <label for="addr{{a.id}}">{{a.areaName}}区 {{a.addr}} ({{a.receiver}} 收) </label>
+                           <span>{{a.phone}}</span>
+                        </div>
+                        <div ng-if="a.is_default==true" class="default">默认地址</div>
+                     </div>
+                  </li>
+               </ul>
+            </section>
+            <section class="order-panel" style="padding-top:30px;">
+               <div class="head clearfix"><h3 class="title">物品信息</h3></div>
+               <input type="hidden" name="gid" value="@Model.id" />
+               <div class="order-list" id="orderList">
+                  <div class="order-items">
+                        <table class="table">
+                           <thead>
+                              <tr>
+                                 <th class="col-xs-7 aligh-left">商品</th>
+                                 <th class="col-xs-2">销售者</th>
+                                 <th class="col-xs-2 aligh-right">价格</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr>
+                                 <td class="col-xs-7 aligh-left">
+                                    <div class="ginfo">
+                                       <div class="pic"><a target="_blank" href="/mall/es/goods/details/@Model.id"><img src="~/Uploads/Products/@Model.ori_img" alt="" /></a></div>
+                                       <div class="info">
+                                          <div class="name"><a target="_blank" href="/mall/es/goods/details/@Model.id">@Model.name</a></div>
+                                          <div class="paras">
+                                             <p>全新：@Html.DisplayFor(model => model.is_new)</p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </td>
+                                 <td class="col-xs-2">@Model.xt_student.email</td>
+                                 <td class="col-xs-2 subtotal">@Model.price</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                  </div>
+               </div>
+            </section>
+            <section class="confirm-panel">
+               <div class="addr">
+                  <p>寄送至： {{activeAddr.areaName}} 区 {{activeAddr.addr}}</p>
+                  <p>收货人：{{activeAddr.receiver}} {{activeAddr.phone}}</p>
+               </div>
+               <div class="submit clearfix">
+                  <div class="submit-btn">
+                     <button class="btn btn-danger" type="submit">提交订单</button>
+                  </div>
+                  <div class="amount">总额： <span>¥ @Model.price</span></div>
+               </div>
+            </section>
+         }
+      </div>
+      <hr />
+      <footer>
+         <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+      </footer>
+   </div>
+
+   <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+   <script src="~/Scripts/bootstrap.min.js"></script>
+   <script src="~/Scripts/angular.min.js"></script>
+   <script>
+   angular.module('myApp', [], function ($httpProvider) {
+      $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+      $httpProvider.defaults.transformRequest = [function (data) {
+         var param = function (obj) {
+            var query = '';
+            var name, value, fullSubName, subName, subValue, innerObj, i;
+            for (name in obj) {
+               value = obj[name];
+               if (value instanceof Array) {
+                  for (i = 0; i < value.length; ++i) {
+                     subValue = value[i];
+                     fullSubName = name + '[' + i + ']';
+                     innerObj = {};
+                     innerObj[fullSubName] = subValue;
+                     query += param(innerObj) + '&';
+                  }
+               } else if (value instanceof Object) {
+                  for (subName in value) {
+                     subValue = value[subName];
+                     fullSubName = name + '[' + subName + ']';
+                     innerObj = {};
+                     innerObj[fullSubName] = subValue;
+                     query += param(innerObj) + '&';
+                  }
+               } else if (value !== undefined && value !== null) {
+                  query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+               }
             }
-         </ul>
+            return query.length ? query.substr(0, query.length - 1) : query;
+         };
+         return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+      }];
+   })
+   .controller('Settle', function ($scope, $http) {
+      $http.get('/mall/cart/GetAddrList').success(function (v) {
+         $scope.addrs = v.addrs;
+         if (v.addrs.length > 0) {
+            angular.forEach($scope.addrs, function (v, k) {
+               if (v.is_default==true) {
+                  $scope.selectAddr = v.id;
+                  $scope.activeAddr = v;
+               }
+            });
+         }
+      });
+
+      $scope.setAddr = function (addr) {
+         $scope.activeAddr = addr;
       }
-      <button type="submit" class="btn btn-danger">立即下单</button>
-   </form>
-}
-<p>
-   @Html.ActionLink("Back to List", "Index")
-</p>
+
+   })
+   </script>
+</body>
+</html>

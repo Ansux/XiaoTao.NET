@@ -36,4 +36,5 @@ D:\CodeSet\xiaotao\校淘网\xiaotao\obj\Debug\xiaotao.dll
 D:\CodeSet\xiaotao\校淘网\xiaotao\obj\Debug\xiaotao.pdb
 D:\CodeSet\xiaotao\校淘网\xiaotao\obj\Debug\xiaotao.Migrations.aa.resources
 D:\CodeSet\xiaotao\校淘网\xiaotao\obj\Debug\xiaotao.csproj.GenerateResource.Cache
+D:\CodeSet\xiaotao\校淘网\xiaotao\obj\Debug\xiaotao.Migrations._62.resources
 D:\CodeSet\xiaotao\校淘网\xiaotao\obj\Debug\xiaotao.csprojResolveAssemblyReference.cache

@@ -83,29 +83,46 @@ namespace xiaotao.Areas.Es.Controllers
          {
             return HttpNotFound();
          }
+         else if(goods.is_onsale==false)
+         {
+            return View();
+         }
+         using (var trans = db.Database.BeginTransaction())
+         {
+            try
+            {
+               var order = new es_order();
+               order.goods = gid;
+               order.amount = goods.price;
+               order.states = 1;
+               order.create_at = DateTime.Now;
+               order.is_pay = false;
+               order.buyer = int.Parse(Session["Sid"].ToString());
 
-         var order = new es_order();
-         order.goods = gid;
-         order.amount = goods.price;
-         order.states = 1;
-         order.create_at = DateTime.Now;
-         order.is_pay = false;
-         order.buyer = int.Parse(Session["Sid"].ToString());
+               var address = db.xt_student_address.Find(addr);
+               order.receiver = address.receiver;
+               order.addr = address.xt_area.name + "区" + address.addr;
+               order.phone = address.phone;
 
-         var address = db.xt_student_address.Find(addr);
-         order.receiver = address.receiver;
-         order.addr = address.xt_area.name + "区" + address.addr;
-         order.phone = address.phone;
+               db.es_order.Add(order);
 
-         db.es_order.Add(order);
+               // 将二手物品状态改为下架
+               db.Entry(goods).State = EntityState.Unchanged;
+               db.Entry(goods).Property(e => e.is_onsale).IsModified = true;
+               goods.is_onsale = false;
 
-         // 将二手物品状态改为下架
-         db.Entry(goods).State = EntityState.Unchanged;
-         db.Entry(goods).Property(e => e.is_onsale).IsModified = true;
-         goods.is_onsale = false;
+               db.SaveChanges();
 
-         db.SaveChanges();
-         return RedirectToAction("Index");
+               trans.Commit();
+
+               return RedirectToAction("Pay", new { id = order.id });
+            }
+            catch
+            {
+               trans.Rollback();
+               return View();
+            }
+         }
       }
 
       public ActionResult Edit(int? id)

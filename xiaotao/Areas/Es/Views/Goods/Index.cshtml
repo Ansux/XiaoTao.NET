@@ -2,6 +2,7 @@
 
 @{
    ViewBag.Title = "Index";
+   Layout = "~/Areas/Es/Views/Shared/_Layout_mini.cshtml";
 }
 
 <style>
@@ -43,11 +44,12 @@
    }
 </style>
 
-<h2>我的物品</h2>
-
-<p>
-   @Html.ActionLink("添加发布", "Create")
-</p>
+<div class="clearfix" style="background:#eee; padding:0 10px;margin-bottom:20px;">
+   <h4 class="pull-left">我的物品</h4>
+   <div class="pull-right" style="padding-top: 10px;">
+      @Html.ActionLink("添加发布", "Create")
+   </div>
+</div>
 
 <table class="table table-hover" id="glist">
    <thead>

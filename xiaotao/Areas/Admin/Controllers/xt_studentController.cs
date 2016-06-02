@@ -10,7 +10,8 @@ using xiaotao.Models;
 
 namespace xiaotao.Areas.Admin.Controllers
 {
-  public class xt_studentController : Controller
+   [Filters.AdminAuthorize]
+   public class xt_studentController : Controller
   {
     private WebContext db = new WebContext();
 

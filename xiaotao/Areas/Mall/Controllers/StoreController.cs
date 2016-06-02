@@ -44,6 +44,10 @@ namespace xiaotao.Areas.Mall.Controllers
       #region 店铺装修
       public ActionResult Setting()
       {
+         return RedirectToAction("basic");
+      }
+      public ActionResult Basic()
+      {
          var id = Session["StoreId"];
          xt_store xt_store = db.xt_store.Find(int.Parse(id.ToString()));
          if (xt_store == null)
@@ -52,16 +56,99 @@ namespace xiaotao.Areas.Mall.Controllers
          }
          return View(xt_store);
       }
-
       [HttpPost]
       [ValidateAntiForgeryToken]
-      public ActionResult Setting([Bind(Include = "id,login_id,login_pwd,avatar,name,sex,email,phone,create_at,update_at,verify,states")] xt_store xt_store)
+      public ActionResult Basic(string name,string intro, string phone)
       {
-         if (ModelState.IsValid)
+         int sid = int.Parse(Session["StoreId"].ToString());
+         var store = db.xt_store.Find(sid);
+         db.Entry(store).State = EntityState.Unchanged;
+         db.Entry(store).Property(e=>e.name).IsModified = true;
+         db.Entry(store).Property(e=>e.intro).IsModified = true;
+         db.Entry(store).Property(e=>e.phone).IsModified = true;
+         db.Entry(store).Property(e=>e.update_at).IsModified = true;
+
+         store.name = name;
+         store.intro = intro;
+         store.phone = phone;
+         store.update_at = DateTime.Now;
+
+         ViewBag.msg = "基本信息修改成功！";
+
+         db.SaveChanges();
+         saveLog(sid, 3, "基本信息修改");
+         return View(store);
+      }
+
+      public ActionResult Avatar()
+      {
+         var id = Session["StoreId"];
+         xt_store xt_store = db.xt_store.Find(int.Parse(id.ToString()));
+         if (xt_store == null)
          {
-            db.Entry(xt_store).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return HttpNotFound();
+         }
+         return View(xt_store);
+      }
+      [HttpPost]
+      [ValidateAntiForgeryToken]
+      public ActionResult Avatar(string name, string intro)
+      {
+         int sid = int.Parse(Session["StoreId"].ToString());
+         var store = db.xt_store.Find(sid);
+         db.Entry(store).State = EntityState.Unchanged;
+         db.Entry(store).Property(e => e.name).IsModified = true;
+         db.Entry(store).Property(e => e.intro).IsModified = true;
+         db.Entry(store).Property(e => e.update_at).IsModified = true;
+
+         store.name = name;
+         store.intro = intro;
+         store.update_at = DateTime.Now;
+
+         db.SaveChanges();
+         saveLog(sid, 3, "头像修改");
+         return View(store);
+      }
+
+      public ActionResult Safe()
+      {
+         var id = Session["StoreId"];
+         xt_store xt_store = db.xt_store.Find(int.Parse(id.ToString()));
+         if (xt_store == null)
+         {
+            return HttpNotFound();
+         }
+         return View(xt_store);
+      }
+      [HttpPost]
+      [ValidateAntiForgeryToken]
+      public ActionResult Safe(string login_pwd, string email)
+      {
+         int sid = int.Parse(Session["StoreId"].ToString());
+         var store = db.xt_store.Find(sid);
+         db.Entry(store).State = EntityState.Unchanged;
+         db.Entry(store).Property(e => e.login_pwd).IsModified = true;
+         db.Entry(store).Property(e => e.email).IsModified = true;
+         db.Entry(store).Property(e => e.update_at).IsModified = true;
+
+         store.login_pwd = login_pwd;
+         store.email = email;
+         store.update_at = DateTime.Now;
+
+         ViewBag.msg = "安全信息修改成功！";
+
+         db.SaveChanges();
+         saveLog(sid,3,"安全信息修改");
+         return View(store);
+      }
+
+      public ActionResult Renzheng()
+      {
+         var id = Session["StoreId"];
+         xt_store xt_store = db.xt_store.Find(int.Parse(id.ToString()));
+         if (xt_store == null)
+         {
+            return HttpNotFound();
          }
          return View(xt_store);
       }
@@ -129,6 +216,10 @@ namespace xiaotao.Areas.Mall.Controllers
       [AllowAnonymous]
       public ActionResult Signin()
       {
+         if(Session["StoreId"] != null)
+         {
+            return RedirectToAction("Index");
+         }
          return View();
       }
 
@@ -282,10 +373,19 @@ namespace xiaotao.Areas.Mall.Controllers
       #endregion
 
       #region 商品列表
-      public ActionResult ProList()
+      public ActionResult ProList(string type="all")
       {
          int id = int.Parse(Session["StoreId"].ToString());
-         var products = db.sp_product.Where(s => s.store == id).ToList();
+         var products = db.sp_product.Where(s => s.store == id).OrderByDescending(e=>e.create_at).ToList();
+
+         if(type == "isOnsale")
+         {
+            products = products.Where(e=>e.is_onsale==true).ToList();
+         }else if(type == "isDelete")
+         {
+            products = products.Where(e => e.is_delete == true).ToList();
+         }
+
          return View(products);
       }
       #endregion
@@ -480,5 +580,42 @@ namespace xiaotao.Areas.Mall.Controllers
          return order;
       }
 
+      [AllowAnonymous]
+      public JsonResult IsExistLoginID(string login_id)
+      {
+         bool flag = true;
+         if (db.xt_store.Where(e => e.login_id == login_id).Count() != 0)
+         {
+            flag = false;
+         }
+         return Json(flag, JsonRequestBehavior.AllowGet);
+      }
+
+      /// <summary>
+      /// 验证用户身份
+      /// </summary>
+      /// <param name="id"></param>
+      /// <returns></returns>
+      public bool Valid(int id)
+      {
+         return true;
+      }
+
+      /// <summary>
+      /// 保存操作日志
+      /// </summary>
+      /// <param name="sid"></param>
+      /// <param name="kind"></param>
+      public void saveLog(int sid,byte kind,string remark)
+      {
+         var log = new xt_store_log();
+         log.store = sid;
+         log.kind = kind;
+         log.remark = remark;
+         log.create_at = DateTime.Now;
+
+         db.xt_store_log.Add(log);
+         db.SaveChanges();
+      }
    }
 }

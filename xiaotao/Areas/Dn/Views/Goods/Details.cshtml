@@ -65,9 +65,7 @@
    </style>
 }
 
-<h2>Details</h2>
-
-<div>
+<div class="row">
    <hr />
    <div class="col-xs-5">
       <img src="~/Uploads/Products/@Model.ori_img" alt="Alternate Text" />
@@ -77,11 +75,6 @@
          <dt>名称</dt>
          <dd>
             @Html.DisplayFor(model => model.name)
-         </dd>
-
-         <dt>图片</dt>
-         <dd>
-            @Html.DisplayFor(model => model.ori_img)
          </dd>
 
          <dt>分类</dt>
@@ -100,7 +93,7 @@
          </dd>
       </dl>
 
-      @using (Html.BeginForm("checkout", "claim", FormMethod.Get))
+      @using (Html.BeginForm("checkout", "claim", FormMethod.Get, new { @id= "CheckoutForm"}))
       {
          <input type="hidden" name="id" value="@Model.id" />
          <dl class="dl-horizontal">
@@ -118,7 +111,7 @@
                   }
                   else
                   {
-                     <a class="btn btn-danger" data-sid="@Session["Sid"]" id="submit">申请认领</a>
+                     <a class="btn btn-danger" data-sid="@Session["Sid"]" id="g_checkout">申请认领</a>
                   }
                }
             </dd>

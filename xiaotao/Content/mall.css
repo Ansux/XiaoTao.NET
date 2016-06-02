@@ -165,3 +165,37 @@ table.oi-list td {
    display:block;
 }
 /**store-prolist**/
+
+
+#nav_store{
+   background: #f40;
+   border-color: #f20;
+}
+
+#nav_store .navbar-brand,#nav_store .navbar-nav>li>a{
+   color:#fff;
+}
+
+#store_setting input,#store_setting textarea{
+   max-width:400px;
+}
+#store_setting .tabs-link a{
+   color:#666;
+   margin-right:15px;
+   padding:3px 0;
+   text-decoration:none;
+   display:inline-block;
+}
+
+#store_setting .tabs-link a.active{
+   font-weight:bold;
+   color:#f40;
+   border-bottom:solid 1px #f40;
+}
+#store_setting .tabs-link a:hover{
+   color:#f40;
+}
+
+#store_setting .rz-info{
+   margin-top:7px;
+}

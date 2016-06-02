@@ -138,7 +138,7 @@ namespace xiaotao.Areas.Mall.Controllers
             sp_product.store = storeId;
             db.sp_product.Add(sp_product);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Redirect("/mall/store/ProList");
          }
 
          ViewBag.brand = new SelectList(db.sp_brand, "id", "name", sp_product.brand);
@@ -169,22 +169,47 @@ namespace xiaotao.Areas.Mall.Controllers
          return View(sp_product);
       }
 
+      [ValidateInput(false)]
       [HttpPost]
       [ValidateAntiForgeryToken]
       public ActionResult Edit([Bind(Include = "id,name,price,stock,ori_img,is_onsale,category,brand")] sp_product sp_product)
       {
-         if (ModelState.IsValid)
-         {
+         try {
+            // 获取店铺Id
             db.Entry(sp_product).State = EntityState.Modified;
+
+            if (Request.Files.Count > 0)
+            {
+               var file = Request.Files[0];
+               if (file != null && file.ContentLength > 0)
+               {
+                  var fileName = Filters.Tools.GetRandomFileName(file);
+
+                  var path = Path.Combine(Server.MapPath("~/Uploads/Products/"), fileName);
+                  file.SaveAs(path);
+                  sp_product.ori_img = fileName;
+               }
+            }
+            else
+            {
+               db.Entry(sp_product).Property(e => e.ori_img).IsModified = false;
+            }
+
+            db.Entry(sp_product).Property(e => e.sales).IsModified = false;
+            db.Entry(sp_product).Property(e => e.is_delete).IsModified = false;
+            db.Entry(sp_product).Property(e => e.create_at).IsModified = false;
+            db.Entry(sp_product).Property(e => e.store).IsModified = false;
+
             sp_product.detail = Request.Form["editorValue"].ToString();
-            sp_product.update_at = DateTime.Now;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Redirect("/mall/store/ProList");
          }
-         ViewBag.brand = new SelectList(db.sp_brand, "id", "name", sp_product.brand);
-         ViewBag.category = new SelectList(db.sp_category, "id", "name", sp_product.category);
-         ViewBag.store = new SelectList(db.xt_store, "id", "login_id", sp_product.store);
-         return View(sp_product);
+         catch
+         {
+            ViewBag.brand = new SelectList(db.sp_brand, "id", "name", sp_product.brand);
+            ViewData["category"] = GetCategory(sp_product.category);
+            return View(GetProduct(sp_product.id));
+         }
       }
       #endregion
 
@@ -203,7 +228,14 @@ namespace xiaotao.Areas.Mall.Controllers
          return category;
       }
 
+      public sp_product GetProduct(int id)
+      {
+         int sid = int.Parse(Session["StoreId"].ToString());
+         return db.sp_product.SingleOrDefault(e=>e.store == sid && e.id == id);
+      }
+
       #region 删除商品
+      [HttpPost]
       public ActionResult Delete(int? id)
       {
          if (id == null)
@@ -215,18 +247,16 @@ namespace xiaotao.Areas.Mall.Controllers
          {
             return HttpNotFound();
          }
-         return View(sp_product);
-      }
 
-      [HttpPost, ActionName("Delete")]
-      [ValidateAntiForgeryToken]
-      public ActionResult DeleteConfirmed(int id)
-      {
-         sp_product sp_product = db.sp_product.Find(id);
-         db.sp_product.Remove(sp_product);
+         db.Entry(sp_product).State = EntityState.Unchanged;
+         db.Entry(sp_product).Property(e => e.is_delete).IsModified = true;
+         db.Entry(sp_product).Property(e => e.is_onsale).IsModified = true;
+         sp_product.is_onsale = false;
+         sp_product.is_delete = true;
          db.SaveChanges();
-         return RedirectToAction("Index");
-      } 
+
+         return Json(true);
+      }
       #endregion
 
       protected override void Dispose(bool disposing)

@@ -6,18 +6,26 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using xiaotao.Controllers;
 using xiaotao.Models;
 
 namespace xiaotao.Areas.Admin.Controllers
 {
+   [Filters.AdminAuthorize]
    public class dn_goodsController : Controller
    {
       private WebContext db = new WebContext();
 
-      public ActionResult Index()
+      public ActionResult Index(int pageIndex = 1, int pageSize = 8)
       {
-         var dn_goods = db.dn_goods.Include(d => d.dn_category).Include(d => d.xt_student);
-         return View(dn_goods.ToList());
+         var goods = db.dn_goods.Include(d => d.dn_category).Include(d => d.xt_student);
+         var Count = goods.Count();
+
+         var pageCount = (Count % pageSize == 0) ? (Count / pageSize) : (Count / pageSize + 1);
+
+         ViewData["pager"] = ToolsController.PagerDesign(pageIndex, pageCount, "/admin/es_goods/index?pageIndex=");
+
+         return View(goods.ToList().Skip(pageSize * (pageIndex - 1)).Take(pageSize));
       }
 
       public ActionResult Details(int? id)

@@ -13,7 +13,7 @@
    <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
-   <div class="navbar navbar-inverse navbar-fixed-top">
+   <div class="navbar navbar-inverse navbar-fixed-top" id="nav_store">
       <div class="container">
          <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -28,7 +28,7 @@
                <li data-id="order">@Html.ActionLink("订单中心", "orders", "store")</li>
                <li data-id="store">@Html.ActionLink("商品管理", "prolist", "store")</li>
                <li data-id="store">@Html.ActionLink("统计", "statistics", "store")</li>
-               <li data-id="store">@Html.ActionLink("店铺装修", "details", "store")</li>
+               <li data-id="store">@Html.ActionLink("店铺装修", "setting", "store")</li>
             </ul>
             <ul class="nav navbar-nav navbar-right user-menu">
                <li class="dropdown">
@@ -64,9 +64,8 @@
 
    <div class="container body-content">
       @RenderBody()
-      <hr />
       <footer>
-         <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+         <p>&copy; @DateTime.Now.Year - <a href="/">校淘网</a>xiaotao.com 版权所有</p>
       </footer>
    </div>
 

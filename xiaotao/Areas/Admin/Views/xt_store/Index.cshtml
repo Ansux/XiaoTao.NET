@@ -1,16 +1,17 @@
 ﻿@model IEnumerable<xiaotao.Models.xt_store>
 
 @{
-    ViewBag.Title = "Index";
+   ViewBag.Title = "Index";
+   ViewBag.Controller = "店铺";
+   ViewBag.Action = "列表";
 }
 
-<h2>Index</h2>
-
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("添加店铺", "Create")
 </p>
+
 <table class="table">
-    <tr>
+    <tr class="active">
         <th>
             @Html.DisplayNameFor(model => model.login_id)
         </th>
@@ -44,7 +45,14 @@
             @Html.DisplayFor(modelItem => item.login_id)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.avatar)
+            @if (item.avatar!=null)
+            {
+               <img src="~/Uploads/Stores/@item.avatar" />
+            }
+            else
+            {
+               <span>无</span>
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.name)
@@ -65,9 +73,9 @@
             @Html.DisplayFor(modelItem => item.states)
         </td>
         <td>
-            @Html.ActionLink("更新", "Edit", new { id=item.id }) |
-            @Html.ActionLink("详情", "Details", new { id=item.id }) |
-            @Html.ActionLink("删除", "Delete", new { id=item.id })
+            @Html.ActionLink("更新", "Edit", new { id = item.id }, new { @class = "btn btn-warning btn-xs" })
+            @Html.ActionLink("详情", "Details", new { id = item.id }, new { @class = "btn btn-primary btn-xs" })
+            @Html.ActionLink("删除", "Delete", new { id = item.id }, new { @class = "btn btn-danger btn-xs" })
         </td>
     </tr>
 }

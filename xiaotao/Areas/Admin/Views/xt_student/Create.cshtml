@@ -1,19 +1,15 @@
 ﻿@model xiaotao.Models.xt_student
 
 @{
-  ViewBag.Title = "Create";
+   ViewBag.Title = "Create";
+   ViewBag.Controller = "学生";
+   ViewBag.Action = "添加";
 }
-
-<h2>Create</h2>
-
 
 @using (Html.BeginForm())
 {
   @Html.AntiForgeryToken()
-
   <div class="form-horizontal">
-    <h4>xt_student</h4>
-    <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
       @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -41,14 +37,14 @@
 
     <div class="form-group">
       <div class="col-md-offset-2 col-md-10">
-        <input type="submit" value="Create" class="btn btn-default" />
+        <input type="submit" value="提交信息" class="btn btn-default" />
       </div>
     </div>
   </div>
 }
 
 <div>
-  @Html.ActionLink("Back to List", "Index")
+  @Html.ActionLink("返回列表", "Index")
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>

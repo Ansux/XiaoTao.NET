@@ -1,11 +1,13 @@
 ﻿@model IEnumerable<xiaotao.Models.xt_area>
 
 @{
-  ViewBag.Title = "Index";
+   ViewBag.Title = "Index";
+   ViewBag.Controller = "区域";
+   ViewBag.Action = "列表";
 }
 
 <p>
-  @Html.ActionLink("添加区域", "Create")
+   @Html.ActionLink("添加区域", "Create")
 </p>
 
 <table class="table">
@@ -17,18 +19,17 @@
          <th>操作</th>
       </tr>
    </thead>
-  @foreach (var item in Model)
-  {
-    <tr>
-      <td>
-        @Html.DisplayFor(modelItem => item.name)
-      </td>
-      <td>
-        @Html.ActionLink("更新", "Edit", new { id = item.id }) |
-        @Html.ActionLink("详情", "Details", new { id = item.id }) |
-        @Html.ActionLink("删除", "Delete", new { id = item.id })
-      </td>
-    </tr>
-  }
-
+   @foreach (var item in Model)
+   {
+      <tr>
+         <td>
+            @Html.DisplayFor(modelItem => item.name)
+         </td>
+         <td>
+            @Html.ActionLink("更新", "Edit", new { id = item.id }, new { @class = "btn btn-warning btn-xs" })
+            @Html.ActionLink("详情", "Details", new { id = item.id }, new { @class = "btn btn-primary btn-xs" })
+            @Html.ActionLink("删除", "Delete", new { id = item.id }, new { @class = "btn btn-danger btn-xs" })
+         </td>
+      </tr>
+   }
 </table>

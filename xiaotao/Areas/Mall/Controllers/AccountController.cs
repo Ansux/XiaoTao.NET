@@ -244,7 +244,18 @@ namespace xiaotao.Areas.Mall.Controllers
             }
          }
       }
-      
+
+      [HttpPost]
+      [ValidateAntiForgeryToken]
+      public ActionResult Setting(xt_student stu)
+      {
+         db.Entry(stu).State = EntityState.Modified;
+         db.Entry(stu).Property(e => e.create_at).IsModified = false;
+         stu.update_at = DateTime.Now;
+         db.SaveChanges();
+         return View();
+      }
+
       public ActionResult Avatar()
       {
          if (Session["Sid"] == null)

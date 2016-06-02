@@ -1,0 +1,53 @@
+﻿@model xiaotao.Models.xt_store
+
+@{
+   ViewBag.Title = "Setting";
+   Layout = "~/Areas/Mall/Views/Shared/Store_Layout.cshtml";
+}
+
+<div class="setting" id="store_setting">
+
+   <div class="panel panel-default">
+      <div class="panel-heading">店铺装修（@Model.name）</div>
+      <div class="panel-body">
+         <div class="tabs-link">
+            <a href="basic">基本资料</a>
+            <a href="avatar">头像设置</a>
+            <a href="safe">安全设置</a>
+            <a class="active" href="renzheng">认证信息</a>
+         </div>
+         <div class="edit-form">
+            <div class="form-horizontal">
+               <hr />
+               <div class="form-group">
+                  <label class="control-label col-md-2">店主</label>
+                  <div class="col-md-10 rz-info">
+                     @Html.Raw(Model.shopkeeper)
+                  </div>
+               </div>
+
+               <div class="form-group">
+                  <label class="control-label col-md-2">身份证</label>
+                  <div class="col-md-10 rz-info">
+                     @Html.Raw(Model.id_no)
+                  </div>
+               </div>
+
+               <div class="form-group">
+                  <label class="control-label col-md-2">营业执照</label>
+                  <div class="col-md-10 rz-info">
+                     <img src="~/Uploads/Stores/@Model.license" alt="Alternate Text" />
+                  </div>
+               </div>
+
+            </div>
+         </div>
+      </div>
+   </div>
+
+</div>
+
+@section Scripts{
+   <script src="~/Scripts/jquery.validate.min.js"></script>
+   <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}

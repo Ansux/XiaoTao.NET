@@ -10,6 +10,7 @@ using xiaotao.Models;
 
 namespace xiaotao.Areas.Admin.Controllers
 {
+   [Filters.AdminAuthorize]
    public class es_categoryController : Controller
    {
       private WebContext db = new WebContext();

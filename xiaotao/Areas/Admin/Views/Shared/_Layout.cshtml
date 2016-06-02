@@ -6,6 +6,7 @@
    <title>@ViewBag.Title - xiaotao.com</title>
    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+   @RenderSection("Styles", false)
    <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
@@ -100,33 +101,44 @@
                   </ul>
                </li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+               <li>
+                  <a href="#" id="userName" class="dropdown-toggle" data-toggle="dropdown">
+                     <span class="glyphicon glyphicon-user"></span> @Html.Raw(Session["AdminId"] == null ? Session["AdminId"] : Session["AdminName"])
+                     <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                     <li>
+                        <a href="/admin/account/setting"><span class="glyphicon glyphicon-cog"></span> 设置</a>
+                     </li>
+                     <li>
+                        <a href="/admin/account/signout"><span class="glyphicon glyphicon-log-out"></span> 登出</a>
+                     </li>
+                  </ul>
+               </li>
+            </ul>
          </div>
       </div>
    </div>
-
    <div class="container body-content">
       <div>
          <ol class="breadcrumb">
             <li><a href="#">首页</a></li>
-            <li><a href='/admin/@ViewContext.RouteData.Values["controller"]'>@ViewContext.RouteData.Values["controller"].ToString().Substring(3)</a></li>
-            <li class="active">@ViewContext.RouteData.Values["action"]</li>
+            <li><a href='/admin/@ViewContext.RouteData.Values["controller"]'>@ViewBag.Controller</a></li>
+            <li class="active">@ViewBag.Action</li>
          </ol>
       </div>
       @RenderBody()
-      <hr />
       <footer>
-         <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+         <p>&copy; @DateTime.Now.Year - 校淘网xiaotao.com 版权所有</p>
       </footer>
    </div>
-
    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
    <script src="~/Scripts/bootstrap.min.js"></script>
    <script type="text/javascript">
-
       // 为当前页面设置Active
       var controller = '@ViewContext.RouteData.Values["controller"]';
       $('.navbar-nav>li').removeClass('active');
-
       $(".navbar-nav>li[data-id]").each(function (k, v) {
          if (controller.indexOf($(this).attr('data-id')) > -1) {
             $(this).addClass('active');

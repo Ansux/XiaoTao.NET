@@ -2,9 +2,15 @@
 
 @{
    ViewBag.Title = "Edit";
+   Layout = "~/Areas/Es/Views/Shared/_Layout_mini.cshtml";
 }
 
-<h2>Edit</h2>
+<div class="clearfix" style="background:#eee; padding:0 10px;margin-bottom:20px;">
+   <h4 class="pull-left">编辑物品信息(@Model.name)</h4>
+   <div class="pull-right" style="padding-top: 10px;">
+      @Html.ActionLink("添加发布", "Create")
+   </div>
+</div>
 
 
 @using (Html.BeginForm(Html.BeginForm("Edit", "Goods", FormMethod.Post, new { enctype = "multipart/form-data" })))
@@ -62,14 +68,14 @@
 
       <div class="form-group">
          <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <input type="submit" value="保存信息" class="btn btn-default" />
          </div>
       </div>
    </div>
 }
 
 <div>
-   @Html.ActionLink("Back to List", "Index")
+   @Html.ActionLink("返回列表", "Index")
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>

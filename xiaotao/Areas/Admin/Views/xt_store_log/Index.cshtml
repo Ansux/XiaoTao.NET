@@ -2,15 +2,12 @@
 
 @{
    ViewBag.Title = "Index";
+   ViewBag.Controller = "店铺操作日志";
+   ViewBag.Action = "列表";
 }
 
-<h2>Index</h2>
-
-<p>
-   @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-   <tr>
+<table class="table table-hover">
+   <tr class="active">
       <th>
          @Html.DisplayNameFor(model => model.xt_store.login_id)
       </th>
@@ -18,7 +15,6 @@
       <th>
          @Html.DisplayNameFor(model => model.create_at)
       </th>
-      <th></th>
    </tr>
 
    @foreach (var item in Model)
@@ -38,18 +34,9 @@
                   break;
             }
          </td>
-
          <td>
             @Html.DisplayFor(modelItem => item.create_at)
          </td>
-
-         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.id })
-         </td>
-
-
       </tr>
    }
 

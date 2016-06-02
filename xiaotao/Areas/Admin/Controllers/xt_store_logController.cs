@@ -10,6 +10,7 @@ using xiaotao.Models;
 
 namespace xiaotao.Areas.Admin.Controllers
 {
+   [Filters.AdminAuthorize]
    public class xt_store_logController : Controller
    {
       private WebContext db = new WebContext();
@@ -22,7 +23,7 @@ namespace xiaotao.Areas.Admin.Controllers
 
          var pageCount = (Count % pageSize == 0) ? (Count / pageSize) : (Count / pageSize + 1);
 
-         ViewData["pager"] = Filters.Tools.PagerDesign(pageIndex, pageCount, "index?pageIndex=");
+         ViewData["pager"] = Filters.Tools.PagerDesign(pageIndex, pageCount, "/admin/xt_store_log/index?pageIndex=");
 
          return View(logs.ToList().Skip(pageSize * (pageIndex - 1)).Take(pageSize));
       }
