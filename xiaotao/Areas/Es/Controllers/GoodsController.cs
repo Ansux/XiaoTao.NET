@@ -30,6 +30,52 @@ namespace xiaotao.Areas.Es.Controllers
          return View(goods.ToList().Skip(pageSize * (pageIndex - 1)).Take(pageSize));
       }
 
+      public ActionResult orders(int? states, int pageIndex = 1, int pageSize = 8)
+      {
+         var sid = int.Parse(Session["Sid"].ToString());
+         var orders = db.es_order.Where(e => e.es_goods.seller == sid).OrderByDescending(e => e.create_at).ToList();
+
+         ViewBag.state1 = orders.Where(e => e.states == 1).Count();
+         ViewBag.state2 = orders.Where(e => e.states == 2).Count();
+         ViewBag.state3 = orders.Where(e => e.states == 3).Count();
+
+         if (states != null)
+         {
+            orders = orders.Where(e => e.states == states).ToList();
+         }
+
+         var Count = orders.Count();
+
+         var pageCount = (Count % pageSize == 0) ? (Count / pageSize) : (Count / pageSize + 1);
+
+         var queryString = "";
+         if (states != null)
+         {
+            queryString = "states=" + states + "&";
+         }
+
+         ViewData["pager"] = Filters.Tools.PagerDesign(pageIndex, pageCount, "/es/goods/orders?" + queryString + "pageIndex=");
+
+         return View(orders.Skip(pageSize * (pageIndex - 1)).Take(pageSize));
+      }
+
+      public ActionResult delivery(int? id)
+      {
+         var order = db.es_order.Find(id);
+         return View(order);
+      }
+
+      [HttpPost]
+      public ActionResult delivery(int id)
+      {
+         var order = db.es_order.Find(id);
+         db.Entry(order).State = EntityState.Unchanged;
+         db.Entry(order).Property(e => e.states).IsModified = true;
+         order.states = 3;
+         db.SaveChanges();
+         return RedirectToAction("orders");
+      }
+
       public ActionResult Trade(int? states, int pageIndex = 1, int pageSize = 8)
       {
          var sid = int.Parse(Session["Sid"].ToString());
@@ -215,14 +261,16 @@ namespace xiaotao.Areas.Es.Controllers
                      {
                         id = c.id,
                         writer = c.writer,
-                        writerName = c.xt_student1.sno,
+                        writerName = c.xt_student1.sname,
+                        writeAvatar = c.xt_student1.avatar,
                         content = c.content,
                         ori_writer = c.ori_writer,
                         create_at = c.create_at.ToString(),
                         sub = (from s in consults.Where(e=>e.ori_id == c.id) select new {
                            id = s.id,
                            writer = s.writer,
-                           writerName = s.xt_student1.sno,
+                           writerName = s.xt_student1.sname,
+                           writeAvatar = s.xt_student1.avatar,
                            content = s.content,
                            ori_writer = s.xt_student2.sno,
                            create_at = s.create_at.ToString(),
@@ -263,6 +311,8 @@ namespace xiaotao.Areas.Es.Controllers
          {
             id = temp.id,
             writer = temp.writer,
+            writerName = Session["Sname"],
+            writeAvatar = Session["Savatar"],
             content = temp.content,
             ori_writer = temp.ori_writer,
             create_at = temp.create_at.ToString()

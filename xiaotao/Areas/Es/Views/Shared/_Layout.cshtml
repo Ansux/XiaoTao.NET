@@ -3,7 +3,7 @@
 <head>
    <meta charset="utf-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>@ViewBag.Title - My ASP.NET Application</title>
+   <title>@ViewBag.Title - 校淘网 - 二手市场</title>
    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
    <link href="~/Content/es.css" rel="stylesheet" />
@@ -25,8 +25,21 @@
          <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                <li data-id="store">@Html.ActionLink("物品列表", "index", "goodslist")</li>
-               <li data-id="store">@Html.ActionLink("交易订单", "index", "order")</li>
-               <li data-id="store">@Html.ActionLink("我的发布", "index", "goods")</li>
+               <li data-id="store">@Html.ActionLink("我的购买", "index", "order")</li>
+               <li data-id="store">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                     <span>物品管理</span>
+                     <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                     <li>
+                        @Html.ActionLink("我的物品", "index", "goods")
+                     </li>
+                     <li>
+                        @Html.ActionLink("物品订单", "orders", "goods")
+                     </li>
+                  </ul>
+               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right user-menu">
                <li class="dropdown">
@@ -122,7 +135,7 @@
       @RenderBody()
       <hr />
       <footer>
-         <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+         <p>&copy; @DateTime.Now.Year - <a href="/">校淘网</a>xiaotao.com 版权所有</p>
       </footer>
    </div>
 

@@ -3,7 +3,7 @@
 <head>
    <meta charset="utf-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>@ViewBag.Title - My ASP.NET Application</title>
+   <title>@ViewBag.Title - 校淘网 - 商铺中心</title>
    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
@@ -25,10 +25,10 @@
          </div>
          <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-               <li data-id="order">@Html.ActionLink("订单中心", "orders", "store")</li>
-               <li data-id="store">@Html.ActionLink("商品管理", "prolist", "store")</li>
-               <li data-id="store">@Html.ActionLink("统计", "statistics", "store")</li>
-               <li data-id="store">@Html.ActionLink("店铺装修", "setting", "store")</li>
+               <li data-id="orders">@Html.ActionLink("订单中心", "orders", "store")</li>
+               <li data-id="prolist">@Html.ActionLink("商品管理", "prolist", "store")</li>
+               <li data-id="statistics">@Html.ActionLink("统计", "statistics", "store")</li>
+               <li data-id="setting">@Html.ActionLink("店铺装修", "setting", "store")</li>
             </ul>
             <ul class="nav navbar-nav navbar-right user-menu">
                <li class="dropdown">
@@ -70,6 +70,15 @@
    </div>
 
    <script src="~/Scripts/bootstrap.min.js"></script>
+   <script>
+      var action = '@ViewContext.RouteData.Values["action"]';
+      $('.navbar-nav>li').removeClass('active');
+      $(".navbar-nav>li[data-id]").each(function (k, v) {
+         if (action.indexOf($(this).attr('data-id')) > -1) {
+            $(this).addClass('active');
+         }
+      });
+   </script>
    @RenderSection("Scripts", false)
 </body>
 </html>

@@ -35,16 +35,21 @@ namespace xiaotao.Areas.Admin.Controllers
       }
 
       [HttpPost]
-      public ActionResult Check([Bind(Include = "id,verify")] xt_store xt_store)
+      public ActionResult Check(int id,bool verify)
       {
-         if (ModelState.IsValid)
+         var store = db.xt_store.Find(id);
+         try
          {
-            db.Entry(xt_store).State = EntityState.Modified;
-            xt_store.update_at = DateTime.Now;
+            db.Entry(store).State = EntityState.Unchanged;
+            db.Entry(store).Property(e => e.verify).IsModified = true;
+            store.verify = verify;
             db.SaveChanges();
             return RedirectToAction("Index");
          }
-         return View(xt_store);
+         catch
+         {
+            return View(store);
+         }
       }
 
       // GET: Admin/xt_store/Details/5

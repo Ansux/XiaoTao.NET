@@ -66,6 +66,20 @@
       .g-detail .t-left {
          width: 100px;
       }
+
+      .consult-list .media-left img {
+         width: 50px;
+         border-radius: 100%;
+      }
+      .consult-list .media-left{
+         text-align:center;
+      }
+      .consult-list .content{
+         min-height:60px;
+         background: #EFEFEF;
+         padding:5px;
+         margin-bottom: 5px;
+      }
    </style>
 }
 
@@ -98,20 +112,20 @@
       <div class="w-form clearfix">
          @using (Html.BeginForm("checkout", "order", FormMethod.Get,new { @id="CheckoutForm" }))
          {
-            <input type="hidden" name="id" value="@Model.id" />
+         <input type="hidden" name="id" value="@Model.id" />
             if (ViewBag.isSold == true)
             {
-               <a class="btn btn-danger">已售出</a>
+         <a class="btn btn-danger">已售出</a>
             }
             else
             {
                if (Session["Sid"] != null && (Model.seller == int.Parse(Session["Sid"].ToString())))
                {
-                  <a class="btn btn-danger" href="/es/goods/edit/@Model.id">编辑信息</a>
+         <a class="btn btn-danger" href="/es/goods/edit/@Model.id">编辑信息</a>
                }
                else
                {
-                  <a class="btn btn-success btn-lg" id="g_checkout" data-sid="@Session["Sid"]">立即购买</a>
+         <a class="btn btn-success btn-lg" id="g_checkout" data-sid="@Session["Sid"]">立即购买</a>
                }
             }
          }
@@ -151,21 +165,37 @@
          <div class="consult-list">
             <div class="item">
                <div ng-repeat="c in consults">
-                  <div class="root">
-                     <span>{{c.content}} | {{c.create_at}} | {{c.writerName}}</span>
-                     <a ng-if="c.writer!=sid" ng-click="showReplyForm(c)">回复</a>
-                     <div ng-if="c.replyFlag">
-                        <textarea ng-model="c.reply" class="form-control" rows="3" placeholder="说点啥子呗.." required=""></textarea>
-                        <button type="submit" class="btn btn-sm pull-right" ng-disabled="!c.reply" ng-click="replySubmit(c,c)">提交</button>
+                  <div class="media">
+                     <div class="media-left">
+                        <img ng-src="~/Uploads/Account/Avatar/{{c.writeAvatar}}" />
+                        {{c.writerName}}
                      </div>
-                  </div>
-                  <div ng-if="c.sub" class="sub" style="margin-left:20px;">
-                     <div ng-repeat="s in c.sub">
-                        <span>回复{{s.ori_writer}} | {{s.content}} | {{s.create_at}} | {{s.writerName}} </span>
-                        <a ng-if="s.writer!=sid" ng-click="showReplyForm(s)">回复</a>
-                        <div ng-if="s.replyFlag">
-                           <textarea ng-model="s.reply" class="form-control" rows="3" placeholder="说点啥子呗.." required=""></textarea>
-                           <button type="submit" class="btn btn-sm pull-right" ng-disabled="!s.reply" ng-click="replySubmit(s,c)">提交</button>
+                     <div class="media-body">
+                        <div class="content">
+                           <p>{{c.content}}<a ng-if="c.writer!=sid" ng-click="showReplyForm(c)">[回复]</a></p>
+                           <p>{{c.create_at}}</p>
+                        </div>
+                        <div ng-if="c.replyFlag">
+                           <textarea ng-model="c.reply" class="form-control" rows="3" placeholder="说点啥子呗.." required=""></textarea>
+                           <button type="submit" class="btn btn-sm pull-right" ng-disabled="!c.reply" ng-click="replySubmit(c,c)">提交</button>
+                        </div>
+                        <div class="sub" ng-if="c.sub">
+                           <div class="media" ng-repeat="s in c.sub">
+                              <div class="media-left">
+                                 <img ng-src="~/Uploads/Account/Avatar/{{s.writeAvatar}}" />
+                                 {{s.writerName}}
+                              </div>
+                              <div class="media-body">
+                                 <div class="content">
+                                    <p>[回复{{s.ori_writer}}] {{s.content}}<a ng-if="s.writer!=sid" ng-click="showReplyForm(s)">[回复]</a></p>
+                                    <p>{{s.create_at}}</p>
+                                 </div>
+                              </div>
+                              <div ng-if="s.replyFlag">
+                                 <textarea ng-model="s.reply" class="form-control" rows="3" placeholder="说点啥子呗.." required=""></textarea>
+                                 <button type="submit" class="btn btn-sm pull-right" ng-disabled="!s.reply" ng-click="replySubmit(s,c)">提交</button>
+                              </div>
+                           </div>
                         </div>
                      </div>
                   </div>

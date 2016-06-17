@@ -11,7 +11,7 @@ namespace xiaotao.Controllers
     // GET: Admin
     public ActionResult Index()
     {
-      return Redirect("admin/xt_role");
+      return Redirect("admin/xt_student");
     }
   }
 }

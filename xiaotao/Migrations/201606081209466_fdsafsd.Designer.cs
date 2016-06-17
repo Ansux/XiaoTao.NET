@@ -7,13 +7,13 @@ namespace xiaotao.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class _62 : IMigrationMetadata
+    public sealed partial class fdsafsd : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_62));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(fdsafsd));
         
         string IMigrationMetadata.Id
         {
-            get { return "201606011935596_6.2"; }
+            get { return "201606081209466_fdsafsd"; }
         }
         
         string IMigrationMetadata.Source

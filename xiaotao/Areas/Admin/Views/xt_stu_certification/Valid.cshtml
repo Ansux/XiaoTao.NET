@@ -2,88 +2,91 @@
 
 @{
    ViewBag.Title = "Valid";
+   ViewBag.Controller = "实名认证";
+   ViewBag.Action = "详情";
 }
 <style>
-   .voucher img{
-      max-width:100%;
+   .voucher img {
+      max-width: 100%;
    }
 </style>
-<dl class="dl-horizontal">
-   <dt>
-      @Html.DisplayNameFor(model => model.xt_student.email)
-   </dt>
-   <dd>
-      @Html.DisplayFor(model => model.xt_student.email)
-   </dd>
+<div class="panel panel-default">
+   <div class="panel-heading">实名认证</div>
+   <div class="panel-body">
+      <dl class="dl-horizontal">
+         <dt>
+            @Html.DisplayNameFor(model => model.xt_student.email)
+         </dt>
+         <dd>
+            @Html.DisplayFor(model => model.xt_student.email)
+         </dd>
 
-   <dt>
-      @Html.DisplayNameFor(model => model.sno)
-   </dt>
-   <dd>
-      @Html.DisplayFor(model => model.sno)
-   </dd>
+         <dt>
+            @Html.DisplayNameFor(model => model.sno)
+         </dt>
+         <dd>
+            @Html.DisplayFor(model => model.sno)
+         </dd>
 
-   <dt>
-      @Html.DisplayNameFor(model => model.sname)
-   </dt>
-   <dd>
-      @Html.DisplayFor(model => model.sname)
-   </dd>
+         <dt>
+            @Html.DisplayNameFor(model => model.sname)
+         </dt>
+         <dd>
+            @Html.DisplayFor(model => model.sname)
+         </dd>
 
-   <dt>学生数据库</dt>
-   <dd>
-      @if(ViewBag.exist == true)
+         <dt>学生数据库</dt>
+         <dd>
+            @if (ViewBag.exist == true)
+            {
+               <b class="text-success">存在该学生</b>
+            }
+            else
+            {
+               <b class="text-danger">不存在该学生</b>
+            }
+         </dd>
+         <dt>证件照</dt>
+         <dd class="voucher">
+            <img src="~/Uploads/Account/Security/@Model.voucher" alt="证件照" />
+         </dd>
+      </dl>
+      @using (Html.BeginForm())
       {
-         <span class="text-success">存在该学生</span>
+         @Html.AntiForgeryToken()
+
+         <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.id)
+
+            <div class="form-group">
+               <div class="col-md-offset-2 col-md-10">
+                  @Html.EditorFor(model => model.is_pass) 通过核验
+                  @Html.ValidationMessageFor(model => model.is_pass, "", new { @class = "text-danger" })
+               </div>
+            </div>
+
+            <div class="form-group">
+               @Html.LabelFor(model => model.result, htmlAttributes: new { @class = "control-label col-md-2" })
+               <div class="col-md-10">
+                  @Html.TextAreaFor(model => model.result, new { @class = "form-control" })
+                  @Html.ValidationMessageFor(model => model.result, "", new { @class = "text-danger" })
+               </div>
+            </div>
+
+            <div class="form-group">
+               <div class="col-md-offset-2 col-md-10">
+                  <input type="submit" value="提交审核" class="btn btn-default" />
+               </div>
+            </div>
+         </div>
       }
-      else
-      {
-         <span class="text-danger">不存在该学生</span>
-      }
-   </dd>
-   <dt>证件照</dt>
-   <dd class="voucher">
-      <img src="~/Uploads/Account/Security/@Model.voucher" alt="证件照" />
-   </dd>
 
-
-
-</dl>
-
-@using (Html.BeginForm())
-{
-   @Html.AntiForgeryToken()
-
-   <div class="form-horizontal">
-      <hr />
-      @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-      @Html.HiddenFor(model => model.id)
-
-      <div class="form-group">
-         <div class="col-md-offset-2 col-md-10">
-            @Html.EditorFor(model => model.is_pass) 通过核验
-            @Html.ValidationMessageFor(model => model.is_pass, "", new { @class = "text-danger" })
-         </div>
-      </div>
-
-      <div class="form-group">
-         @Html.LabelFor(model => model.result, htmlAttributes: new { @class = "control-label col-md-2" })
-         <div class="col-md-10">
-            @Html.TextAreaFor(model => model.result, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.result, "", new { @class = "text-danger" })
-         </div>
-      </div>
-
-      <div class="form-group">
-         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-         </div>
-      </div>
    </div>
-}
-
+</div>
 <div>
-   @Html.ActionLink("Back to List", "Index")
+   @Html.ActionLink("返回列表", "Index")
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>

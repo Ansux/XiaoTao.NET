@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\account.css" />
+    <Content Include="Content\admin.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dn.css" />
@@ -306,6 +307,10 @@
     <Content Include="Areas\Admin\Views\Account\Setting.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Signin.cshtml" />
+    <Content Include="Areas\Mall\Views\Store\SignupResult.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout - 复制.cshtml" />
+    <Content Include="Areas\Es\Views\Goods\Orders.cshtml" />
+    <Content Include="Areas\Es\Views\Goods\delivery.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Images\b1.jpg" />
     <Content Include="Images\b2.jpg" />
@@ -468,13 +473,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605211733581_aa.cs" />
-    <Compile Include="Migrations\201605211733581_aa.Designer.cs">
-      <DependentUpon>201605211733581_aa.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606011935596_6.2.cs" />
-    <Compile Include="Migrations\201606011935596_6.2.Designer.cs">
-      <DependentUpon>201606011935596_6.2.cs</DependentUpon>
+    <Compile Include="Migrations\201606081209466_fdsafsd.cs" />
+    <Compile Include="Migrations\201606081209466_fdsafsd.Designer.cs">
+      <DependentUpon>201606081209466_fdsafsd.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountEntities.cs" />
@@ -526,11 +527,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605211733581_aa.resx">
-      <DependentUpon>201605211733581_aa.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606011935596_6.2.resx">
-      <DependentUpon>201606011935596_6.2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201606081209466_fdsafsd.resx">
+      <DependentUpon>201606081209466_fdsafsd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

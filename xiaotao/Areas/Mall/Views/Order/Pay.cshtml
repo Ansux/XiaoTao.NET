@@ -108,42 +108,41 @@
       </div>
    </div>
    <div class="container body-content">
-      <div style="padding-top:20px; border-top:solid 2px #eee;">
+      <div class="panel panel-success">
+         <div class="panel-heading">订单支付</div>
          @using (Html.BeginForm())
          {
-            @Html.AntiForgeryToken()
-            @Html.HiddenFor(model => model.id)
-            <dl class="dl-horizontal">
-               <dt>Email</dt>
-               <dd>
-                  @Html.DisplayFor(model => model.xt_student.email)
-               </dd>
+         <div class="panel-body">
+            <div style="padding-top:20px;">
+               
+                  @Html.AntiForgeryToken()
+                  @Html.HiddenFor(model => model.id)
+                  <dl class="dl-horizontal">
+                     <dt>订单号</dt>
+                     <dd>
+                        @Html.DisplayFor(model => model.id)
+                     </dd>
 
-               <dt>地址</dt>
-               <dd>
-                  @Html.DisplayFor(model => model.addr)
-               </dd>
+                     <dt>收件人</dt>
+                     <dd>
+                        @Html.DisplayFor(model => model.receiver)
+                     </dd>
 
-               <dt>总额</dt>
-               <dd>
-                  @Html.DisplayFor(model => model.amount)
-               </dd>
+                     <dt>地址</dt>
+                     <dd>
+                        @Html.DisplayFor(model => model.addr)
+                     </dd>
 
-               <dt>是否支付</dt>
-               <dd>
-                  @Html.DisplayFor(model => model.is_pay)
-               </dd>
-
-               <dt>状态</dt>
-               <dd>
-                  @Html.DisplayFor(model => model.states)
-               </dd>
-
-               <dt>在线支付</dt>
-               <dd>
-                  <button type="submit" class="btn btn-danger">立即付款</button>
-               </dd>
-            </dl>
+                     <dt>总额</dt>
+                     <dd>
+                        @Html.DisplayFor(model => model.amount)
+                     </dd>
+                  </dl>
+            </div>
+         </div>
+         <div class="panel-footer">
+            <button type="submit" class="btn btn-danger">立即付款</button>
+         </div>
          }
       </div>
       <footer>

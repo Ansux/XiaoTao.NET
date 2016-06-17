@@ -2,15 +2,12 @@
 
 @{
    ViewBag.Title = "Index";
+   ViewBag.Controller = "申请核验";
+   ViewBag.Action = "列表";
 }
 
-<h2>Verify</h2>
-
-<p>
-   @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
-   <tr>
+   <tr class="active">
       <th>
          @Html.DisplayNameFor(model => model.login_id)
       </th>

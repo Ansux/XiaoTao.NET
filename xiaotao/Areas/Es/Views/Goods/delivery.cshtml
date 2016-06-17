@@ -1,0 +1,90 @@
+﻿@model xiaotao.Models.es_order
+
+@{
+    ViewBag.Title = "delivery";
+}
+
+<div class="row panel panel-success">
+   <div class="panel-heading">物品发货</div>
+   <div class="panel-body">
+      <dl class="dl-horizontal">
+         <dt>订单号</dt>
+
+         <dd>
+            @Html.DisplayFor(model => model.id)
+         </dd>
+         <dt>
+            @Html.DisplayNameFor(model => model.es_goods.name)
+         </dt>
+
+         <dd>
+            @Html.DisplayFor(model => model.es_goods.name)
+         </dd>
+
+         <dt>
+            @Html.DisplayNameFor(model => model.xt_student.email)
+         </dt>
+
+         <dd>
+            @Html.DisplayFor(model => model.xt_student.email)
+         </dd>
+
+         <dt>
+            @Html.DisplayNameFor(model => model.amount)
+         </dt>
+
+         <dd>
+            @Html.DisplayFor(model => model.amount)
+         </dd>
+
+         <dt>
+            @Html.DisplayNameFor(model => model.is_pay)
+         </dt>
+
+         <dd>
+            @Html.DisplayFor(model => model.is_pay)
+         </dd>
+
+         <dt>
+            @Html.DisplayNameFor(model => model.receiver)
+         </dt>
+
+         <dd>
+            @Html.DisplayFor(model => model.receiver)
+         </dd>
+
+         <dt>
+            @Html.DisplayNameFor(model => model.addr)
+         </dt>
+
+         <dd>
+            @Html.DisplayFor(model => model.addr)
+         </dd>
+
+         <dt>
+            @Html.DisplayNameFor(model => model.phone)
+         </dt>
+
+         <dd>
+            @Html.DisplayFor(model => model.phone)
+         </dd>
+
+         <dt>
+            @Html.DisplayNameFor(model => model.create_at)
+         </dt>
+
+         <dd>
+            @Html.DisplayFor(model => model.create_at)
+         </dd>
+
+      </dl>
+   </div>
+   <div class="panel-footer">
+      @using (Html.BeginForm(Html.BeginForm()))
+      {
+         @Html.AntiForgeryToken()
+         @Html.HiddenFor(model => model.id)
+         <button type="submit" class="btn btn-danger">发货</button>
+      }
+   </div>
+</div>

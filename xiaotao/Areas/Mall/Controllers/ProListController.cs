@@ -18,7 +18,7 @@ namespace xiaotao.Areas.Mall.Controllers
 
       public ActionResult Index(string sort = "default", int pageIndex = 1, int pageSize = 8)
       {
-         var Products = db.sp_product.Include(s => s.sp_brand).Include(s => s.sp_category).Include(s => s.xt_store);
+         var Products = db.sp_product.Where(e=>e.is_delete==false&&e.is_onsale==true).OrderByDescending(e=>e.create_at).Include(s => s.sp_brand).Include(s => s.sp_category).Include(s => s.xt_store);
          if (sort == "sales")
          {
             Products = Products.OrderByDescending(e => e.sales);
@@ -66,7 +66,7 @@ namespace xiaotao.Areas.Mall.Controllers
 
       public ActionResult Store(int? id, string sort = "default", int pageIndex = 1, int pageSize = 8)
       {
-         var Products = db.sp_product.Where(e => e.store==id).Include(s => s.sp_brand).Include(s => s.sp_category).Include(s => s.xt_store);
+         var Products = db.sp_product.Where(e => e.store==id).OrderByDescending(e=>e.create_at).Include(s => s.sp_brand).Include(s => s.sp_category).Include(s => s.xt_store);
 
          if (sort == "sales")
          {

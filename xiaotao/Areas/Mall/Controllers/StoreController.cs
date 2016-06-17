@@ -161,6 +161,7 @@ namespace xiaotao.Areas.Mall.Controllers
          return View();
       }
 
+      [AllowAnonymous]
       [HttpPost]
       [ValidateAntiForgeryToken]
       public ActionResult Signup([Bind(Include = "id,login_id,login_pwd,name,license,shopkeeper,id_no,id_cart,email,phone")] xt_store xt_store)
@@ -205,10 +206,16 @@ namespace xiaotao.Areas.Mall.Controllers
             db.xt_store_log.Add(log);
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("SignupResult");
          }
 
          return View(xt_store);
+      }
+
+      [AllowAnonymous]
+      public ActionResult SignupResult()
+      {
+         return View();
       }
       #endregion
 
@@ -287,7 +294,7 @@ namespace xiaotao.Areas.Mall.Controllers
       public ActionResult Orders(int? states, int pageIndex = 1, int pageSize = 8)
       {
          int id = int.Parse(Session["StoreId"].ToString());
-         var orders = db.sp_order.Where(s => s.store == id).ToList();
+         var orders = db.sp_order.Where(s => s.store == id).OrderByDescending(e=>e.create_at).ToList();
 
          ViewBag.state1 = orders.Where(e => e.states == 1).Count();
          ViewBag.state2 = orders.Where(e => e.states == 2).Count();

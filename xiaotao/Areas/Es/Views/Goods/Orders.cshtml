@@ -1,0 +1,180 @@
+﻿@model IEnumerable<xiaotao.Models.es_order>
+
+@{
+   ViewBag.Title = "Index";
+}
+
+@section Styles{
+   <style>
+      .sort {
+         margin-bottom: 20px;
+         border: solid 1px #eee;
+         background: #f5f5f5;
+      }
+
+         .sort a {
+            display: inline-block;
+            padding: 10px 15px;
+            color: #666;
+         }
+
+            .sort a.active {
+               border-left: solid 1px #eee;
+               border-right: solid 1px #eee;
+               background: #fff;
+               color: #f40;
+            }
+
+            .sort a:first-child {
+               border-left: none;
+            }
+
+      .order-opr a {
+         display: block;
+      }
+
+      table.oi-list td {
+         border-right: solid 1px #eee;
+         vertical-align: middle !important;
+      }
+
+      .tb-ginfo {
+         margin-bottom: 0px;
+      }
+
+         .tb-ginfo td {
+            border: none !important;
+         }
+
+      .oi-top {
+         background-color: #d9edf7;
+         border: solid 1px #eee;
+         border-top: none;
+      }
+
+      .oi-list .oi-top td {
+         text-align: left;
+      }
+
+      .oi-top span {
+         padding-right: 30px;
+         color: #666;
+      }
+
+      .bg-success th {
+         text-align: center;
+      }
+   </style>
+}
+
+<div class="row sort">
+   <a data-states="default" href="/es/order/index">全部订单</a>
+   <a data-states="1" href="/es/goods/orders?states=1">待支付 @Html.Raw(ViewBag.state1 == 0 ? "" : "<span class='badge'>" + @ViewBag.state1 + "</span>")</a>
+   <a data-states="2" href="/es/goods/orders?states=2">待发货 @Html.Raw(ViewBag.state2 == 0 ? "" : "<span class='badge'>" + @ViewBag.state2 + "</span>")</a>
+   <a data-states="3" href="/es/goods/orders?states=3">待收货 @Html.Raw(ViewBag.state3 == 0 ? "" : "<span class='badge'>" + @ViewBag.state3 + "</span>")</a>
+</div>
+<div class="row">
+   <table class="table oi-list">
+      <tr class="bg-success">
+         <th style="text-align:left;">商品</th>
+         <th>收货人</th>
+         <th>订单总额</th>
+         <th>订单状态</th>
+         <th>操作</th>
+      </tr>
+      <tr style="height:20px;"></tr>
+      @foreach (var item in Model)
+      {
+         <tr class="oi-top" @if (item.states > 4) { @Html.Raw("style='background-color: #eee'")      }>
+            <td colspan="5"><span>@item.create_at</span><span>订单号: @item.id</span></td>
+         </tr>
+         <tr style="border:solid 1px #eee; border-top:none;">
+            <td>
+               <div class="table tb-ginfo">
+                  <span width="40"><img width="30" height="30" src="~/Uploads/Products/@item.es_goods.ori_img" /></span>
+                  <a href="/es/goods/details/@item.goods">@item.es_goods.name</a><br />
+               </div>
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.receiver)
+            </td>
+
+            <td>$ @item.amount.ToString("#.00")</td>
+            <td>
+               @switch (item.states)
+               {
+                  case 1:
+                     @Html.Raw("<span>订单提交</span>")
+                     break;
+                  case 2:
+                     @Html.Raw("<span>已支付</span>")
+                     break;
+                  case 3:
+                     @Html.Raw("<span>送货中</span>")
+                     break;
+                  case 4:
+                     @Html.Raw("<span>交易完成</span>")
+                     break;
+                  case 5:
+                     @Html.Raw("<span>已评价</span>")
+                     break;
+                  case 6:
+                     @Html.Raw("<span>双方已评</span>")
+                     break;
+               }
+               <br />
+               <a href="###">订单详情</a>
+            </td>
+            <td class="order-opr">
+               @if (item.states == 1)
+               {
+                  @Html.Raw("<a class='btn-cancel' data-id='" + item.id + "' href='#' class='btn btn-danger btn-sm'>取消订单</a>")
+               }
+               else if (item.states == 2)
+               {
+                  @Html.Raw("<a href='/es/goods/delivery/" + @item.id + "' class='btn btn-danger btn-sm'>去发货</a>")
+               }
+               else if (item.states > 4)
+               {
+                  @Html.Raw("<a href='/es/order/viewComment/" + item.id + "'>查看评论</a>")
+               }
+            </td>
+         </tr>
+         <tr style="height:20px;"></tr>
+      }
+   </table>
+</div>
+<div class="row">
+   <nav>
+      <ul class="pagination">
+         @Html.Raw(ViewData["pager"])
+      </ul>
+      @ViewBag.PageCount
+   </nav>
+</div>
+
+@section Scripts{
+   <script>
+      $('.btn-cancel').click(function () {
+         var id = $(this).attr("data-id");
+         $.post('/es/order/cancel', { id: id }, function (res) {
+            if (res == true) {
+               console.log(res);
+            }
+         });
+      });
+
+      var states = '@Request.QueryString["states"]'.toLowerCase();
+      var sortLinks = $('.sort>a');
+      if (states == '') {
+         sortLinks.eq(0).addClass('active');
+      } else {
+         $.each(sortLinks, function (k, v) {
+            if ($(v).attr('data-states') == states) {
+               $(v).addClass('active');
+            }
+         })
+      }
+
+   </script>
+}

@@ -199,3 +199,7 @@ table.oi-list td {
 #store_setting .rz-info{
    margin-top:7px;
 }
+
+#nav_store .navbar-nav>.active>a,#nav_store .navbar-nav>.active>a:focus,#nav_store .navbar-nav>.active>a:hover{
+   background-color: #D60606;
+}

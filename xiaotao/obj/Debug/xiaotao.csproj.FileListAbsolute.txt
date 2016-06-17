@@ -34,7 +34,6 @@ D:\CodeSet\xiaotao\校淘网\xiaotao\bin\System.Web.Helpers.xml
 D:\CodeSet\xiaotao\校淘网\xiaotao\bin\System.Web.Mvc.xml
 D:\CodeSet\xiaotao\校淘网\xiaotao\obj\Debug\xiaotao.dll
 D:\CodeSet\xiaotao\校淘网\xiaotao\obj\Debug\xiaotao.pdb
-D:\CodeSet\xiaotao\校淘网\xiaotao\obj\Debug\xiaotao.Migrations.aa.resources
-D:\CodeSet\xiaotao\校淘网\xiaotao\obj\Debug\xiaotao.csproj.GenerateResource.Cache
-D:\CodeSet\xiaotao\校淘网\xiaotao\obj\Debug\xiaotao.Migrations._62.resources
 D:\CodeSet\xiaotao\校淘网\xiaotao\obj\Debug\xiaotao.csprojResolveAssemblyReference.cache
+D:\CodeSet\xiaotao\校淘网\xiaotao\obj\Debug\xiaotao.Migrations.fdsafsd.resources
+D:\CodeSet\xiaotao\校淘网\xiaotao\obj\Debug\xiaotao.csproj.GenerateResource.Cache

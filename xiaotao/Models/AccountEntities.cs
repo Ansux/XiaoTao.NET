@@ -87,7 +87,7 @@ namespace xiaotao.Models
       [StringLength(50)]
       [Display(Name = "邮箱")]
       [System.Web.Mvc.Remote("IsExistEmail", "Account","Mall", ErrorMessage = "此邮箱已被注册！")]
-      [DataType(DataType.EmailAddress)]
+      [DataType(DataType.EmailAddress, ErrorMessage = "请输入正确的邮箱地址")]
       public string email { get; set; }
 
       [Required]

@@ -2,9 +2,14 @@
 
 @{
    ViewBag.Title = "Check";
+   ViewBag.Controller = "申请核验";
+   ViewBag.Action = "详情";
 }
-
-<h2>Check</h2>
+<style>
+   .imgs img {
+      max-width: 100%;
+   }
+</style>
 <div class="panel panel-default">
    <div class="panel-heading">店铺信息</div>
    <div class="panel-body">
@@ -26,8 +31,9 @@
          <dt>
             @Html.DisplayNameFor(model => model.license)
          </dt>
-         <dd>
-            <button class="btn btn-danger btn-xs" data-img="~/Uploads/Stores/@Model.license">查看营业执照大图</button>
+         <dd class="imgs">
+            <img src="~/Uploads/Stores/@Model.license" alt="证件照" />
+            @*<button class="btn btn-danger btn-xs" data-img="~/Uploads/Stores/@Model.license">查看营业执照大图</button>*@
          </dd>
 
          <dt>
@@ -61,8 +67,9 @@
          <dt>
             @Html.DisplayNameFor(model => model.id_cart)
          </dt>
-         <dd>
-            <button class="btn btn-danger btn-xs" data-img="~/Uploads/Stores/@Model.id_cart">查看证件照大图</button>
+         <dd class="imgs">
+            <img src="~/Uploads/Stores/@Model.id_cart" alt="证件照" />
+            @*<button class="btn btn-danger btn-xs" data-img="~/Uploads/Stores/@Model.id_cart">查看证件照大图</button>*@
          </dd>
 
          <dt>
@@ -82,32 +89,33 @@
    </div>
 </div>
 
+<div class="panel panel-default">
+   <div class="panel-footer">
+      @using (Html.BeginForm())
+      {
+         @Html.AntiForgeryToken()
+         <div class="form-inline">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.id)
 
-@using (Html.BeginForm())
-{
-   @Html.AntiForgeryToken()
-   <div class="form-horizontal">
-      <hr />
-      @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-      @Html.HiddenFor(model => model.id)
+            <div class="form-group">
+               <div class="col-md-10 col-md-offset-2" style="width:120px;">
+                  @Html.EditorFor(model => model.verify) <span>通过核验</span>
+                  @Html.ValidationMessageFor(model => model.verify, "", new { @class = "text-danger" })
+               </div>
+            </div>
 
-      <div class="form-group">
-         <div class="col-md-10 col-md-offset-2">
-            @Html.EditorFor(model => model.verify) 通过核验
-            @Html.ValidationMessageFor(model => model.verify, "", new { @class = "text-danger" })
+            <div class="form-group">
+               <div class="col-md-offset-2 col-md-10">
+                  <input type="submit" value="提交核验" class="btn btn-default" />
+               </div>
+            </div>
          </div>
-      </div>
-
-      <div class="form-group">
-         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="提交核验" class="btn btn-default" />
-         </div>
-      </div>
+      }
    </div>
-}
-
+</div>
 <div>
-   @Html.ActionLink("Back to List", "Index")
+   @Html.ActionLink("返回列表", "Index")
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
